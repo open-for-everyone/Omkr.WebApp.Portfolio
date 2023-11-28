@@ -24,4 +24,10 @@ export class NavbarComponent implements OnInit {
   goToLogin() {
     this.router.navigate(['/signin']);
   }
+
+  isNavbarCollapsed = true;
+
+  toggleNavbar() {
+    this.isNavbarCollapsed = !this.isNavbarCollapsed;
+  }
 }

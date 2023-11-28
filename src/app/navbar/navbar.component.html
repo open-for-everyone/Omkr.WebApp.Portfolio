@@ -1,49 +1,31 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <ul class="navbar-nav">
-      <!-- Avatar -->
-      <li ngbDropdown class="nav-item dropdown">
-        <a
-          class="nav-link dropdown-toggle d-flex align-items-center"
-          href="#"
-          id="navbarDropdownMenuLink"
-          role="button"
-          ngbDropdownToggle
-          aria-expanded="false"
-        >
-          <img
-            src="https://avatars3.githubusercontent.com/keshavsingh4522?size=400"
-            class="rounded-circle"
-            height="22"
-            alt=""
-            loading="lazy"
-          />
-        </a>
-        <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <li>
-            <a class="dropdown-item" [routerLink]="['/employee']">My profile</a>
-          </li>
-          <li>
-            <a class="dropdown-item" [routerLink]="['/security']">Security</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#">Learning</a>
-          </li>
-          <li>
-            <a class="dropdown-item" [routerLink]="['/setting']">Settings</a>
-          </li>
-          <li *ngIf="isLoggedIn()">
-            <a class="dropdown-item" [routerLink]="['/']" >Logout</a>
-          </li>
-          <li *ngIf="!isLoggedIn()">
-            <a class="dropdown-item" [routerLink]="['/signin']">Login</a>
-          </li>
-          <li *ngIf="!isLoggedIn()">
-            <a class="dropdown-item" [routerLink]="['/signup']">Signup</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
+    <a class="navbar-brand" href="#">
+      <img
+      src="https://avatars3.githubusercontent.com/keshavsingh4522?size=400"
+      height="22"
+      alt="brand image"
+      class="brandImg" />
+    </a>
+    <button class="navbar-toggler" type="button" (click)="toggleNavbar()" aria-controls="navbarNavAltMarkup" [attr.aria-expanded]="!isNavbarCollapsed" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div [class.collapse]="isNavbarCollapsed" [class.navbar-collapse]="true" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="#">Home</a>
+        <a class="nav-link" href="#">Features</a>
+        <a class="nav-link" href="#">Pricing</a>
+        <a class="nav-link" href="#">Disabled</a>
+      </div>
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" [routerLink]="['/employee']">My profile</a>
+        <a class="nav-link" [routerLink]="['/security']">Security</a>
+        <a class="nav-link" href="#">Learning</a>
+        <a class="nav-link" [routerLink]="['/setting']">Settings</a>
+        <a class="nav-link" *ngIf="isLoggedIn()" [routerLink]="['/']">Logout</a>
+        <a class="nav-link" *ngIf="!isLoggedIn()" [routerLink]="['/signin']">Login</a>
+        <a class="nav-link" *ngIf="!isLoggedIn()" [routerLink]="['/signup']">Signup</a>
+      </div>
+    </div>
   </div>
 </nav>
-

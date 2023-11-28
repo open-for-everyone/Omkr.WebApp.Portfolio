@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../auth.service';
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
@@ -10,7 +11,7 @@ export class SigninComponent {
   loginForm: FormGroup;
   loginError: string = '';
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]]
@@ -31,6 +32,10 @@ export class SigninComponent {
         this.loginError = 'Invalid username or password';
       }
       else {
+        console.log('Form is valid.');
+
+        const { email, password } = this.loginForm.value;
+        this.authService.login(email, password);
         this.router.navigate(['/employee']);
       }
     }
@@ -39,6 +44,5 @@ export class SigninComponent {
       console.log('Form is not valid');
     }
 
-    const { email, password } = this.loginForm.value;
   }
 }
