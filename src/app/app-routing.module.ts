@@ -23,6 +23,7 @@ const routes: Routes = [
   {
     path: 'employee',
     component: EmployeeComponent,
+    canActivate: [authGuard],
   }
 ];
 
