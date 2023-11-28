@@ -21,25 +21,29 @@
         </a>
         <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <li>
-            <a class="dropdown-item" href="#">My profile</a>
+            <a class="dropdown-item" [routerLink]="['/employee']">My profile</a>
           </li>
           <li>
-            <a class="dropdown-item" href="#">Security</a>
+            <a class="dropdown-item" [routerLink]="['/security']">Security</a>
           </li>
           <li>
             <a class="dropdown-item" href="#">Learning</a>
           </li>
           <li>
-            <a class="dropdown-item" href="#">Settings</a>
+            <a class="dropdown-item" [routerLink]="['/setting']">Settings</a>
           </li>
-          <li>
-            <a class="dropdown-item" href="#">Logout</a>
+          <li *ngIf="isLoggedIn()">
+            <a class="dropdown-item" [routerLink]="['/']" >Logout</a>
+          </li>
+          <li *ngIf="!isLoggedIn()">
+            <a class="dropdown-item" [routerLink]="['/signin']">Login</a>
+          </li>
+          <li *ngIf="!isLoggedIn()">
+            <a class="dropdown-item" [routerLink]="['/signup']">Signup</a>
           </li>
         </ul>
       </li>
     </ul>
   </div>
 </nav>
-
-hi
 
