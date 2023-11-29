@@ -9,6 +9,12 @@ import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { DepartmentComponent } from './department/department.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BasicInfoComponent } from './basic-info/basic-info.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { PrivacyComponent } from './privacy/privacy.component';
+import { QualificationComponent } from './qualification/qualification.component';
+import { BankAccountComponent } from './bank-account/bank-account.component';
 
 @NgModule({
   declarations: [
@@ -17,12 +23,18 @@ import { DepartmentComponent } from './department/department.component';
     SignupComponent,
     SigninComponent,
     EmployeeComponent,
-    DepartmentComponent
+    DepartmentComponent,
+    BasicInfoComponent,
+    ChangePasswordComponent,
+    PrivacyComponent,
+    QualificationComponent,
+    BankAccountComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
