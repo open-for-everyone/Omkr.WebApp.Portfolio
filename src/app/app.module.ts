@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
-import { EmployeeComponent } from './employee/employee.component';
 import { DepartmentComponent } from './department/department.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BasicInfoComponent } from './basic-info/basic-info.component';
@@ -15,6 +14,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { PrivacyComponent } from './privacy/privacy.component';
 import { QualificationComponent } from './qualification/qualification.component';
 import { BankAccountComponent } from './bank-account/bank-account.component';
+import { SettingComponent } from './setting/setting.component';
 
 @NgModule({
   declarations: [
@@ -22,13 +22,13 @@ import { BankAccountComponent } from './bank-account/bank-account.component';
     NavbarComponent,
     SignupComponent,
     SigninComponent,
-    EmployeeComponent,
     DepartmentComponent,
     BasicInfoComponent,
     ChangePasswordComponent,
     PrivacyComponent,
     QualificationComponent,
-    BankAccountComponent
+    BankAccountComponent,
+    SettingComponent
   ],
   imports: [
     BrowserModule,

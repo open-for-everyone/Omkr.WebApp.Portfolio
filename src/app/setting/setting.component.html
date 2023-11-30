@@ -1,0 +1,18 @@
+<ul id="tabButtonsCont" class="nav border-bottom bg-white px-4 flex-nowrap overflow-auto gap-3 pt-3">
+  <li class="nav-item">
+    <a class="text-dark text-small px-0 pt-0 pb-3 nav-link sub-nav" [routerLink]="['basic-info']">Basic Info</a>
+  </li>
+  <li class="nav-item">
+    <a class="text-dark text-small px-0 pt-0 pb-3 nav-link sub-nav" [routerLink]="['change-password']">Change
+      Password</a>
+  </li>
+  <li class="nav-item">
+    <a class="text-dark text-small px-0 pt-0 pb-3 nav-link sub-nav" [routerLink]="['bank-account']">Bank Accounts</a>
+  </li>
+  <li class="nav-item">
+    <a class="text-dark text-small px-0 pt-0 pb-3 nav-link sub-nav" [routerLink]="['qualification']">Qualification</a>
+  </li>
+</ul>
+
+<!-- The subcomponent content will be displayed here -->
+<router-outlet></router-outlet>
