@@ -25,3 +25,85 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Create Component
+
+- In a root folder
+
+```bash
+n g c componentName
+# or
+ng generate component componentName
+```
+
+- In a specific folder
+
+```bash
+ng generate component path/to/your/folder/your-component-name
+```
+
+## Create Service
+
+- In a root folder
+
+```bash
+n g s serviceName
+# or
+ng generate service serviceName
+```
+
+- In a specific folder
+
+```bash
+ng g s path/to/your/folder/your-service-name
+```
+
+## Linting the Application
+
+- This below command runs the linter on your application code to check for code quality issues.
+
+```shell
+ng lint
+```
+
+## Adding Support for Features
+
+```bash
+ng add package-name
+```
+
+## Generating Guards or Add the auth
+
+```bash
+ng generate guard guard-name
+```
+
+## Generating Interfaces
+
+```bash
+ng generate interface interface-name
+```
+
+## Generating Enums
+
+```bash
+ng generate enum enum-name
+```
+
+## Generating Modules
+
+```bash
+   ng generate module module-name
+```
+
+## Generating Directives
+
+```bash
+   ng generate directive directive-name
+```
+
+## Generating Pipes
+  
+```bash
+   ng generate pipe pipe-name
+```

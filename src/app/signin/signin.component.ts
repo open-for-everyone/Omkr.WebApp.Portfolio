@@ -9,7 +9,7 @@ import { AuthService } from '../auth.service';
 })
 export class SigninComponent {
   loginForm: FormGroup;
-  loginError: string = '';
+  loginError!: string;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) {
     this.loginForm = this.formBuilder.group({
