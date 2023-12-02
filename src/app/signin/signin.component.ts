@@ -43,6 +43,7 @@ export class SigninComponent implements OnInit {
         console.log('Form is valid.');
 
         const { userName, password, organizationId } = this.loginForm.value;
+        console.log("username: "+userName+'; organizationId: '+organizationId);
         this.authService.login(organizationId, userName, password);
         this.router.navigate(['/setting/basic-info']);
       }

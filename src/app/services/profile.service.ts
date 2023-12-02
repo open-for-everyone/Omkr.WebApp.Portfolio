@@ -11,19 +11,18 @@ import { environment } from '../../environments/environment';
 export class ProfileService {
 
   private apiBaseUrl = `${environment.awsUserApiBaseUrl}${environment.awsUserApiEndpoints.getUser}`;
-  private apiUrl='';
+  private apiUrl=`${environment.awsUserApiBaseUrl}${environment.awsUserApiEndpoints.user}`;
   constructor(private http: HttpClient) { }
 
   get(organizationId: string, userName: string): Observable<UserDetails> {
-    this.apiUrl = this.apiBaseUrl.replace("{orgId}", (organizationId) ?? '')
+    this.apiBaseUrl = this.apiBaseUrl.replace("{orgId}", (organizationId) ?? '')
       .replace("{username}", (userName) ?? '');
 
-    console.log('getUserDetails endpoint: ' + this.apiUrl);
-    return this.http.get<UserDetails>(this.apiUrl);
+    console.log('getUserDetails endpoint: ' + this.apiBaseUrl);
+    return this.http.get<UserDetails>(this.apiBaseUrl);
   }
 
   insert(userDetails: UserDetails): Observable<unknown> {
-    this.apiUrl=`${environment.awsUserApiBaseUrl}${environment.awsUserApiEndpoints.user}`;
     console.log('insertUserDetails endpoint: ' + this.apiUrl);
 
     // Return the observable so the caller can subscribe to it

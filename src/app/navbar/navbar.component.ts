@@ -10,15 +10,16 @@ import { Router } from '@angular/router';
 
 export class NavbarComponent implements OnInit {
   // Declare a variable to hold the authentication status
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(protected authService: AuthService, private router: Router) { }
   ngOnInit(): void {
+    console.log('navbar page loaded');
   }
   isLoggedIn(): boolean {
     // return this.authService.isLoggedIn();
     return false;
   }
   logout(): void {
-    // this.authService.logout();
+    this.authService.logout();
   }
 
   goToLogin() {
