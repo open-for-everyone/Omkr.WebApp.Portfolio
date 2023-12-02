@@ -1,4 +1,5 @@
 <!-- Assuming this is part of your Angular component template -->
+
 <body class="vh-100">
   <main class="d-flex h-100">
     <section class="d-flex align-items-center align-items-md-start col-12 col-md-5 col-lg-4 bg-light
@@ -12,16 +13,23 @@
           <!-- Display form errors here -->
         </div>
         <div>
-          <label class="form-label mb-1" for="organizationName">Organization Name</label>
-          <input class="form-control" type="text" formControlName="organizationName" required />
+          <!-- The select element should be placed above its corresponding label -->
+          <label class="form-label mb-1" for="organizationId">Organization</label>
+          <select id="organization" class="form-select" formControlName="organizationId">
+            <option *ngFor="let org of organizations" [value]="org.id">{{ org.name }}</option>
+          </select>
         </div>
-
-        <div>
-          <label class="form-label mb-1" for="email">Email</label>
-          <input class="form-control" type="email" formControlName="email" required />
+        <div class="d-flex gap-1">
+          <div>
+            <label class="form-label mb-1" for="email">Email</label>
+            <input class="form-control" type="email" formControlName="email" required />
+          </div>
+          <div>
+            <label class="form-label mb-1" for="userName">UserName</label>
+            <input class="form-control" type="text" formControlName="userName" required />
+          </div>
         </div>
-
-        <div class="d-flex gap-3">
+        <div class="d-flex gap-1">
           <div>
             <label class="form-label mb-1" for="firstName">First Name</label>
             <input class="form-control" type="text" formControlName="firstName" required />
@@ -32,12 +40,18 @@
             <input class="form-control" type="text" formControlName="lastName" required />
           </div>
         </div>
+        <div class="d-flex gap-1">
 
-        <div>
-          <label class="form-label mb-1" for="phoneNumber">Phone Number</label>
-          <input class="form-control" type="tel" formControlName="phoneNumber" required />
+          <div>
+            <label class="form-label mb-1" for="countryCode">Country Code</label>
+            <input class="form-control" type="text" formControlName="countryCode" required />
+          </div>
+
+          <div>
+            <label class="form-label mb-1" for="phoneNumber">Phone Number</label>
+            <input class="form-control" type="tel" formControlName="phoneNumber" required />
+          </div>
         </div>
-
         <div class="d-flex gap-3">
           <div>
             <label class="form-label mb-1" for="password">Password</label>

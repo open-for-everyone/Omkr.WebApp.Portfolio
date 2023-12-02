@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../services/profile.service';
+import { UserDetails } from '../abstraction/user-details';
 
 @Component({
   selector: 'app-basic-info',
@@ -11,18 +12,23 @@ export class BasicInfoComponent implements OnInit {
 
   // Define the userDetails property. The type should match the structure of your user details.
   // For example, if you expect firstName, lastName, email, phoneNumber, and countryCode properties:
-  userDetails: {
-    firstName?: string;
-    lastName?: string;
-    email?: string;
-    phoneNumber?: string;
-    countryCode?: string;
-  } = {}; // Initialize with an empty object or appropriate default values.
+  userDetails: UserDetails = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    countryCode: '',
+    countryName: '',
+    userName: '',
+    organizationId: '',
+    password: '',
+    name: ''
+  }; // Initialize with an empty object or appropriate default values.
 
   constructor(private profileService: ProfileService) { }
 
   ngOnInit(): void {
-    this.profileService.getUserDetails().subscribe(
+    this.profileService.get('','').subscribe(
       (data) => {
         this.userDetails = data;
       },

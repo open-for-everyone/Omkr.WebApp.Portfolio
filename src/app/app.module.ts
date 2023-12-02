@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -16,6 +16,7 @@ import { PrivacyComponent } from './privacy/privacy.component';
 import { QualificationComponent } from './qualification/qualification.component';
 import { BankAccountComponent } from './bank-account/bank-account.component';
 import { SettingComponent } from './setting/setting.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -29,12 +30,14 @@ import { SettingComponent } from './setting/setting.component';
     PrivacyComponent,
     QualificationComponent,
     BankAccountComponent,
-    SettingComponent
+    SettingComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     NgbModule,
     HttpClientModule
   ],

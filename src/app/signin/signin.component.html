@@ -1,4 +1,5 @@
 <!-- login.component.html -->
+
 <body class="vh-100">
   <main class="d-flex h-100">
     <section class="d-flex align-items-center align-items-md-start col-12 col-md-5 col-lg-4 bg-light
@@ -8,8 +9,15 @@
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="d-flex col-11 col-sm-6 col-md-12 flex-column gap-3">
         <div *ngIf="loginError" class="text-danger">{{ loginError }}</div>
         <div>
-          <label class="form-label mb-1" for="email">Email Address</label>
-          <input class="form-control" type="email" formControlName="email" required />
+          <label class="form-label mb-1" for="userName"> UserName</label>
+          <input class="form-control" type="text" formControlName="userName" required />
+        </div>
+        <div>
+          <!-- The select element should be placed above its corresponding label -->
+          <label class="form-label mb-1" for="organizationId">Organization</label>
+          <select id="organization" class="form-select" formControlName="organizationId">
+            <option *ngFor="let org of organizations" [value]="org.id">{{ org.name }}</option>
+          </select>
         </div>
 
         <div>
