@@ -16,7 +16,8 @@ import { PrivacyComponent } from './privacy/privacy.component';
 import { QualificationComponent } from './qualification/qualification.component';
 import { BankAccountComponent } from './bank-account/bank-account.component';
 import { SettingComponent } from './setting/setting.component';
-import { AdminComponent } from './admin/admin.component';
+import { OauthComponent } from './oauth/oauth.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { AdminComponent } from './admin/admin.component';
     QualificationComponent,
     BankAccountComponent,
     SettingComponent,
-    AdminComponent
+    OauthComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +40,8 @@ import { AdminComponent } from './admin/admin.component';
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

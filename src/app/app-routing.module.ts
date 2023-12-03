@@ -5,7 +5,6 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { BankAccountComponent } from './bank-account/bank-account.component';
 import { QualificationComponent } from './qualification/qualification.component';
 import { SettingComponent } from './setting/setting.component';
-import { AdminComponent } from './admin/admin.component';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { authGuard } from './auth.guard';
@@ -24,10 +23,15 @@ const routes: Routes = [
       { path: 'qualification', component: QualificationComponent },
     ]
   },
+  // Lazy loading for admin module
   {
-    path: "Admin", component: AdminComponent, children: [
-    ]
-  }
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+  },
+  {
+    path: 'authentication',
+    loadChildren: () => import('./oauth/oauth.module').then(m => m.OauthModule)
+  },
 ];
 
 @NgModule({

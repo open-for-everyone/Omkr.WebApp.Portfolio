@@ -94,6 +94,14 @@ ng generate enum enum-name
 
 ```bash
    ng generate module module-name
+   ng g m module-name
+```
+
+- Generate route file also
+
+```bash
+   ng generate module module-name --routing
+   ng g m module-name --routing
 ```
 
 ## Generating Directives
@@ -106,4 +114,10 @@ ng generate enum enum-name
   
 ```bash
    ng generate pipe pipe-name
+```
+
+## Generate Class
+
+```bash
+ng generate class hero --type=model
 ```

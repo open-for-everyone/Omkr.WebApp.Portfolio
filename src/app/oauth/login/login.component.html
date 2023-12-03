@@ -1,0 +1,50 @@
+<div class="container">
+  <!-- <div *ngIf="error" class="alert alert-warning" role="alert">
+    <span class="sr-only">Error:</span> {{ error }}
+  </div> -->
+
+  <div class="row justify-content-center">
+    <div class="col-sm-4">
+      <div class="card border-light mb-3">
+        <div class="card-body">
+          <h4 class="card-title text-center">Sign in</h4><br />
+          <!-- </form> -->
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-signin">
+            <div *ngIf="loginError" class="alert alert-warning" role="alert">
+              <span class="sr-only">Error:</span> {{ loginError }}
+            </div>
+            <div class="form-group row">
+              <label class="form-label mb-1" for="userName"> UserName</label>
+              <input class="form-control" type="text" formControlName="userName" required />
+            </div>
+            <div class="form-group row">
+              <!-- The select element should be placed above its corresponding label -->
+              <label class="form-label mb-1" for="organizationId">Organization</label>
+              <select id="organization" class="form-select" formControlName="organizationId">
+                <option *ngFor="let org of organizations" [value]="org.id">{{ org.name }}</option>
+              </select>
+            </div>
+
+            <div class="form-group row">
+              <label class="form-label mb-1" for="password">Password</label>
+              <input class="form-control" type="password" formControlName="password" required />
+            </div>
+
+            <div class="form-group row">
+              <div class="col-sm-12">
+                <button class="btn btn-outline-primary btn-block" type="submit">Sign
+                  in</button>
+              </div>
+            </div>
+          </form>
+          <hr>
+
+          <!--<a [routerLink]="['/register']" style="cursor: pointer;">Đăng ký ></a>-->
+          <button class="btn btn-link btn-block" [routerLink]="['/authentication/signup']" style="cursor: pointer;">
+            Sign up >
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
