@@ -1,0 +1,81 @@
+.about .about-description {
+  margin-top: 30px;
+  max-width: 480px;
+}
+.about .about-img-container {
+  width: 324px;
+  margin: auto;
+}
+.about .about-img-container:after {
+  content: '';
+  border: 2px solid #64ffda;
+  z-index: 0;
+  display: block;
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border-radius: 3px;
+  bottom: 290px;
+  left: 23px;
+}
+.about .about-img-container img {
+  z-index: 2;
+  position: relative;
+}
+.about .skills-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(140px, 200px));
+  overflow: hidden;
+  padding: 0;
+  margin: 20px 0 0 0;
+  list-style: none;
+}
+.about .skill-element {
+  position: relative;
+  margin-bottom: 10px;
+  padding-left: 20px;
+  font-size: 13px;
+  font-family: SF Mono, Fira Code, Fira Mono, Roboto Mono, Lucida Console, Monaco, Monospace;
+  color: #8892b0;
+}
+.about .skill-element span {
+  padding-bottom: 5px;
+}
+.about .skill-element:before {
+  content: '▹';
+  position: absolute;
+  left: 0;
+  color: #64ffda;
+  font-size: 14px;
+  line-height: 12px;
+}
+@media (min-width: 992px) and (max-width: 1300px) {
+  .about-img-container {
+    margin-left: auto;
+    margin-right: 0;
+ }
+}
+@media (max-width: 500px) {
+  .about .about-img-container img {
+    width: 200px;
+    height: 200px;
+ }
+  .about .about-img-container:after {
+    width: 200px;
+    height: 200px;
+    bottom: 190px;
+    left: 74px;
+ }
+}
+@media (max-width: 500px) {
+  .about .about-img-container {
+    width: 100%;
+ }
+  .about .about-img-container img {
+    width: 180px;
+    height: 180px;
+ }
+  .about .about-img-container:after {
+    display: none;
+ }
+}

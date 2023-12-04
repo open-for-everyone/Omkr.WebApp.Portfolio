@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ProfileService } from '../services/profile.service';
-import { UserDetails } from '../abstraction/user-details';
+import { ProfileService } from '../../../services/profile.service';
+import { UserDetails } from '../../../abstraction/user-details';
 
 @Component({
   selector: 'app-basic-info',

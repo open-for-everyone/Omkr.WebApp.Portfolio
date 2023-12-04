@@ -1,20 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BasicInfoComponent } from './basic-info/basic-info.component';
-import { ChangePasswordComponent } from './change-password/change-password.component';
-import { BankAccountComponent } from './bank-account/bank-account.component';
-import { QualificationComponent } from './qualification/qualification.component';
-import { SettingComponent } from './setting/setting.component';
-import { SigninComponent } from './signin/signin.component';
-import { SignupComponent } from './signup/signup.component';
+import { BasicInfoComponent } from './components/setting/basic-info/basic-info.component';
+import { ChangePasswordComponent } from './components/setting/change-password/change-password.component';
+import { BankAccountComponent } from './components/setting/bank-account/bank-account.component';
+import { QualificationComponent } from './components/setting/qualification/qualification.component';
+import { SettingComponent } from './components/setting/setting.component';
 import { authGuard } from './auth.guard';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '', pathMatch: 'full' },
-  { path: 'setting', redirectTo: 'setting/basic-info', pathMatch: 'full' },
-  { path: 'signin', component: SigninComponent },
-  { path: 'signup', component: SignupComponent },
-
+  { path: '', component: HomeComponent, pathMatch: 'full' },
   {
     path: 'setting', component: SettingComponent, canActivate: [authGuard], children: [
       { path: 'basic-info', component: BasicInfoComponent },

@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faGithub, faLinkedinIn, faTwitter, faInstagram, faYoutube, faFacebookF, faStackOverflow } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
-import { State } from '@popperjs/core';
 import { AnalyticService } from 'src/app/services/Analytics/analytic.service';
 
 @Component({
@@ -48,7 +47,4 @@ export class FooterComponent implements OnInit {
     // hi
     console.log("Footer initialized.");
   }
-
-
-
 }

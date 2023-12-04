@@ -4,7 +4,7 @@ import { OauthComponent } from './oauth.component';
 import { ForgotPasswordComponent } from './password/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './password/reset-password/reset-password.component';
 import { LoginComponent } from '../oauth/login/login.component';
-import { SignupComponent } from '../oauth/signup/signup.component';
+import { SignupComponent } from '../components/signup/signup.component';
 
 const routes: Routes = [
   {

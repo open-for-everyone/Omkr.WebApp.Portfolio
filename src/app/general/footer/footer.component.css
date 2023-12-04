@@ -1,9 +1,7 @@
 footer {
-  position: fixed; /* Fixed position to stick to the bottom */
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: #333; /* Dark background for the footer */
   color: white;
   text-align: center;
   padding: 10px 0; /* Some padding to give space inside the footer */

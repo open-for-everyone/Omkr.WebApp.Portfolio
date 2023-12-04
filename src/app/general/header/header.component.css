@@ -34,3 +34,8 @@
 .nav-link:hover::after {
   width: 100%; /* Full width on hover */
 }
+
+.main-navbar-header{
+  position: fixed;
+  width: 100%;
+}

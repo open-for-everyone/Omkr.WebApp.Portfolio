@@ -1,0 +1,43 @@
+.banner {
+  min-height: 100vh;
+}
+.banner .container {
+  display: table;
+  height: 100vh;
+}
+.banner .container .section-box-banner {
+  display: table-cell;
+  vertical-align: middle;
+}
+.banner .container .section-box-banner .content {
+  margin-top: 98px;
+}
+.banner .container .section-box-banner h1 {
+  color: #64ffda;
+  margin: 0 0 20px 3px;
+  font-size: 16px;
+  font-weight: normal;
+  font-family: SF Mono, Fira Code, Fira Mono, Roboto Mono, Lucida Console, Monaco, Monospace;
+}
+.banner .container .section-box-banner h2, .banner .container .section-box-banner h3 {
+  font-weight: 600;
+  font-size: 80px;
+  line-height: 1.1;
+  margin: 0;
+  font-family: Calibre, San Francisco, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, Roboto, Helvetica Neue, Segoe UI, Arial, sans-serif;
+}
+.banner .container .section-box-banner h2 {
+  color: #ccd6f6;
+}
+.banner .container .section-box-banner h3 {
+  color: #8892b0;
+}
+.banner .container .section-box-banner .banner-description {
+  margin-bottom: 70px;
+}
+.banner .container .section-box-banner p {
+  max-width: 500px;
+}
+.banner .container .section-box-banner .div-btn-banner {
+  height: 43px;
+}

@@ -1,9 +1,10 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { FormControl } from '@angular/forms';
 import { AnalyticService } from 'src/app/services/Analytics/analytic.service';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-header',
@@ -32,7 +33,7 @@ export class HeaderComponent implements OnInit {
   cvName = "";
   languageFormControl: FormControl = new FormControl();
 
-  constructor(protected authService: AuthService, private router: Router,public analyticsService: AnalyticService) { }
+  constructor(protected authService: AuthService, private router: Router, public analyticsService: AnalyticService) { }
   ngOnInit(): void {
     console.log('navbar page loaded');
   }
@@ -55,8 +56,13 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  scroll(el: HTMLElement) {
-    // Add your scroll logic here
+  scroll(elementId: string) {
+    if (document.getElementById(elementId)) {
+      document.getElementById(elementId)?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      this.router.navigate(['/home']).then(() => document.getElementById(elementId)?.scrollIntoView({ behavior: 'smooth' }));
+    }
+    this.responsiveMenuVisible = false;
   }
 
   downloadCV() {
