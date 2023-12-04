@@ -1,0 +1,67 @@
+<footer [@animateFooter]="state">
+    <div class="footer-container">
+        <ul class="footer-social-links">
+            <li>
+                <a (click)="analyticsService.sendAnalyticEvent('click_github', 'footer', 'github')"
+                    href="https://github.com/keshavsingh4522" target="_blank" rel="noopener noreferrer">
+                    <fa-icon [icon]="['fab', 'github']" title="GitHub"></fa-icon>
+                </a>
+            </li>
+            <li>
+                <a (click)="analyticsService.sendAnalyticEvent('click_linkedin', 'footer', 'linkedin')"
+                    href="https://www.linkedin.com/in/keshavsingh4522/" target="_blank" rel="noopener noreferrer">
+                    <fa-icon [icon]="['fab', 'linkedin-in']" title="LinkedIn"></fa-icon>
+                </a>
+            </li>
+            <!-- <li>
+                <a (click)="analyticsService.sendAnalyticEvent('click_twitter', 'footer', 'twitter')"
+                    href="https://twitter.com/keshavsingh4522" target="_blank" rel="noopener noreferrer">
+                    <fa-icon [icon]="['fab', 'twitter']" title="Twitter"></fa-icon>
+                </a>
+            </li>
+            <li>
+                <a (click)="analyticsService.sendAnalyticEvent('click_instagram', 'footer', 'instagram')"
+                    href="https://www.instagram.com/keshavsingh3197/" target="_blank" rel="noopener noreferrer">
+                    <fa-icon [icon]="['fab', 'instagram']" title="Instagram"></fa-icon>
+                </a>
+            </li>
+            <li>
+                <a (click)="analyticsService.sendAnalyticEvent('click_facebook', 'footer', 'facebook')"
+                    href="https://www.facebook.com/keshavsingh4522/" target="_blank" rel="noopener noreferrer">
+                    <fa-icon [icon]="['fab', 'facebook-f']" title="Facebook"></fa-icon>
+                </a>
+            </li> -->
+            <li>
+                <a (click)="analyticsService.sendAnalyticEvent('click_youtube', 'footer', 'youtube')"
+                    href="https://www.youtube.com/channel/UCVP_DbP7xIOc_LFQTqaLbyg" target="_blank"
+                    rel="noopener noreferrer">
+                    <fa-icon [icon]="['fab', 'youtube']" title="YouTube"></fa-icon>
+                </a>
+            </li>
+            <li>
+                <a (click)="analyticsService.sendAnalyticEvent('click_stackoverflow', 'footer', 'stackoverflow')"
+                    href="https://stackoverflow.com/users/11732730/keshav-singh" target="_blank"
+                    rel="noopener noreferrer">
+                    <fa-icon [icon]="['fab', 'stack-overflow']" title="Stack Overflow"></fa-icon>
+                </a>
+            </li>
+            <li>
+                <a (click)="analyticsService.sendAnalyticEvent('click_send_mail', 'footer', 'email')"
+                href="mailto:keshavsingh4522@gmail.com" target="_blank" rel="noopener noreferrer">
+                <fa-icon [icon]="['fas', 'envelope']"></fa-icon> </a>
+            </li>
+        </ul>
+        <!-- <div class="footer-contact">
+            <a (click)="analyticsService.sendAnalyticEvent('click_send_mail', 'footer', 'email')"
+                href="mailto:keshavsingh4522@gmail.com" target="_blank" rel="noopener noreferrer">
+                <fa-icon [icon]="['fas', 'envelope']"></fa-icon> </a>
+        </div> -->
+    </div>
+    <div class="footer-credits">
+        <a (click)="analyticsService.sendAnalyticEvent('click_github_portfolio_andresjose', 'footer', 'click')"
+            href="https://github.com/open-for-everyone/Omkr.WebApp.Portfolio" target="_blank"
+            rel="nofollow noopener noreferrer">
+            Built & Designed with Angular<br>by<br>Keshav Singh
+        </a>
+    </div>
+</footer>

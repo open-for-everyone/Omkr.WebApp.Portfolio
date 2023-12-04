@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
 import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
 import { DepartmentComponent } from './department/department.component';
@@ -18,11 +17,13 @@ import { BankAccountComponent } from './bank-account/bank-account.component';
 import { SettingComponent } from './setting/setting.component';
 import { OauthComponent } from './oauth/oauth.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FooterComponent } from './general/footer/footer.component';
+import { HeaderComponent } from './general/header/header.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
     SignupComponent,
     SigninComponent,
     DepartmentComponent,
@@ -33,6 +34,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BankAccountComponent,
     SettingComponent,
     OauthComponent,
+    FooterComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     NgbModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

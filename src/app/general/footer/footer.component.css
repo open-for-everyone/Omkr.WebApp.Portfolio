@@ -1,0 +1,77 @@
+footer {
+  position: fixed; /* Fixed position to stick to the bottom */
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #333; /* Dark background for the footer */
+  color: white;
+  text-align: center;
+  padding: 10px 0; /* Some padding to give space inside the footer */
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.footer-social-links {
+  list-style-type: none; /* Removes bullet points */
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.footer-social-links li {
+  margin-right: 10px; /* Space between icons */
+}
+
+.footer-social-links li a {
+  color: white; /* Icon color */
+  text-decoration: none; /* No underline */
+  transition: color 0.3s ease; /* Transition for hover effect */
+}
+
+.footer-social-links li a:hover {
+  color: #1da1f2; /* Twitter-like blue on hover, change as needed */
+}
+
+.footer-contact a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-contact a:hover {
+  color: #1da1f2;
+}
+
+.footer-credits {
+  margin-top: 10px; /* Space above the credits */
+  font-size: 0.8em; /* Smaller text for credits */
+}
+
+.footer-credits a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-credits a:hover {
+  color: #1da1f2;
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+  }
+
+  .footer-social-links {
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+}

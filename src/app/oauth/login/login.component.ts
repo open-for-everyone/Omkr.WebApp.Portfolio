@@ -1,3 +1,4 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -8,7 +9,22 @@ import { OrganizationService } from 'src/app/services/organization.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  animations: [
+    trigger('animateLogin', [
+      // Define the initial (void) and final (visible) states
+      state('void', style({
+        opacity: 0
+      })),
+      state('visible', style({
+        opacity: 1
+      })),
+      // Define the transition between states
+      transition('void => visible', [
+        animate('0.5s ease-in')
+      ])
+    ])
+  ]
 })
 export class LoginComponent {
   loginForm: FormGroup;
