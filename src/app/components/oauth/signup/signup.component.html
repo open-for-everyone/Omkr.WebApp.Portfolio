@@ -1,0 +1,100 @@
+<div class="container">
+  <div *ngIf="signupForm.errors" class="alert alert-warning" role="alert">
+    {{ signupForm.errors }}
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-sm-4">
+      <div class="card border-light mb-3">
+        <div class="card-body">
+          <h4 class="card-title text-center">Sign up</h4><br>
+          <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="form-signup">
+            <!-- Individual field errors can be shown here if needed -->
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="form-label mb-1" for="organizationId">Organization</label>
+                <select id="organization" class="form-select" formControlName="organizationId">
+                  <option *ngFor="let org of organizations" [value]="org.id">{{ org.name }}</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label mb-1" for="countryCode">Country</label>
+                <select id="countryCode" class="form-select" formControlName="countryCode">
+                  <option *ngFor="let country of filteredCountries | async"
+                    [value]="country?.idd?.root + (country?.idd?.suffixes ? country.idd.suffixes[0] : '')"> {{country.flag}} &nbsp; {{
+                    country.name.common }}</option>
+                </select>
+              </div>
+            </div>
+            <!-- <div class="form-group row">
+              <div class="col-md-6">
+                <mat-form-field appearance="fill">
+                  <!-- <mat-label></mat-label>
+                  <input matInput placeholder="Country" [formControl]="countryControl" autocomplete="off">
+                  <mat-select formControlName="countryCode">
+                    <mat-option *ngFor="let country of filteredCountries | async"
+                      [value]="country?.idd?.root + (country?.idd?.suffixes ? country.idd.suffixes[0] : '')">
+                      {{ country.name.common }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div> -->
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="form-label mb-1" for="email">Email</label>
+                <input class="form-control" type="email" formControlName="email" required />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label mb-1" for="userName">UserName</label>
+                <input class="form-control" type="text" formControlName="userName" required />
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="form-label mb-1" for="firstName">First Name</label>
+                <input class="form-control" type="text" formControlName="firstName" required />
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label mb-1" for="lastName">Last Name</label>
+                <input class="form-control" type="text" formControlName="lastName" required />
+              </div>
+            </div>
+            <div class="form-group row">
+
+              <div class="col-md-6">
+                <label class="form-label mb-1" for="phoneNumber">Phone Number</label>
+                <input class="form-control" type="tel" formControlName="phoneNumber" required />
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label mb-1" for="pinCode">Pin Code</label>
+                <input class="form-control" type="text" formControlName="pinCode" required />
+              </div>
+
+            </div>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <label class="form-label mb-1" for="password">Password</label>
+                <input class="form-control" type="password" formControlName="password" required />
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label mb-1" for="confirmPassword">Confirm Password</label>
+                <input class="form-control" type="password" formControlName="confirmPassword" required />
+              </div>
+            </div>
+            <div>
+              <button class="btn btn-dark" type="submit">Sign Up</button>
+            </div>
+          </form>
+          <hr>
+          <button class="btn btn-link btn-block" [routerLink]="['/authentication/login']">
+            &lt; Back to Sign in
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

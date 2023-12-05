@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BasicInfoComponent } from './components/setting/basic-info/basic-info.component';
-import { ChangePasswordComponent } from './components/setting/change-password/change-password.component';
+import { ChangePasswordComponent } from './components/oauth/password/change-password/change-password.component';
 import { BankAccountComponent } from './components/setting/bank-account/bank-account.component';
 import { QualificationComponent } from './components/setting/qualification/qualification.component';
 import { SettingComponent } from './components/setting/setting.component';
-import { authGuard } from './auth.guard';
+import { authGuard } from './guards/auth/auth.guard';
 import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
@@ -21,11 +21,11 @@ const routes: Routes = [
   // Lazy loading for admin module
   {
     path: 'admin',
-    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+    loadChildren: () => import('./components/admin/admin.module').then(m => m.AdminModule)
   },
   {
     path: 'authentication',
-    loadChildren: () => import('./oauth/oauth.module').then(m => m.OauthModule)
+    loadChildren: () => import('./components/oauth/oauth.module').then(m => m.OauthModule)
   },
 ];
 

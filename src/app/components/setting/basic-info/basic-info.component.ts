@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ProfileService } from '../../../services/profile.service';
-import { UserDetails } from '../../../abstraction/user-details';
+import { ProfileService } from '../../../services/profile/profile.service';
+import { UserDetails } from '../../../models/user-details';
 
 @Component({
   selector: 'app-basic-info',
@@ -22,7 +22,8 @@ export class BasicInfoComponent implements OnInit {
     userName: '',
     organizationId: '',
     password: '',
-    name: ''
+    name: '',
+    pinCode: ''
   }; // Initialize with an empty object or appropriate default values.
 
   constructor(private profileService: ProfileService) { }

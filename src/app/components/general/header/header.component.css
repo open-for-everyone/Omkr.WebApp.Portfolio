@@ -1,0 +1,36 @@
+.brandImg , .profileImg{
+  width: 35px;
+  height: 35px;
+  margin: 0 auto;
+  display: block;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  background: #fff;
+  padding: 1px;
+  box-sizing: border-box;
+  transition: all 0.3s ease-in-out;
+}
+.nav-link {
+  font-size: 0.8em; /* Adjust text size as needed */
+  text-decoration: none; /* Remove underline */
+  position: relative; /* Position relative for pseudo-element positioning */
+  display: inline-block; /* To allow the width to fit content */
+}
+
+.nav-link::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px; /* Height of the underline */
+  background: #000; /* Color of the underline */
+  transition: width 0.3s ease;
+  position: absolute;
+  bottom: -5px; /* Distance of the underline from the text */
+  left: 50%;
+  transform: translateX(-50%); /* Center the pseudo-element */
+}
+
+.nav-link:hover::after {
+  width: 100%; /* Full width on hover */
+}

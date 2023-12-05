@@ -7,18 +7,16 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppComponent } from './app.component';
-import { DepartmentComponent } from './department/department.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BasicInfoComponent } from './components/setting/basic-info/basic-info.component';
-import { ChangePasswordComponent } from './components/setting/change-password/change-password.component';
-import { PrivacyComponent } from './privacy/privacy.component';
+import { ChangePasswordComponent } from './components/oauth/password/change-password/change-password.component';
 import { QualificationComponent } from './components/setting/qualification/qualification.component';
 import { BankAccountComponent } from './components/setting/bank-account/bank-account.component';
 import { SettingComponent } from './components/setting/setting.component';
-import { OauthComponent } from './oauth/oauth.component';
+import { OauthComponent } from './components/oauth/oauth.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FooterComponent } from './general/footer/footer.component';
-import { HeaderComponent } from './general/header/header.component';
+import { FooterComponent } from './components/general/footer/footer.component';
+import { HeaderComponent } from './components/general/header/header.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AboutComponent } from './components/home/about/about.component';
 import { BannerComponent } from './components/home/banner/banner.component';
@@ -34,10 +32,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    DepartmentComponent,
     BasicInfoComponent,
     ChangePasswordComponent,
-    PrivacyComponent,
     QualificationComponent,
     BankAccountComponent,
     SettingComponent,
