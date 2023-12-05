@@ -6,13 +6,11 @@
   "Header.cvBtn": "Resume",
   "Header.cvName": "Keshav_Singh_CV.pdf",
   "Banner.Pretitle": "Hello! My name is",
-  "Banner.Description": "I have <span class='underline'>4 years of experience</span> developing systems, interfaces, bots, and technological solutions to make the web a better place. I am dedicated to writing and refactoring clean, reusable, and scalable code in <span class='underline'>Angular</span> and sometimes in <span class='underline'>Laravel</span> applying good practices and development standards.",
+  "Banner.Description": "Innovator in .NET and cloud technologies, committed to impactful software solutions.",
   "Banner.ActionBtn": "Get in touch",
   "AboutMe.Title": "About me",
   "AboutMe.Paragraphs": [
-    "In my <span class='underline'>4 years as a developer</span>, I seek to train every day. I have worked writing <span class='underline'>unit tests</span>, <span class='underline'>performing continuous integration</span>, and covering backend developer roles with <span class='underline'>Laravel and Mysql</span>. I have led teams having empathy, exercising motivation to partners, and setting plans and goals together.",
-    "My skills also include implementing system improvements, optimizing sites, standardizing patterns, and suggesting and executing ideas that add value to the project I'm working on.",
-    "Some of the technologies that I have trained and worked on include (but are not limited to):"
+    "A diligent backend developer with a strong foundation in .NET Core, ASP.NET Core Web API, and a suite of AWS services. My experience spans creating high-performance microservices, enhancing API response times, and contributing to agile, cross-functional teams. I'm passionate about continuous learning, embracing everyday challenges, and leveraging my skills for meaningful project contributions. Mentorship from industry experts has honed my problem-solving abilities and shaped my approach to innovative software development."
   ],
   "Experience.Title": "Experience",
   "Experience.Jobs": [
@@ -76,101 +74,6 @@
       "Date": "January 2015 - July 2015",
       "Description": [
         "Teaching English at a basic level to an enrollment of more than 200 students."
-      ]
-    }
-  ],
-  "FeatureProjects.Title": "My projects",
-  "FeatureProjects.Label": "Featured Project",
-  "FeatureProjects.Projects": [
-    {
-      "Title": "Agrourbana",
-      "Description": "Monitoring application made from scratch with auth module, <span class='underline'>configurable graphics</span>, <span class='underline'>configurable alarms</span>, and <span class='underline'>user management</span>. It also has feedback form logic for parameter configuration.",
-      "imgs": [
-        "assets/images/agrourbana/agrourbana1.png",
-        "assets/images/agrourbana/agrourbana2.png",
-        "assets/images/agrourbana/agrourbana3.png",
-        "assets/images/agrourbana/agrourbana4.png",
-        "assets/images/agrourbana/agrourbana5.png"
-      ],
-      "Technologies": [
-        "Laravel",
-        "Angular",
-        "SASS",
-        "Angular Material",
-        "RxJS"
-      ]
-    },
-    {
-      "Title": "Tu super plan",
-      "Description": "Health plan quote that has a search engine with which advanced queries are made. Plans are displayed based on the user's age, monthly income, and location. It has <span class='underline'>online chat</span, <span class='underline'>contact form</span>, <span class='underline'>notification system by whatsapp and mail</span>, <span class='underline'>auth</span>, and <span class='underline'>internet information management through the role of administrator.</span>",
-      "imgs": [
-        "assets/images/tusuperplan/tusuperplan1.png",
-        "assets/images/tusuperplan/tusuperplan2.png",
-        "assets/images/tusuperplan/tusuperplan3.png",
-        "assets/images/tusuperplan/tusuperplan4.png",
-        "assets/images/tusuperplan/tusuperplan5.png"
-      ],
-      "Technologies": [
-        "Laravel",
-        "Angular",
-        "SASS",
-        "Angular Material",
-        "RxJS"
-      ]
-    },
-    {
-      "Title": "Proyexiot",
-      "Description": "Data monitoring platform belonging to water wells, tugboats, and various installations made from scratch with auth module, <span class='underline'>configurable graphics</span>, <span class='underline'>configurable alarms</span>, <span class='underline'>user management</span>, and <span class='underline'>geolocation with openlayers.</span>",
-      "imgs": [
-        "assets/images/proyex/proyex1.png",
-        "assets/images/proyex/proyex2.png",
-        "assets/images/proyex/proyex3.png",
-        "assets/images/proyex/proyex4.png",
-        "assets/images/proyex/proyex5.png",
-        "assets/images/proyex/proyex6.png",
-        "assets/images/proyex/proyex7.png",
-        "assets/images/proyex/proyex8.png",
-        "assets/images/proyex/proyex9.png",
-        "assets/images/proyex/proyex10.png",
-        "assets/images/proyex/proyex11.png",
-        "assets/images/proyex/proyex12.png"
-      ],
-      "Technologies": [
-        "Laravel",
-        "Angular",
-        "SASS",
-        "Angular Material",
-        "RxJS"
-      ]
-    },
-    {
-      "Title": "Hands game",
-      "Description": "The rock-paper-scissors game extended. A personal project developed in angular in which you play randomly against the machine. It has the use of services, interfaces, and components.",
-      "imgs": [
-        "assets/images/hands-game.png"
-      ],
-      "ghLink": "https://github.com/andresjosehr/hands-game",
-      "demoLink": "https://projects.andresjosehr.com/hands-game",
-      "Technologies": [
-        "Angular",
-        "CSS GRID",
-        "SASS",
-        "Angular animations"
-      ]
-    },
-    {
-      "Title": "Countries viewer",
-      "Description": "An interface that consumes an API of countries with which you can view a list of countries, see details of each country, filter by name and region. It also has a dark mode to switch between dark and light themes.",
-      "imgs": [
-        "assets/images/countries-viewer.png"
-      ],
-      "ghLink": "https://github.com/andresjosehr/countries-viewer",
-      "demoLink": "https://projects.andresjosehr.com/countries-viewer",
-      "Technologies": [
-        "Angular",
-        "RxJS",
-        "SASS",
-        "API"
       ]
     }
   ],

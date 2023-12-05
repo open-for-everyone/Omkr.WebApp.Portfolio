@@ -1,9 +1,9 @@
 <section class="section about" id='about'>
   <div class="container">
-      <div class="section-box">
-          <div class="about-title" data-aos="fade-up">
-              <h3 class="section-title">
-                  <span class='n-section-title'>01.</span> {{"AboutMe.Title" | translate}}
+      <div class="">
+          <div data-aos="fade-up">
+              <h3 class="navbar-pre-title d-flex justify-content-start">
+                  <span>01.</span> {{"AboutMe.Title" | translate}}
               </h3>
           </div>
           <div class="row">
@@ -25,7 +25,7 @@
               </div>
               <div class="col-12 col-md-6 mt-4 mt-md-0 text-center" data-aos="fade-up" data-aos-duration="1000">
                   <div class="about-img-container">
-                      <img (click)='analyticsService.sendAnalyticEvent("click_image", "about", "image")' (keyup)="handleImageKeyUp($event)" tabindex="0" class="rounded" width="300" height="300" src="assets/images/me.jpg" alt="Keshav Singh" />
+                      <img (click)='analyticsService.sendAnalyticEvent("click_image", "about", "image")' (keyup)="handleImageKeyUp($event)" tabindex="0" class="rounded" width="300" height="300" src="https://avatars.githubusercontent.com/u/43788985?s=400&u=cf0b65c4fa048d4dbc69e1e575993afaa427cda1&v=4" alt="Keshav Singh" />
                   </div>
               </div>
 
