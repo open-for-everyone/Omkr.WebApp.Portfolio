@@ -5,6 +5,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import { AddOrganizationComponent } from './organization/add-organization/add-organization.component';
 import { ListOrganizationComponent } from './organization/list-organization/list-organization.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { ListOrganizationComponent } from './organization/list-organization/list
     AdminComponent,
     AddOrganizationComponent,
     ListOrganizationComponent,
+    DashboardComponent,
   ],
   imports: [
     CommonModule,
