@@ -1,0 +1,81 @@
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav opened mode="side" position="start">Start content</mat-sidenav>
+  <mat-sidenav #rightSidenav opened mode="side" position="end">End content</mat-sidenav>
+  <mat-sidenav-content>
+
+    <button (click)="openSidenav()">Open Sidenav</button>
+    <button (click)="closeSidenav()">Close Sidenav</button>
+    <button (click)="toggleSidenav()">Toggle Sidenav</button>
+    <button mat-button (click)="sidenav.toggle()">Toggle</button>
+    <button mat-button (click)="rightSidenav.toggle()">Toggle</button>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+<!-- <mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav opened mode="side" position="start">Start content</mat-sidenav>
+  <mat-sidenav #rightSidenav opened mode="side" position="end">End content</mat-sidenav>
+  <mat-sidenav-content>
+
+    <button (click)="openSidenav()">Open Sidenav</button>
+<button (click)="closeSidenav()">Close Sidenav</button>
+<button (click)="toggleSidenav()">Toggle Sidenav</button>
+<button mat-button (click)="sidenav.toggle()">Toggle</button>
+<button mat-button (click)="rightSidenav.toggle()">Toggle</button>
+
+  </mat-sidenav-content>
+</mat-sidenav-container> -->
+
+
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav mode="push">
+    <p><button mat-button (click)="sidenav.toggle()">Toggle</button></p>
+    <p>
+      <mat-radio-group class="example-radio-group" [formControl]="modeN">
+        <mat-label>Mode:</mat-label>
+        <mat-radio-button value="over">Over</mat-radio-button>
+        <mat-radio-button value="side">Side</mat-radio-button>
+        <mat-radio-button value="push">Push</mat-radio-button>
+      </mat-radio-group>
+    </p>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <p><button mat-button (click)="sidenav.toggle()">Toggle</button></p>
+    <p>
+      <mat-radio-group class="example-radio-group" [formControl]="modeN">
+        <mat-label>Mode:</mat-label>
+        <mat-radio-button value="over">Over</mat-radio-button>
+        <mat-radio-button value="side">Side</mat-radio-button>
+        <mat-radio-button value="push">Push</mat-radio-button>
+      </mat-radio-group>
+    </p>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+<mat-sidenav-container class="example-container">
+  <mat-sidenav mode="side" opened>
+    <!-- Sidenav content -->
+    <mat-nav-list>
+      <a mat-list-item href="#">Link 1</a>
+      <a mat-list-item href="#">Link 2</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <!-- Main content -->
+    <mat-toolbar color="primary">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Application Title</span>
+      <span class="example-spacer"></span>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Search...">
+      </mat-form-field>
+      <mat-icon>account_circle</mat-icon>
+    </mat-toolbar>
+    <!-- Additional content -->
+  </mat-sidenav-content>
+</mat-sidenav-container>

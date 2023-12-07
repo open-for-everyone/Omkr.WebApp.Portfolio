@@ -6,9 +6,9 @@ import { menu } from 'src/app/models/admin/navbar/menu';
 import { NavItem } from 'src/app/models/admin/navbar/nav-item';
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css'],
+  selector: 'app-side-nav',
+  templateUrl: './side-nav.component.html',
+  styleUrls: ['./side-nav.component.css'],
   animations: [
     trigger('indicatorRotate', [
         state('collapsed', style({ transform: 'rotate(0deg)' })),
@@ -19,7 +19,7 @@ import { NavItem } from 'src/app/models/admin/navbar/nav-item';
     ])
 ]
 })
-export class AdminComponent {
+export class SideNavComponent {
   @ViewChild('sidenav') sidenav: MatSidenav | undefined;
 
   toggleSidenav() {
