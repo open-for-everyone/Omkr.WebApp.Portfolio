@@ -23,9 +23,22 @@
       <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
     </ng-container>
 
+        <!-- Action Column -->
+        <ng-container matColumnDef="action"> <!-- Add this container for the "type" column -->
+          <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="mat-org-action-icons">
+            <button mat-icon-button (click)="openEditCard(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+
+            <button mat-icon-button (click)="confirmDelete(element.id)"><mat-icon>delete</mat-icon></button>
+          </mat-cell>
+        </ng-container>
+
+
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  <mat-paginator [pageSizeOptions]="filterOptions" showFirstLastButtons></mat-paginator>
 </div>

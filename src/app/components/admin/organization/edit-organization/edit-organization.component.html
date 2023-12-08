@@ -1,0 +1,23 @@
+<!-- edit-organization.component.html -->
+<h2 mat-dialog-title>Edit Organization</h2>
+<mat-dialog-content class="mat-typography">
+  <mat-form-field appearance="fill" class="full-width-input" [formGroup]="editOrganizationForm">
+    <div>
+      <mat-label>Name</mat-label>
+      <input matInput [(ngModel)]="data.organization.name" formControlName="organizationName">
+    </div>
+    <br />
+    <div>
+      <mat-label>Org-type</mat-label>
+      <mat-select [(value)]="data.organization.type" formControlName="organizationType">
+        <mat-option *ngFor="let type of organizationTypes" [value]="type.value">
+          {{ type.label }}
+        </mat-option>
+      </mat-select>
+    </div>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button color="primary" (click)="onSave()">Save</button>
+</mat-dialog-actions>

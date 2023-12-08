@@ -29,6 +29,11 @@ import { UserComponent } from './user/user/user.component';
 import { OrganizationComponent } from './organization/organization.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { EditOrganizationComponent } from './organization/edit-organization/edit-organization.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +48,8 @@ import { MatTableModule } from '@angular/material/table';
     TopNavbarProfileDropdownComponent,
     UserComponent,
     OrganizationComponent,
+    EditOrganizationComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -63,6 +70,9 @@ import { MatTableModule } from '@angular/material/table';
     MatInputModule,
     MatPaginatorModule,
     MatTableModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatOptionModule
   ]
 })
 export class AdminModule { }

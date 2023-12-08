@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { OrganizationDetails } from 'src/app/models/organization-details';
@@ -26,7 +26,7 @@ import { OrganizationService } from 'src/app/services/organization/organization.
     ])
   ]
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginError!: string;
 
