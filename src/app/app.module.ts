@@ -23,6 +23,9 @@ import { BannerComponent } from './components/home/banner/banner.component';
 import { JobComponent } from './components/home/job/job.component';
 import { ContactComponent } from './components/home/contact/contact.component';
 import { HomeComponent } from './components/home/home.component';
+import { NotFoundComponent } from './components/general/not-found/not-found.component';
+import { ProgressBarComponent } from './components/general/progress-bar/progress-bar.component';
+import { VideoComponent } from './components/home/video/video.component';
 
 // AOT compilation support
 export function HttpLoaderFactory(http: HttpClient) {
@@ -45,6 +48,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     ContactComponent,
     JobComponent,
     HomeComponent,
+    NotFoundComponent,
+    ProgressBarComponent,
+    VideoComponent,
   ],
   imports: [
     BrowserModule,

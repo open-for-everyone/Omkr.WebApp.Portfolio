@@ -7,6 +7,7 @@ import { QualificationComponent } from './components/setting/qualification/quali
 import { SettingComponent } from './components/setting/setting.component';
 import { authGuard } from './guards/auth/auth.guard';
 import { HomeComponent } from './components/home/home.component';
+import { NotFoundComponent } from './components/general/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -28,10 +29,11 @@ const routes: Routes = [
     loadChildren: () => import('./components/oauth/oauth.module').then(m => m.OauthModule)
   },
   {
-
     path: 'admin',
     loadChildren: () => import('./components/admin/admin.module').then(m => m.AdminModule)
-  }
+  },
+  { path: '404', component: NotFoundComponent },
+  { path: '**', redirectTo: '/404', pathMatch: 'full' }
 ];
 
 @NgModule({
