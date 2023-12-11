@@ -1,10 +1,9 @@
-import { Component, HostListener, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/guards/auth/auth.service';
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { FormControl } from '@angular/forms';
 import { AnalyticService } from 'src/app/services/Analytics/analytic.service';
-import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-header',

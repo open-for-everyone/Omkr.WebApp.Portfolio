@@ -1,4 +1,7 @@
 <!-- progress-bar.component.html -->
 <div class="progress-container">
-  <div class="progress-bar" [style.width]="progress + '%'"></div>
+  <div class="progress-bar"
+       [style.width]="progress + '%'"
+       [@animateProgressBar]="{ value: progress, params: { progress: progress } }">
+  </div>
 </div>

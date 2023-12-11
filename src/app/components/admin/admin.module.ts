@@ -34,6 +34,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.component';
+import { VisitorComponent } from './visitor/visitor.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.c
     OrganizationComponent,
     EditOrganizationComponent,
     ConfirmDialogComponent,
+    VisitorComponent,
   ],
   imports: [
     CommonModule,
