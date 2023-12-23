@@ -1,0 +1,9 @@
+<p>chat works!</p>
+<div class="chat-box">
+  <ul>
+    <!-- Display specific properties of the message object -->
+    <li *ngFor="let message of messages">{{ message.userName }}: {{ message.message }}</li>
+  </ul>
+</div>
+<input [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" type="text" placeholder="Type a message...">
+<button (click)="sendMessage()">Send</button>

@@ -5,13 +5,15 @@ import { AddOrganizationComponent } from './organization/add-organization/add-or
 import { ListOrganizationComponent } from './organization/list-organization/list-organization.component';
 import { OrganizationComponent } from './organization/organization.component';
 import { VisitorComponent } from './visitor/visitor.component';
+import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [{
   path: "", component: AdminComponent, children: [
     { path: "add-organization", component: AddOrganizationComponent },
     { path: "list-organization", component: ListOrganizationComponent },
     { path: "organization", component: OrganizationComponent },
-    { path: "visitor", component: VisitorComponent }
+    { path: "visitor", component: VisitorComponent },
+    { path: "chat", component: ChatComponent }
   ]
 }];
 

@@ -41,5 +41,17 @@ export const menu: NavItem[] = [
     //     route: '/admin/organization'
     //   }
     // ]
+  },
+  {
+    displayName: 'Chat',
+    iconName: 'chat',
+    route: 'chat',
+    // children: [
+    //   {
+    //     displayName: 'Account Info',
+    //     iconName: 'account_box',
+    //     route: '/admin/organization'
+    //   }
+    // ]
   }
 ];
