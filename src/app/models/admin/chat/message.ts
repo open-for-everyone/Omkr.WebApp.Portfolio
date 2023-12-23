@@ -1,5 +1,6 @@
 export interface ChatMessage {
-  userName?: string;
+  fromUser?: string;
+  toUser?: string;
   message: string;
   createdAt?: Date;
   organizationId?: string;

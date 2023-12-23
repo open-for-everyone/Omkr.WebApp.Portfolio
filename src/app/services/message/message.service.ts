@@ -9,13 +9,15 @@ import { environment } from 'src/environments/environment';
 })
 export class MessageService {
 
-  private apiUrl = `${environment.awsUserApiBaseUrl}${environment.messageApiEndpoints.message}`;
+  apiUrl = "";
   constructor(private http: HttpClient ) {}
 
   // Get messages from the server
-  getMessages(orgId:string,userName:string): Observable<ChatMessage[]> {
+  getMessages(orgId:string,fromUser:string, toUser:string): Observable<ChatMessage[]> {
+    this.apiUrl = `${environment.awsUserApiBaseUrl}${environment.messageApiEndpoints.getMessages}`;
     this.apiUrl = this.apiUrl.replace("{orgId}", (orgId) ?? '')
-      .replace("{userName}", (userName) ?? '');
+      .replace("{fromUserId}", (fromUser) ?? '')
+      .replace("{toUserId}", (toUser) ?? '');
 
     console.log('getMessages endpoint: ' + this.apiUrl);
     return this.http.get<ChatMessage[]>(this.apiUrl);
@@ -23,8 +25,7 @@ export class MessageService {
 
   // Send a new message to the server
   sendMessage(message: ChatMessage): Observable<ChatMessage> {
-    this.apiUrl = this.apiUrl.replace("{orgId}", (message.organizationId) ?? '')
-               .replace("{userName}", (message.userName) ?? '');
+    this.apiUrl = `${environment.awsUserApiBaseUrl}${environment.messageApiEndpoints.createMessage}`;
 
     console.log('sendMessage endpoint: ' + this.apiUrl);
     return this.http.post<ChatMessage>(this.apiUrl, message);

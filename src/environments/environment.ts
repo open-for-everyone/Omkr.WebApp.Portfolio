@@ -6,6 +6,8 @@ export const environment = {
   awsUserApiEndpoints: {
     user: '/api/user',
     getUser: '/api/user/{orgId}/{username}',
+    getOrgUsers: '/api/user/{orgId}',
+    getAllUsers: '/api/user',
     organizations: "/api/organization",
     getOrganization: "/api/organization/{orgId}",
   },
@@ -30,7 +32,8 @@ export const environment = {
   messageApiEndpoints: {
     messages: '/api/message',
     getMessage: '/api/message/{orgId}/{userName}/{messageId}',
-    message: '/api/message/{orgId}/{userName}',
+    getMessages: '/api/message/{orgId}/{fromUserId}/{toUserId}',
+    createMessage: '/api/message',
     updateMessage: '/api/message/{orgId}/{userName}/{messageId}',
     deleteMessage: '/api/message/{orgId}/{userName}/{messageId}',
   },

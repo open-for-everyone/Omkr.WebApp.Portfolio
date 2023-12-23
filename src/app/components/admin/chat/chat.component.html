@@ -1,9 +1,22 @@
-<p>chat works!</p>
-<div class="chat-box">
+<!-- User Selection Dropdown -->
+<form>
+  <select [(ngModel)]="selectedUserId" (change)="onUserSelected()" name="userSelect">
+    <option *ngFor="let user of users" [value]="user.userName">{{ user.userName }}</option>
+  </select>
+</form>
+
+<!-- Message Input -->
+<input type="text" [(ngModel)]="newMessage" placeholder="Type a message..." />
+
+<!-- Send Button -->
+<button (click)="sendMessage()">Send</button>
+
+<!-- Messages Display -->
+<!-- Messages Display -->
+<div class="messages">
   <ul>
-    <!-- Display specific properties of the message object -->
-    <li *ngFor="let message of messages">{{ message.userName }}: {{ message.message }}</li>
+    <li *ngFor="let message of messages">
+      <strong>{{ message.fromUser === userName ? 'You' : message.fromUser }}:</strong> {{ message.message }}
+    </li>
   </ul>
 </div>
-<input [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" type="text" placeholder="Type a message...">
-<button (click)="sendMessage()">Send</button>
