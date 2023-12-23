@@ -53,5 +53,17 @@ export const menu: NavItem[] = [
     //     route: '/admin/organization'
     //   }
     // ]
+  },
+  {
+    displayName: 'Markdown Renderer',
+    iconName: 'text_format',
+    route: 'markdown-renderer',
+    // children: [
+    //   {
+    //     displayName: 'Account Info',
+    //     iconName: 'account_box',
+    //     route: '/admin/organization'
+    //   }
+    // ]
   }
 ];
