@@ -32,6 +32,11 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: () => import('./components/admin/admin.module').then(m => m.AdminModule)
   },
+  {
+    path: 'other',
+    loadChildren: () => import('./components/other-activity/other-activity.module').then(m => m.OtherActivityModule)
+  },
+
   { path: '404', component: NotFoundComponent },
   { path: '**', redirectTo: '/404', pathMatch: 'full' }
 ];

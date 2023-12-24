@@ -37,4 +37,21 @@ export const environment = {
     updateMessage: '/api/message/{orgId}/{userName}/{messageId}',
     deleteMessage: '/api/message/{orgId}/{userName}/{messageId}',
   },
+  pageViewApiEndpoints: {
+    pageView: '/api/pageview/{pageId}',
+    incrementPageView: '/api/pageview/increment/{pageId}',
+  },
+  spotifyApiEndpoints: {
+    authUrl: '/api/spotify/auth/{orgId}/{userName}',
+    accessToken: '/api/spotify/access-token/{orgId}/{userName}',
+    token: '/api/spotify/token/{orgId}/{userName}',
+    search: '/api/spotify/search/{orgId}/{userName}',
+    album: '/api/spotify/album/{orgId}/{userName}',
+    artist: '/api/spotify/artist/{orgId}/{userName}',
+    track: '/api/spotify/track/{orgId}/{userName}',
+    playlist: '/api/spotify/playlist/{orgId}/{userName}',
+    playlistTracks: '/api/spotify/playlist/tracks/{orgId}/{userName}',
+    user: '/api/spotify/user/{orgId}/{userName}',
+    userPlaylists: '/api/spotify/user/playlists/{orgId}/{userName}',
+  },
 };

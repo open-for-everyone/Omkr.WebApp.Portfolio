@@ -1,0 +1,15 @@
+.page-view-counter {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.view-count {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.view-label {
+  font-style: italic;
+}

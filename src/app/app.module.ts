@@ -26,6 +26,8 @@ import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/general/not-found/not-found.component';
 import { ProgressBarComponent } from './components/general/progress-bar/progress-bar.component';
 import { VideoComponent } from './components/home/video/video.component';
+import { PageViewCounterComponent } from './components/general/counter/page-view-counter/page-view-counter.component';
+import { OtherActivityComponent } from './components/other-activity/other-activity.component';
 
 // AOT compilation support
 export function HttpLoaderFactory(http: HttpClient) {
@@ -51,6 +53,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     NotFoundComponent,
     ProgressBarComponent,
     VideoComponent,
+    //Remove the following line:
+    PageViewCounterComponent,
+    OtherActivityComponent,
   ],
   imports: [
     BrowserModule,
