@@ -26,6 +26,7 @@ export class SpotifyComponent implements OnInit {
           localStorage.setItem('spotify_access_token', accessToken);
         });
       } else if (!this.spotifyService.isAuthenticated()) {
+        console.log('Not authenticated');
         this.spotifyService.redirectToSpotifyLogin();
       }
     });
