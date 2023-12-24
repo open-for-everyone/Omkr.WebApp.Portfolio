@@ -7,7 +7,7 @@ import { SpotifyComponent } from './spotify/spotify.component';
 
 @NgModule({
   declarations: [
-    SpotifyComponent
+    SpotifyComponent,
   ],
   imports: [
     CommonModule,

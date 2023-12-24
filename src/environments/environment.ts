@@ -45,6 +45,7 @@ export const environment = {
     authUrl: '/api/spotify/auth/{orgId}/{userName}',
     accessToken: '/api/spotify/access-token/{orgId}/{userName}',
     token: '/api/spotify/token/{orgId}/{userName}',
+    currentlyPlaying: '/api/spotify/currently-playing/{orgId}/{userName}',
     search: '/api/spotify/search/{orgId}/{userName}',
     album: '/api/spotify/album/{orgId}/{userName}',
     artist: '/api/spotify/artist/{orgId}/{userName}',

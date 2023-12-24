@@ -5,7 +5,10 @@ import { SpotifyComponent } from './spotify/spotify.component';
 
 const routes: Routes = [{
   path: "", component: OtherActivityComponent, children: [
-    { path: "spotify", component: SpotifyComponent }
+    {
+      path: "spotify",
+      loadChildren: () => import('./spotify/spotify.module').then(m => m.SpotifyModule)
+    }
   ]
 }];
 

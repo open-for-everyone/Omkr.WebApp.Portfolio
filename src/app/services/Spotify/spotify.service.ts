@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -45,5 +45,23 @@ export class SpotifyService {
     .replace("{userName}", (this.authService.getCurrentUserName()) ?? '');
 
     return this.http.get(this.apiUrl, { responseType: 'text' }); // Set responseType to 'text'
+  }
+  getToken(): Observable<string> {
+    this.apiUrl = `${environment.awsUserApiBaseUrl}${environment.spotifyApiEndpoints.token}`;
+    this.apiUrl = this.apiUrl.replace("{orgId}", (this.authService.getOrganizationId()) ?? '')
+    .replace("{userName}", (this.authService.getCurrentUserName()) ?? '');
+
+    return this.http.get(this.apiUrl, { responseType: 'text' }); // Set responseType to 'text'
+  }
+
+  getCurrentlyPlaying(): Observable<any> {
+    this.apiUrl = `${environment.awsUserApiBaseUrl}${environment.spotifyApiEndpoints.currentlyPlaying}`;
+    this.apiUrl = this.apiUrl.replace("{orgId}", (this.authService.getOrganizationId()) ?? '')
+    .replace("{userName}", (this.authService.getCurrentUserName()) ?? '');
+    // const headers = new HttpHeaders({
+    //   'Authorization': `Bearer ${accessToken}`
+    // });
+    // return this.http.get(`${this.apiUrl}/me/player/currently-playing`, { headers });
+    return this.http.get(`${this.apiUrl}/me/player/currently-playing`);
   }
 }

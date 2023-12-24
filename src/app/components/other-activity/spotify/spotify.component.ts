@@ -17,8 +17,11 @@ export class SpotifyComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       const code = params['code'];
       if (code) {
+        console.log('Code:', code);
         // Call the backend service to exchange the code for an access token
-        this.spotifyService.getAccessToken().subscribe(accessToken => {
+        this.spotifyService.getToken().subscribe(accessToken => {
+          console.log('Access token:', accessToken);
+          console.log('Authenticated:', this.spotifyService.isAuthenticated());
           // Store the access token and proceed with the authenticated part of your application
           localStorage.setItem('spotify_access_token', accessToken);
         });
