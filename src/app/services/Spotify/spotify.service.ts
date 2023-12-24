@@ -62,6 +62,6 @@ export class SpotifyService {
     //   'Authorization': `Bearer ${accessToken}`
     // });
     // return this.http.get(`${this.apiUrl}/me/player/currently-playing`, { headers });
-    return this.http.get(`${this.apiUrl}/me/player/currently-playing`);
+    return this.http.get(`${this.apiUrl}`);
   }
 }
