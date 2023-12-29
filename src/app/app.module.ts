@@ -28,6 +28,7 @@ import { ProgressBarComponent } from './components/general/progress-bar/progress
 import { VideoComponent } from './components/home/video/video.component';
 import { PageViewCounterComponent } from './components/general/counter/page-view-counter/page-view-counter.component';
 import { OtherActivityComponent } from './components/other-activity/other-activity.component';
+import { MatIconModule } from '@angular/material/icon';
 
 // AOT compilation support
 export function HttpLoaderFactory(http: HttpClient) {
@@ -55,7 +56,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     VideoComponent,
     //Remove the following line:
     PageViewCounterComponent,
-    OtherActivityComponent,
+    OtherActivityComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +73,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

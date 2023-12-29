@@ -110,3 +110,18 @@
     margin-bottom: 50px;
  }
 }
+
+a.company-tab-content{
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  font-family: SF Mono, Fira Code, Fira Mono, Roboto Mono, Lucida Console, Monaco, Monospace;
+  font-size: 16px;
+}
