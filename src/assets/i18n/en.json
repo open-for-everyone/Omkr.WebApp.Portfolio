@@ -15,70 +15,36 @@
   "Experience.Title": "Experience",
   "Experience.Jobs": [
     {
-      "Tab": "Project",
-      "Title": "Fullstack developer",
-      "Date": "December 2019 - Present",
+      "Tab": "Unthinkable Solutions LLP",
+      "Title": "Backend .NET Developer",
+      "Date": "January 2021 - July 2023",
       "Description": [
-        "Creation and maintenance of a monitoring platform with graphics in WordPress.",
-        "Functional programming in templates and plugins to add the necessary monitoring features.",
-        "Implementation of continuous integration and daily backups.",
-        "Creation and maintenance of a second Monitoring Platform Done in Angular, Angular Material, Laravel, Mysql, RxJS, Sass with graphics (configurable), alarm system, and user management and configuration of general parameters.",
-        "Planning meetings in reports."
+        "Implemented gRPC Microservices using .NET Core, enhancing API response times by 40%.",
+        "Worked with AWS technologies like SQS, Lambda, and API Gateway to develop scalable solutions.",
+        "Practiced Test-Driven Development and participated in agile methodologies for timely deliverables."
       ]
     },
     {
-      "Tab": "Freelancer",
-      "Title": "Independent",
-      "Date": "May 2016 - Present",
+      "Tab": "Marlabs",
+      "Title": "Backend Developer",
+      "Date": "July 2023 - October 2023",
       "Description": [
-        "Implementing continuous improvements, working on frontend and backend.",
-        "Creating platforms with Angular, Laravel, ExpressJS, WordPress programmed with functional, reactive, and object-oriented programming paradigms.",
-        "Automation of processes with data structures.",
-        "Design layout with SASS, Bootstrap, Materialize, Bulma, etc."
+        "Engaged in backend development for projects involving loan management and risk assessment.",
+        "Optimized code and implemented encryption/decryption using AWS KMS for data security."
       ]
     },
     {
-      "Tab": "Moebius",
-      "Title": "FullStack developer",
-      "Date": "July 2017 - October 2018",
+      "Tab": "Internships",
+      "Title": "Intern",
+      "Date": "During B.Tech",
       "Description": [
-        "Leading a team of 4 people in the development of a Tourism Data management platform made in Angular, Laravel, and MySQL.",
-        "Implementation CI / CD in Azure. Refactoring and optimizing application load times.",
-        "Coding of API requests with RxJS.",
-        "Creation of modules with complex reactive forms",
-        "Writing weekly reports about goals and plans."
-      ]
-    },
-    {
-      "Tab": "TechLatam",
-      "Title": "Frontend developer",
-      "Date": "February 2016 - May 2017",
-      "Description": [
-        "Creation of WordPress templates with ACF, functional programming in Javascript / jQuery, styles in SASS",
-        "integration of design improvements, and template loading times.",
-        "Effective communication with the design team, working with Avocode / Figma."
-      ]
-    },
-    {
-      "Tab": "CANTV",
-      "Title": "System analyst",
-      "Date": "November 2015 - December 2016",
-      "Description": [
-        "Programming of new functionalities for an existing employee management platform made in Angular and ExpressJS.",
-        "Perform refactoring of old code. Ensuring compatibility of every dependency in every update, along with regular Angular update as well."
-      ]
-    },
-    {
-      "Tab": "IEP",
-      "Title": "English teacher",
-      "Date": "January 2015 - July 2015",
-      "Description": [
-        "Teaching English at a basic level to an enrollment of more than 200 students."
+        "Completed two internships focusing on cybersecurity and global software solutions.",
+        "Gained practical experience and insights into the software development industry."
       ]
     }
   ],
   "Contact.Pretitle": "What’s Next",
   "Contact.Title": "Get in touch!",
-  "Contact.Content": "I will be happy to receive your contact if you want to talk about new opportunities. Write me, and I will reply as soon as I see your message. Simple one-page design that features a profile letter with basic information about a person.",
+  "Contact.Content": "I'm always open to discussing new opportunities and innovative ideas. Feel free to reach out if you want to connect or explore potential collaborations. I look forward to hearing from you and will respond promptly.",
   "Contact.Btn": "Say Hello"
 }
