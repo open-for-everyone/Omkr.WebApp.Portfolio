@@ -9,24 +9,24 @@
     </button>
     <div [class.collapse]="isNavbarCollapsed" [class.navbar-collapse]="true" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="#">Home</a>
-        <a class="nav-link" (click)='scroll("about")' href="#about">About me</a>
-        <a class="nav-link" (click)='scroll("jobs")' href="#jobs">Experience</a>
-        <a class="nav-link" (click)='scroll("projects")' href="/404">Projects</a>
-        <a class="nav-link" (click)='scroll("contact")' href="#footer">Contact me</a>
+        <a class="nav-link active" aria-current="page" (click)="toggleNavbar()" href="#">Home</a>
+        <a class="nav-link" (click)="scroll('about'); toggleNavbar()" href="#about">About me</a>
+        <a class="nav-link" (click)="scroll('jobs'); toggleNavbar()" href="#jobs">Experience</a>
+        <a class="nav-link" (click)="scroll('projects'); toggleNavbar()" href="/404">Projects</a>
+        <a class="nav-link" (click)="scroll('contact'); toggleNavbar()" href="#footer">Contact me</a>
       </div>
       <div class="navbar-nav ms-auto">
         <a class="navbar-brand" href="#">
           <img src="https://avatars3.githubusercontent.com/keshavsingh4522?size=400" height="22" alt="Profile image"
             class="profileImg" />
         </a>
-        <a class="nav-link" *ngIf="(authService.isLoggedIn() | async)" [routerLink]="['/setting']">Settings</a>
+        <a class="nav-link" *ngIf="(authService.isLoggedIn() | async)" [routerLink]="['/setting']" (click)="toggleNavbar()">Settings</a>
         <a class="nav-link" *ngIf="(authService.isLoggedIn() | async)" [routerLink]="['/']"
-          (click)="logout()">Logout</a>
+          (click)="logout(); toggleNavbar()">Logout</a>
         <a class="nav-link" *ngIf="(authService.isLoggedIn() | async) === false"
-          [routerLink]="['/authentication/login']">Login</a>
+          [routerLink]="['/authentication/login']" (click)="toggleNavbar()">Login</a>
         <a class="nav-link" *ngIf="(authService.isLoggedIn() | async) === false"
-          [routerLink]="['/authentication/signup']">Signup</a>
+          [routerLink]="['/authentication/signup']" (click)="toggleNavbar()">Signup</a>
       </div>
     </div>
   </div>

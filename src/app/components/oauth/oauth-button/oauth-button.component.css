@@ -1,0 +1,60 @@
+a.btn-oauth {
+  display: inline-block;
+  width: 80px; /* Fixed width */
+  height: 30px; /* Fixed height */
+  line-height: 50px; /* Center the text vertically */
+  margin: 0.5rem;
+  padding: 0 1rem; /* Adjust horizontal padding as needed */
+  text-align: center;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2); /* Optional: adds a shadow for depth */
+}
+
+a.btn-oauth:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Optional: more pronounced shadow on hover */
+}
+a.btn-oauth.btn-google {
+  background-color: #db4437; /* Google's brand color */
+  color: #fff;
+}
+
+a.btn-oauth.btn-google:hover {
+  background-color: #c1351d; /* A darker shade of Google's brand color for hover effect */
+}
+
+a.btn-oauth.btn-github {
+  background-color: #333;
+  color: #fff;
+}
+
+a.btn-oauth.btn-github:hover {
+  background-color: #1a1a1a; /* Darkened #333 by 5% */
+}
+
+a.btn-oauth.btn-linkedin {
+  background-color: #0077b5;
+  color: #fff;
+}
+
+a.btn-oauth.btn-linkedin:hover {
+  background-color: #006699; /* Darkened #0077b5 by 5% */
+}
+
+/* Add more styles for other services as needed */
+
+a.btn-oauth i {
+  margin-right: 8px; /* Space between icon and text */
+}
+
+a.btn-oauth i {
+  margin-right: 8px; /* Space between icon and text */
+  font-size: 0.5rem; /* Halve the size of the icon */
+}
+
+a.btn-oauth .fa {
+  margin-right: 8px; /* Space between icon and text */
+  font-size: 0.5rem; /* Halve the size of the icon */
+}

@@ -11,13 +11,19 @@ import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { SignupComponent } from './signup/signup.component';
+import { OauthButtonComponent } from './oauth-button/oauth-button.component';
+import { LoginSuccessComponent } from './login-success/login-success.component';
+import { LoginFailureComponent } from './login-failure/login-failure.component';
 
 @NgModule({
   declarations: [
     ForgotPasswordComponent,
     ResetPasswordComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    OauthButtonComponent,
+    LoginSuccessComponent,
+    LoginFailureComponent
   ],
   imports: [
     CommonModule,

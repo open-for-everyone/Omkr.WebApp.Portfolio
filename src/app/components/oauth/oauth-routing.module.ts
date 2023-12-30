@@ -5,6 +5,8 @@ import { ForgotPasswordComponent } from './password/forgot-password/forgot-passw
 import { ResetPasswordComponent } from './password/reset-password/reset-password.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { LoginSuccessComponent } from './login-success/login-success.component';
+import { LoginFailureComponent } from './login-failure/login-failure.component';
 
 const routes: Routes = [
   {
@@ -14,7 +16,9 @@ const routes: Routes = [
       { path: "forgot-password", component: ForgotPasswordComponent },
       { path: "reset-password", component: ResetPasswordComponent },
       { path: "login", component: LoginComponent },
-      { path: "signup", component: SignupComponent }
+      { path: "signup", component: SignupComponent },
+      { path: 'login-success', component: LoginSuccessComponent },
+      { path: 'login-failure', component: LoginFailureComponent },
     ]
   }];
 

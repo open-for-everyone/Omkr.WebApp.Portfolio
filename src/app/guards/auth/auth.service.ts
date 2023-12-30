@@ -57,4 +57,12 @@ export class AuthService {
   getOrganizationId(): string | null {
     return localStorage.getItem('organizationId');
   }
+
+  // External OAuth login
+  loginWithOAuth(provider: string): void {
+    // Redirect to the backend endpoint that initiates the OAuth process
+    // The backend should redirect to the OAuth provider's login page
+    const oauthUrl = `/auth/${provider.toLowerCase()}`;
+    window.location.href = oauthUrl;
+  }
 }
