@@ -1,23 +1,23 @@
-.new-year-card {
+.event-card {
   text-align: center;
   padding: 20px;
   border-radius: 8px;
   background: #fff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   max-width: 400px;
-  margin: 50px auto;
+  /* margin: 50px auto; */
 }
 
-.title {
+.event-title {
   font-size: 24px;
   margin-bottom: 15px;
 }
 
-.content {
+.event-content {
   margin-bottom: 20px;
 }
 
-.new-year-image {
+.event-image {
   max-width: 100%;
   height: auto;
   border-radius: 4px;

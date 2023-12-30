@@ -11,13 +11,13 @@
 
 <div class="event-card" [@fadeInOut]>
   <div class="dialog-header">
-    <h2 mat-dialog-title>{{ data?.title }}</h2>
+    <h2 mat-dialog-title class="event-title">{{ data?.title }}</h2>
     <button mat-icon-button class="close-button" mat-dialog-close>
       <mat-icon>close</mat-icon>
     </button>
   </div>
-  <mat-dialog-content>
+  <mat-dialog-content class="event-content">
     <p>{{ data?.description }}</p>
-    <img *ngIf="data?.imageUrl" [src]="data.imageUrl" alt="{{ data.title }}">
+    <img *ngIf="data?.imageUrl" [src]="data.imageUrl" alt="{{ data.title }}" class="event-image" />
   </mat-dialog-content>
 </div>

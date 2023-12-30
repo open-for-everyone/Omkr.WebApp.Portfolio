@@ -33,6 +33,8 @@ import { CelebrationCardComponent } from './components/general/celebration-card/
 import { MatCardModule } from '@angular/material/card';
 import { CelebrationCardDialogComponent } from './components/general/celebration-card-dialog/celebration-card-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { NgxConfettiModule } from 'angular-confetti';
+import { ConfettiComponent } from './components/general/confetti/confetti.component';
 
 // AOT compilation support
 export function HttpLoaderFactory(http: HttpClient) {
@@ -62,28 +64,30 @@ export function HttpLoaderFactory(http: HttpClient) {
     PageViewCounterComponent,
     OtherActivityComponent,
     CelebrationCardComponent,
-    CelebrationCardDialogComponent
+    CelebrationCardDialogComponent,
+    ConfettiComponent
   ],
-    imports: [
-      BrowserModule,
-      AppRoutingModule,
-      ReactiveFormsModule,
-      FormsModule,
-      NgbModule,
-      HttpClientModule,
-      BrowserAnimationsModule,
-      FontAwesomeModule,
-      TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
-        }
-      }),
-      MatIconModule,
-      MatCardModule,
-      MatDialogModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgbModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    FontAwesomeModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    MatIconModule,
+    MatCardModule,
+    MatDialogModule,
+    NgxConfettiModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

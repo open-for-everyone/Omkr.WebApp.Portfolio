@@ -1,0 +1,4 @@
+<!-- confetti.component.html -->
+<div class="confetti-container" *ngIf="show">
+  <div *ngFor="let confetto of confetti" [ngStyle]="confetto.style" class="confetto"></div>
+</div>
