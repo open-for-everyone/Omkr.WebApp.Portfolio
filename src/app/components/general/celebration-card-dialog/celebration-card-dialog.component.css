@@ -1,0 +1,51 @@
+.new-year-card {
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  margin: 50px auto;
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.content {
+  margin-bottom: 20px;
+}
+
+.new-year-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.actions {
+  text-align: right;
+}
+
+.event-card {
+  position: relative;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: none;
+  background: none;
+}
+
+/* Optional: Add additional styling to your close button */
+.close-button mat-icon {
+  color: #000; /* Change color as needed */
+}

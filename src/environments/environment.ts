@@ -55,4 +55,14 @@ export const environment = {
     user: '/api/spotify/user/{orgId}/{userName}',
     userPlaylists: '/api/spotify/user/playlists/{orgId}/{userName}',
   },
+  eventApiEndpoints: {
+    events: '/api/event',
+    getEvent: '/api/event/{orgId}/{eventId}',
+    getEvents: '/api/event/{orgId}',
+    createEvent: '/api/event/{orgId}',
+    updateEvent: '/api/event/{orgId}/{eventId}',
+    deleteEvent: '/api/event/{orgId}/{eventId}',
+
+    getEventByDate: '/api/events/{date}',
+  },
 };

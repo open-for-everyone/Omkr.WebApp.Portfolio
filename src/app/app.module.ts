@@ -29,6 +29,10 @@ import { VideoComponent } from './components/home/video/video.component';
 import { PageViewCounterComponent } from './components/general/counter/page-view-counter/page-view-counter.component';
 import { OtherActivityComponent } from './components/other-activity/other-activity.component';
 import { MatIconModule } from '@angular/material/icon';
+import { CelebrationCardComponent } from './components/general/celebration-card/celebration-card.component';
+import { MatCardModule } from '@angular/material/card';
+import { CelebrationCardDialogComponent } from './components/general/celebration-card-dialog/celebration-card-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 // AOT compilation support
 export function HttpLoaderFactory(http: HttpClient) {
@@ -56,26 +60,30 @@ export function HttpLoaderFactory(http: HttpClient) {
     VideoComponent,
     //Remove the following line:
     PageViewCounterComponent,
-    OtherActivityComponent
+    OtherActivityComponent,
+    CelebrationCardComponent,
+    CelebrationCardDialogComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    NgbModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    FontAwesomeModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    MatIconModule,
-  ],
+    imports: [
+      BrowserModule,
+      AppRoutingModule,
+      ReactiveFormsModule,
+      FormsModule,
+      NgbModule,
+      HttpClientModule,
+      BrowserAnimationsModule,
+      FontAwesomeModule,
+      TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+        }
+      }),
+      MatIconModule,
+      MatCardModule,
+      MatDialogModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

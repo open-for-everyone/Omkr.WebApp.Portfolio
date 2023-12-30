@@ -1,0 +1,23 @@
+<!-- <div *ngIf="event" class="event-card" [@fadeInOut]>
+  <h1 class="title">{{ event.title }}</h1>
+  <div class="content">
+    <p>{{ event.description }}</p>
+    <img *ngIf="event.imageUrl" [src]="event.imageUrl" alt="{{ event.title }}" class="event-image">
+  </div>
+  <div class="actions">
+    <button mat-button (click)="event = null">Close</button>
+  </div>
+</div> -->
+
+<div class="event-card" [@fadeInOut]>
+  <div class="dialog-header">
+    <h2 mat-dialog-title>{{ data?.title }}</h2>
+    <button mat-icon-button class="close-button" mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <mat-dialog-content>
+    <p>{{ data?.description }}</p>
+    <img *ngIf="data?.imageUrl" [src]="data.imageUrl" alt="{{ data.title }}">
+  </mat-dialog-content>
+</div>
