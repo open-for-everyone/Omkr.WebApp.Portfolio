@@ -65,4 +65,8 @@ export const environment = {
 
     getEventByDate: '/api/events/{date}',
   },
+  fileApiEndpoints: {
+    getUrl:'/api/file/geturl/{key}',
+    generateUrl:'/api/file/generateUrl/{key}',
+  }
 };

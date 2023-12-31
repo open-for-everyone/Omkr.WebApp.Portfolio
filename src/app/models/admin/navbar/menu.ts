@@ -57,13 +57,11 @@ export const menu: NavItem[] = [
   {
     displayName: 'Markdown Renderer',
     iconName: 'text_format',
-    route: 'markdown-renderer',
-    // children: [
-    //   {
-    //     displayName: 'Account Info',
-    //     iconName: 'account_box',
-    //     route: '/admin/organization'
-    //   }
-    // ]
+    route: 'markdown-renderer'
+  },
+  {
+    displayName: 'Files',
+    iconName: 'cloud_upload',
+    route: 'file'
   }
 ];

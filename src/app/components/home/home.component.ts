@@ -4,13 +4,14 @@ import { Router } from '@angular/router';
 import { PageViewService } from 'src/app/services/PageView/page-view.service';
 import { CelebrationCardDialogService } from 'src/app/services/general/celebration/celebration-card-dialog.service';
 import { CelebrationCardDialogComponent } from '../general/celebration-card-dialog/celebration-card-dialog.component';
+import { FileService } from 'src/app/services/general/file/file.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit,OnChanges {
+export class HomeComponent implements OnInit, OnChanges {
 
   pageUrl = '';
   currentEvent: unknown = null;
@@ -20,7 +21,8 @@ export class HomeComponent implements OnInit,OnChanges {
    *
    */
   constructor(private renderer2: Renderer2, private pageViewService: PageViewService, private router: Router,
-    private celebrationDialogService: CelebrationCardDialogService, private dialog: MatDialog) {
+    private celebrationDialogService: CelebrationCardDialogService, private dialog: MatDialog,
+    private fileService: FileService) {
 
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -47,10 +49,19 @@ export class HomeComponent implements OnInit,OnChanges {
 
     this.celebrationDialogService.getEventForCurrentDate().subscribe(event => {
       if (event) {
-        console.log('opening dialog');
-        this.dialog.open(CelebrationCardDialogComponent, {
-          data: event,
-          width: '400px'
+
+        console.log('Retrieving file URL');
+        this.fileService.getUrl2(event.imageUrl).subscribe(fileUrl => {
+          // Now you have the additional URL (fileUrl), you can modify the event object or pass it separately
+          console.log('Opening dialog with file URL');
+          event.imageUrl = fileUrl;
+          this.dialog.open(CelebrationCardDialogComponent, {
+            data: event, // Pass the additional URL as part of the data
+            width: '400px'
+          });
+        }, fileServiceError => {
+          console.error('Error retrieving file URL:', fileServiceError);
+          // Handle errors from file service here
         });
       }
     }, error => {

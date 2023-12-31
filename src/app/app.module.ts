@@ -33,8 +33,13 @@ import { CelebrationCardComponent } from './components/general/celebration-card/
 import { MatCardModule } from '@angular/material/card';
 import { CelebrationCardDialogComponent } from './components/general/celebration-card-dialog/celebration-card-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { NgxConfettiModule } from 'angular-confetti';
 import { ConfettiComponent } from './components/general/confetti/confetti.component';
+import { FileUploadComponent } from './components/general/file/file-upload/file-upload.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { ConfirmDialogComponent } from './components/general/dialog/confirm-dialog/confirm-dialog.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 // AOT compilation support
 export function HttpLoaderFactory(http: HttpClient) {
@@ -65,7 +70,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     OtherActivityComponent,
     CelebrationCardComponent,
     CelebrationCardDialogComponent,
-    ConfettiComponent
+    ConfettiComponent,
+    FileUploadComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -86,7 +93,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatIconModule,
     MatCardModule,
     MatDialogModule,
-    NgxConfettiModule
+    MatInputModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
