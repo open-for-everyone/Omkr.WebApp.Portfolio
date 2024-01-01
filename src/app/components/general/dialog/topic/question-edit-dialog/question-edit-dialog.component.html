@@ -1,0 +1,31 @@
+<h1 mat-dialog-title>Edit Question</h1>
+<div mat-dialog-content>
+  <mat-form-field class="full-width">
+    <mat-label>Topic</mat-label>
+    <input matInput [(ngModel)]="data.topic">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Subtopic</mat-label>
+    <input matInput [(ngModel)]="data.subtopic">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Difficulty</mat-label>
+    <input matInput [(ngModel)]="data.difficulty">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Tags</mat-label>
+    <input matInput placeholder="Comma-separated (e.g., tag1, tag2)" [(ngModel)]="data.tags">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>References</mat-label>
+    <input matInput placeholder="Comma-separated (e.g., ref1, ref2)" [(ngModel)]="data.references">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Answer</mat-label>
+    <textarea matInput placeholder="HTML allowed" [(ngModel)]="data.answer"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <button mat-button (click)="onSaveClick()">Save</button>
+</div>

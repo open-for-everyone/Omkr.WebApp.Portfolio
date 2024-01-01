@@ -63,5 +63,10 @@ export const menu: NavItem[] = [
     displayName: 'Files',
     iconName: 'cloud_upload',
     route: 'file'
+  },
+  {
+    displayName: 'Topic',
+    iconName: 'question_answer',
+    route: 'topic'
   }
 ];

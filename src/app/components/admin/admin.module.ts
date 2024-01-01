@@ -37,6 +37,7 @@ import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.c
 import { VisitorComponent } from './visitor/visitor.component';
 import { ChatComponent } from './chat/chat.component';
 import { MarkdownRendererComponent } from './markdown-renderer/markdown-renderer.component';
+import { CsharpInterviewQaComponent } from './topic/csharp-interview-qa/csharp-interview-qa.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { MarkdownRendererComponent } from './markdown-renderer/markdown-renderer
     VisitorComponent,
     ChatComponent,
     MarkdownRendererComponent,
+    CsharpInterviewQaComponent,
   ],
   imports: [
     CommonModule,

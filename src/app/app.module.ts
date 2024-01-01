@@ -40,6 +40,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { ConfirmDialogComponent } from './components/general/dialog/confirm-dialog/confirm-dialog.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { QuestionEditDialogComponent } from './components/general/dialog/topic/question-edit-dialog/question-edit-dialog.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatChipsModule } from '@angular/material/chips';
 
 // AOT compilation support
 export function HttpLoaderFactory(http: HttpClient) {
@@ -72,8 +75,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     CelebrationCardDialogComponent,
     ConfettiComponent,
     FileUploadComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    QuestionEditDialogComponent
   ],
+  // ...
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -96,7 +102,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
-    MatProgressBarModule
+    MatFormFieldModule,
+    MatChipsModule, // Add this line
+    MatProgressBarModule,
+    MatChipsModule // Add this line
   ],
   providers: [],
   bootstrap: [AppComponent]

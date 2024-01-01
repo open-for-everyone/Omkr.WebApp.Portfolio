@@ -8,6 +8,7 @@ import { VisitorComponent } from './visitor/visitor.component';
 import { ChatComponent } from './chat/chat.component';
 import { MarkdownRendererComponent } from './markdown-renderer/markdown-renderer.component';
 import { FileUploadComponent } from '../general/file/file-upload/file-upload.component';
+import { CsharpInterviewQaComponent } from './topic/csharp-interview-qa/csharp-interview-qa.component';
 
 const routes: Routes = [{
   path: "", component: AdminComponent, children: [
@@ -17,7 +18,8 @@ const routes: Routes = [{
     { path: "visitor", component: VisitorComponent },
     { path: "chat", component: ChatComponent },
     { path: "markdown-renderer", component: MarkdownRendererComponent },
-    { path: "file", component: FileUploadComponent }
+    { path: "file", component: FileUploadComponent },
+    { path: "topic", component: CsharpInterviewQaComponent }
   ]
 }];
 

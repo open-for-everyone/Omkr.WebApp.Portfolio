@@ -1,0 +1,18 @@
+<button mat-raised-button color="primary" (click)="openEditDialog()">Add Question</button>
+<div class="question-list">
+  <h2>Questions</h2>
+  <ul>
+    <li *ngFor="let question of questions" (click)="selectQuestion(question)" (keyup)="handleKeyUp($event)"
+      tabindex="0">
+      {{ question.questionText }}
+    </li>
+  </ul>
+</div>
+<div class="question-details" *ngIf="selectedQuestion">
+  <h2>{{ selectedQuestion.questionText }}</h2>
+  <div [innerHTML]="selectedQuestion.answer"></div>
+  <!-- Add form for editing the selected question here -->
+  <button (click)="updateQuestion(selectedQuestion)">Update</button>
+  <button mat-button (click)="openEditDialog(selectedQuestion)">Edit</button>
+  <button (click)="deleteQuestion(selectedQuestion.questionId || '')">Delete</button>
+</div>
