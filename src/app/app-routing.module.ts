@@ -8,6 +8,7 @@ import { SettingComponent } from './components/setting/setting.component';
 import { authGuard } from './guards/auth/auth.guard';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/general/not-found/not-found.component';
+import { OauthButtonComponent } from './components/oauth/oauth-button/oauth-button.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -36,7 +37,6 @@ const routes: Routes = [
     path: 'other',
     loadChildren: () => import('./components/other-activity/other-activity.module').then(m => m.OtherActivityModule)
   },
-
   { path: '404', component: NotFoundComponent },
   { path: '**', redirectTo: '/404', pathMatch: 'full' }
 ];

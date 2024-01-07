@@ -47,11 +47,21 @@
 
           <!-- External login options -->
           <div class="text-center">
-            <app-oauth-button service="GitHub" iconClass="fab fa-github"></app-oauth-button>
-            <app-oauth-button service="LinkedIn" iconClass="fab fa-linkedin"></app-oauth-button>
-            <app-oauth-button service="Hackerrank" iconClass="fab fa-hackerrank"></app-oauth-button>
-            <app-oauth-button service="LeetCode" iconClass="fab fa-leetcode"></app-oauth-button>
-            <app-oauth-button service="Google" iconClass="fab fa-google"></app-oauth-button>
+            <app-oauth-button
+            service="GitHub"
+            iconClass="fab fa-github"
+            (loginRequested)="onLoginRequested($event)">
+          </app-oauth-button>
+
+          <app-oauth-button
+            service="LinkedIn"
+            iconClass="fab fa-linkedin"
+            (loginRequested)="onLoginRequested($event)">
+          </app-oauth-button>
+
+            <app-oauth-button service="Hackerrank" iconClass="fab fa-hackerrank" (loginRequested)="onLoginRequested($event)"></app-oauth-button>
+            <app-oauth-button service="LeetCode" iconClass="fab fa-leetcode" (loginRequested)="onLoginRequested($event)"></app-oauth-button>
+            <app-oauth-button service="Google" iconClass="fab fa-google" (loginRequested)="onLoginRequested($event)"></app-oauth-button>
             <hr>
           </div>
         </div>

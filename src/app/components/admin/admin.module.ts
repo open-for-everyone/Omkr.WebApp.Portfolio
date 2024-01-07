@@ -80,7 +80,7 @@ import { CsharpInterviewQaComponent } from './topic/csharp-interview-qa/csharp-i
     MatTableModule,
     MatDialogModule,
     MatSelectModule,
-    MatOptionModule
+    MatOptionModule,
   ]
 })
 export class AdminModule { }

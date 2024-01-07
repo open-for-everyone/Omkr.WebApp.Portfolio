@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { LoginSuccessComponent } from './login-success/login-success.component';
 import { LoginFailureComponent } from './login-failure/login-failure.component';
+import { GithubCallbackComponent } from '../callback/github-callback/github-callback.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
       { path: "signup", component: SignupComponent },
       { path: 'login-success', component: LoginSuccessComponent },
       { path: 'login-failure', component: LoginFailureComponent },
+      { path: 'github-callback', component: GithubCallbackComponent },
     ]
   }];
 

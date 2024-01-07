@@ -82,4 +82,19 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+
+  onLoginRequested(service: string): void {
+    console.log(`Login requested for: ${service}`);
+    switch (service.toLowerCase()) {
+      case 'github':
+        this.authService.initiateGithubLogin();
+        break;
+      case 'linkedin':
+        // Call LinkedIn login method
+        break;
+      // Add more cases for other services
+      default:
+        console.warn(`Login for service ${service} is not implemented.`);
+    }
+  }
 }

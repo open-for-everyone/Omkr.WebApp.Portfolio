@@ -68,5 +68,9 @@ export const environment = {
   fileApiEndpoints: {
     getUrl:'/api/file/geturl/{key}',
     generateUrl:'/api/file/generateUrl/{key}',
+  },
+  github:{
+    clientId: '26cb4ea080bd30fe7461',
+    redirectUri: 'http://localhost:4200/authentication/github-callback',
   }
 };

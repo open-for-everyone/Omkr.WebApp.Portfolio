@@ -1,3 +1,3 @@
-<a [@pulse] class="btn btn-outline-{{ service.toLowerCase() }}" href="/authentication/{{ service.toLowerCase() }}" (click)="login()" role="button">
+<a class="btn btn-outline-{{ service.toLowerCase() }}" (click)="login($event)" (keyup)="login($event)" tabindex="-1" role="button">
   <i class="{{ iconClass }}"></i> {{ service }}
 </a>

@@ -13,12 +13,14 @@ import { pulse } from 'ng-animate';
   ]
 })
 export class OauthButtonComponent {
+
   @Input() service = '';
   @Input() iconClass = '';
   @HostBinding('@pulse') pulse = true;
   @Output() loginRequested = new EventEmitter<string>();
 
-  public login(): void {
+  public login(event: Event): void {
+    event.preventDefault(); // Prevent default anchor behavior
     console.log('Login requested for ' + this.service);
     this.loginRequested.emit(this.service);
   }

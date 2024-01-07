@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -43,6 +43,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { QuestionEditDialogComponent } from './components/general/dialog/topic/question-edit-dialog/question-edit-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatChipsModule } from '@angular/material/chips';
+import { GithubCallbackComponent } from './components/callback/github-callback/github-callback.component';
+import { AuthInterceptor } from './guards/auth/interceptor/auth-interceptor.service';
 
 // AOT compilation support
 export function HttpLoaderFactory(http: HttpClient) {
@@ -76,7 +78,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ConfettiComponent,
     FileUploadComponent,
     ConfirmDialogComponent,
-    QuestionEditDialogComponent
+    QuestionEditDialogComponent,
+    GithubCallbackComponent
   ],
   // ...
 
@@ -107,7 +110,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatProgressBarModule,
     MatChipsModule // Add this line
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
