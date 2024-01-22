@@ -10,6 +10,8 @@ import { MarkdownRendererComponent } from './markdown-renderer/markdown-renderer
 import { FileUploadComponent } from '../general/file/file-upload/file-upload.component';
 import { CsharpInterviewQaComponent } from './topic/csharp-interview-qa/csharp-interview-qa.component';
 import { UserComponent } from './user/user/user.component';
+import { adminGuard } from 'src/app/guards/admin/admin.guard';
+import { AdminLoginComponent } from './auth/admin-login/admin-login.component';
 
 const routes: Routes = [{
   path: "", component: AdminComponent, children: [
@@ -22,7 +24,7 @@ const routes: Routes = [{
     { path: "file", component: FileUploadComponent },
     { path: "topic", component: CsharpInterviewQaComponent },
     { path: "user", component: UserComponent }
-  ]
+  ], canActivate: [adminGuard]
 }];
 
 @NgModule({

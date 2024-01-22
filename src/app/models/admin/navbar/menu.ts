@@ -68,5 +68,17 @@ export const menu: NavItem[] = [
     displayName: 'Topic',
     iconName: 'question_answer',
     route: 'topic'
+  },
+  {
+    displayName:"other",
+    iconName:"more_horiz",
+    route:"other",
+    children:[
+      {
+        displayName:"spotify",
+        iconName:"music_note",
+        route:"/other/spotify"
+      }
+     ]
   }
 ];

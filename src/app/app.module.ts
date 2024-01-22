@@ -45,6 +45,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatChipsModule } from '@angular/material/chips';
 import { GithubCallbackComponent } from './components/callback/github-callback/github-callback.component';
 import { AuthInterceptor } from './guards/auth/interceptor/auth-interceptor.service';
+import { AdminLoginComponent } from './components/admin/auth/admin-login/admin-login.component';
 
 // AOT compilation support
 export function HttpLoaderFactory(http: HttpClient) {
@@ -79,7 +80,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FileUploadComponent,
     ConfirmDialogComponent,
     QuestionEditDialogComponent,
-    GithubCallbackComponent
+    GithubCallbackComponent,
+    AdminLoginComponent
   ],
   // ...
 

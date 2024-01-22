@@ -9,6 +9,7 @@ import { authGuard } from './guards/auth/auth.guard';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/general/not-found/not-found.component';
 import { OauthButtonComponent } from './components/oauth/oauth-button/oauth-button.component';
+import { AdminLoginComponent } from './components/admin/auth/admin-login/admin-login.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -30,12 +31,11 @@ const routes: Routes = [
     loadChildren: () => import('./components/oauth/oauth.module').then(m => m.OauthModule)
   },
   {
-    path: 'admin',
-    loadChildren: () => import('./components/admin/admin.module').then(m => m.AdminModule)
-  },
-  {
     path: 'other',
     loadChildren: () => import('./components/other-activity/other-activity.module').then(m => m.OtherActivityModule)
+  },
+  {
+    path: "admin-login", component: AdminLoginComponent,
   },
   { path: '404', component: NotFoundComponent },
   { path: '**', redirectTo: '/404', pathMatch: 'full' }
