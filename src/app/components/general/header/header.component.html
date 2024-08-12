@@ -20,13 +20,13 @@
           <img src="https://avatars3.githubusercontent.com/keshavsingh4522?size=400" height="22" alt="Profile image"
             class="profileImg" />
         </a>
-        <a class="nav-link" *ngIf="(authService.isLoggedIn() | async)" [routerLink]="['/setting']" (click)="toggleNavbar()">Settings</a>
-        <a class="nav-link" *ngIf="(authService.isLoggedIn() | async)" [routerLink]="['/']"
+        <a class="nav-link" *ngIf="!loginDisplay" [routerLink]="['/setting']" (click)="toggleNavbar()">Settings</a>
+        <a class="nav-link" *ngIf="loginDisplay" [routerLink]="['/']"
           (click)="logout(); toggleNavbar()">Logout</a>
-        <a class="nav-link" *ngIf="(authService.isLoggedIn() | async) === false"
+        <a class="nav-link" *ngIf="!loginDisplay"
           [routerLink]="['/authentication/login']" (click)="toggleNavbar()">Login</a>
-        <a class="nav-link" *ngIf="(authService.isLoggedIn() | async) === false"
-          [routerLink]="['/authentication/signup']" (click)="toggleNavbar()">Signup</a>
+        <a class="nav-link" *ngIf="loginDisplay"
+          [routerLink]="['/authentication/signup']" (click)="toggleNavbar()">Logout</a>
       </div>
     </div>
   </div>

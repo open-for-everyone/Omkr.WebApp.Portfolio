@@ -66,11 +66,40 @@ export const environment = {
     getEventByDate: '/api/events/{date}',
   },
   fileApiEndpoints: {
-    getUrl:'/api/file/geturl/{key}',
-    generateUrl:'/api/file/generateUrl/{key}',
+    getUrl: '/api/file/geturl/{key}',
+    generateUrl: '/api/file/generateUrl/{key}',
   },
-  github:{
+  github: {
     clientId: '26cb4ea080bd30fe7461',
     redirectUri: 'http://localhost:4200/authentication/github-callback',
+  },
+
+  // START MSAL CONFIG Auth
+
+  endpoints: {
+    weather: "https://localhost:7001",
+    user: "https://localhost:7254"
+  },
+  // scopes:{
+  //     weather:["https://VinayTestB2C.onmicrosoft.com/weather.read/weather.read"]
+  // },
+  // AzureAdB2C: {
+  //     tenantName:"VinayTestB2C",
+  //     clientId:"1723cd9d-cb17-42cb-9bb4-e6d0b7165287",
+  //     policies:{
+  //         signupSignIn:"B2C_1_SignupSignin"
+  //     },
+  // }
+  scopes: {
+    weather: ["https://omkrportfolio.onmicrosoft.com/api/weathers/weather.read"],
+    user: ["https://omkrportfolio.onmicrosoft.com/api/users/user.read", "https://omkrportfolio.onmicrosoft.com/api/users/user.delete"]
+  },
+  AzureAdB2C: {
+    tenantName: "omkrportfolio",
+    clientId: "d34f2b3d-76f4-4301-8714-558b9f0a10fd",
+    policies: {
+      signupSignIn: "B2C_1A_signup_signin"
+    },
   }
+  // End MSAL CONFIG Auth
 };

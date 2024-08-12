@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -8,12 +8,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { BasicInfoComponent } from './components/setting/basic-info/basic-info.component';
-import { ChangePasswordComponent } from './components/oauth/password/change-password/change-password.component';
-import { QualificationComponent } from './components/setting/qualification/qualification.component';
-import { BankAccountComponent } from './components/setting/bank-account/bank-account.component';
-import { SettingComponent } from './components/setting/setting.component';
-import { OauthComponent } from './components/oauth/oauth.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FooterComponent } from './components/general/footer/footer.component';
 import { HeaderComponent } from './components/general/header/header.component';
@@ -27,7 +21,6 @@ import { NotFoundComponent } from './components/general/not-found/not-found.comp
 import { ProgressBarComponent } from './components/general/progress-bar/progress-bar.component';
 import { VideoComponent } from './components/home/video/video.component';
 import { PageViewCounterComponent } from './components/general/counter/page-view-counter/page-view-counter.component';
-import { OtherActivityComponent } from './components/other-activity/other-activity.component';
 import { MatIconModule } from '@angular/material/icon';
 import { CelebrationCardComponent } from './components/general/celebration-card/celebration-card.component';
 import { MatCardModule } from '@angular/material/card';
@@ -43,9 +36,19 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { QuestionEditDialogComponent } from './components/general/dialog/topic/question-edit-dialog/question-edit-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatChipsModule } from '@angular/material/chips';
-import { GithubCallbackComponent } from './components/callback/github-callback/github-callback.component';
-import { AuthInterceptor } from './guards/auth/interceptor/auth-interceptor.service';
 import { AdminLoginComponent } from './components/admin/auth/admin-login/admin-login.component';
+
+// Import MSAL and MSAL browser libraries.
+import { MSAL_INTERCEPTOR_CONFIG, MsalGuard, MsalInterceptor, MsalModule, MsalRedirectComponent, MsalService } from '@azure/msal-angular';
+import { InteractionType, PublicClientApplication } from '@azure/msal-browser';
+
+// Import the Azure AD B2C configuration
+import { msalConfig } from './auth-config';
+import { MSALInterceptorConfigFactory } from './interceptor-config';
+
+export function initializeMsal(msalService: MsalService) {
+  return () => msalService.initialize();
+}
 
 // AOT compilation support
 export function HttpLoaderFactory(http: HttpClient) {
@@ -55,12 +58,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    BasicInfoComponent,
-    ChangePasswordComponent,
-    QualificationComponent,
-    BankAccountComponent,
-    SettingComponent,
-    OauthComponent,
     FooterComponent,
     HeaderComponent,
     AboutComponent,
@@ -73,14 +70,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     VideoComponent,
     //Remove the following line:
     PageViewCounterComponent,
-    OtherActivityComponent,
     CelebrationCardComponent,
     CelebrationCardDialogComponent,
     ConfettiComponent,
     FileUploadComponent,
     ConfirmDialogComponent,
     QuestionEditDialogComponent,
-    GithubCallbackComponent,
     AdminLoginComponent
   ],
   // ...
@@ -110,15 +105,45 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatFormFieldModule,
     MatChipsModule, // Add this line
     MatProgressBarModule,
-    MatChipsModule // Add this line
+    MatChipsModule, // Add this line
+    // Initiate the MSAL library with the MSAL configuration object
+    MsalModule.forRoot(new PublicClientApplication(msalConfig),
+      {
+        // The routing guard configuration.
+        interactionType: InteractionType.Redirect,
+        authRequest: {
+          scopes: ['openid', 'profile', 'offline_access']
+        }
+      },
+      MSALInterceptorConfigFactory()
+    )
   ],
   providers: [
+    /* Changes start here. */
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
+      useClass: MsalInterceptor,
       multi: true,
-    }
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeMsal,
+      deps: [MsalService],
+      multi: true
+    },
+    // {
+    //   provide: MSAL_INTERCEPTOR_CONFIG,
+    //   useFactory: MSALInterceptorConfigFactory,
+    // },
+
+    MsalGuard
+    /* Changes end here. */
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent,
+    /* Changes start here. */
+    MsalRedirectComponent
+    /* Changes end here. */
+  ]
 })
 export class AppModule { }

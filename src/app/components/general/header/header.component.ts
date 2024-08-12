@@ -1,9 +1,11 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/guards/auth/auth.service';
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { FormControl } from '@angular/forms';
 import { AnalyticService } from 'src/app/services/Analytics/analytic.service';
+import { Subject } from 'rxjs';
+import { MSAL_GUARD_CONFIG, MsalBroadcastService, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
+import { EventMessage, EventType, RedirectRequest } from '@azure/msal-browser';
 
 @Component({
   selector: 'app-header',
@@ -25,28 +27,41 @@ import { AnalyticService } from 'src/app/services/Analytics/analytic.service';
   ]
 })
 
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
+  // Start Auth
+  loginDisplay = false;
+  private readonly _destroying$ = new Subject<void>();
+  // End Auth
+  languages: { code: string; name: string }[] = [];
+  selectedLanguage = 'en'; // Default language
+
   // Declare a variable to hold the authentication status
   responsiveMenuVisible = false;
   pageYPosition = 0;
   cvName = "";
   languageFormControl: FormControl = new FormControl();
 
-  constructor(protected authService: AuthService, private router: Router, public analyticsService: AnalyticService) { }
+  constructor(private router: Router, public analyticsService: AnalyticService,
+    @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration, private authService: MsalService,
+    private msalBroadcastService: MsalBroadcastService
+  ) {
+    this.msalBroadcastService.msalSubject$.subscribe((event: EventMessage) => {
+      if (event.eventType === EventType.LOGIN_SUCCESS) {
+        console.log('Login success:', event);
+      } else if (event.eventType === EventType.LOGIN_FAILURE) {
+        console.error('Login failure:', event);
+      } else if (event.eventType === EventType.ACQUIRE_TOKEN_SUCCESS) {
+        console.log('Token acquired:', event);
+      } else if (event.eventType === EventType.ACQUIRE_TOKEN_FAILURE) {
+        console.error('Token acquisition failed:', event);
+      }
+    });
+  }
   ngOnInit(): void {
     console.log('navbar page loaded');
-  }
-  isLoggedIn(): boolean {
-    // return this.authService.isLoggedIn();
-    return false;
-  }
-  logout(): void {
-    this.authService.logout();
+    this.setLoginDisplay();
   }
 
-  goToLogin() {
-    this.router.navigate(['/signin']);
-  }
 
   isNavbarCollapsed = true;
 
@@ -75,6 +90,37 @@ export class HeaderComponent implements OnInit {
   @HostListener('window:scroll', ['$event'])
   getScrollPosition(event: Event) {
     this.pageYPosition = window.pageYOffset;
+  }
+
+  login(language: string) {
+    if (this.msalGuardConfig.authRequest) {
+      const authRequest = { ...this.msalGuardConfig.authRequest } as RedirectRequest;
+      authRequest.extraQueryParameters = {
+        ui_locales: language // Set the language parameter
+      };
+      this.authService.loginRedirect(authRequest);
+    } else {
+      this.authService.loginRedirect();
+    }
+  }
+
+  logout() {
+    this.authService.logoutRedirect({
+      postLogoutRedirectUri: 'http://localhost:4200'
+    });
+    localStorage.removeItem('accountId');
+  }
+
+  setLoginDisplay() {
+    // total accounts
+    console.log("total accounts: ", this.authService.instance.getAllAccounts().length);
+    this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
+  }
+
+  ngOnDestroy(): void {
+    // Add your code here
+    this._destroying$.next(undefined);
+    this._destroying$.complete();
   }
 
 }
