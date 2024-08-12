@@ -7,7 +7,6 @@ import { Location } from '@angular/common';
 
 import * as AOS from 'aos';
 import { VisitorDetail } from './models/admin/visitor/visitor-detail';
-import { SessionService } from './services/session/session.service';
 
 @Component({
   selector: 'app-root',
@@ -28,14 +27,12 @@ export class AppComponent implements OnInit {
   constructor(private router: Router, private titleService: Title,
     private metaService: Meta,
     private translateService: TranslateService,
-    private location: Location,
-    private sessionService: SessionService) {
+    private location: Location) {
     translateService.setDefaultLang('en');
     // or
     translateService.use('en');
 
     this.visitorData = this.getVisitorInfo();
-    sessionService.setLocalStorageIdentifier();
   }
 
   ngOnInit(): void {

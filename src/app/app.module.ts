@@ -36,7 +36,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { QuestionEditDialogComponent } from './components/general/dialog/topic/question-edit-dialog/question-edit-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatChipsModule } from '@angular/material/chips';
-import { AdminLoginComponent } from './components/admin/auth/admin-login/admin-login.component';
 
 // Import MSAL and MSAL browser libraries.
 import { MSAL_INTERCEPTOR_CONFIG, MsalGuard, MsalInterceptor, MsalModule, MsalRedirectComponent, MsalService } from '@azure/msal-angular';
@@ -76,7 +75,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     FileUploadComponent,
     ConfirmDialogComponent,
     QuestionEditDialogComponent,
-    AdminLoginComponent
   ],
   // ...
 

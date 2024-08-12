@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
-import { AddOrganizationComponent } from './organization/add-organization/add-organization.component';
-import { ListOrganizationComponent } from './organization/list-organization/list-organization.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SideNavComponent } from './navigation/side-nav/side-nav.component';
 import { TopNavComponent } from './navigation/top-nav/top-nav.component';
@@ -26,24 +24,19 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { TopNavbarProfileDropdownComponent } from './navigation/dropdowns/top-navbar-profile-dropdown/top-navbar-profile-dropdown.component';
 import { UserComponent } from './user/user/user.component';
-import { OrganizationComponent } from './organization/organization.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
-import { EditOrganizationComponent } from './organization/edit-organization/edit-organization.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { ConfirmDialogComponent } from './dialog/confirm-dialog/confirm-dialog.component';
 import { VisitorComponent } from './visitor/visitor.component';
-import { ChatComponent } from './chat/chat.component';
 import { MarkdownRendererComponent } from './markdown-renderer/markdown-renderer.component';
 import { CsharpInterviewQaComponent } from './topic/csharp-interview-qa/csharp-interview-qa.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
-    AddOrganizationComponent,
-    ListOrganizationComponent,
     DashboardComponent,
     SideNavComponent,
     TopNavComponent,
@@ -51,11 +44,8 @@ import { CsharpInterviewQaComponent } from './topic/csharp-interview-qa/csharp-i
     NavigationComponent,
     TopNavbarProfileDropdownComponent,
     UserComponent,
-    OrganizationComponent,
-    EditOrganizationComponent,
     ConfirmDialogComponent,
     VisitorComponent,
-    ChatComponent,
     MarkdownRendererComponent,
     CsharpInterviewQaComponent,
   ],
