@@ -20,13 +20,8 @@
           <img src="https://avatars3.githubusercontent.com/keshavsingh4522?size=400" height="22" alt="Profile image"
             class="profileImg" />
         </a>
-        <a class="nav-link" *ngIf="!loginDisplay" [routerLink]="['/setting']" (click)="toggleNavbar()">Settings</a>
-        <a class="nav-link" *ngIf="loginDisplay" [routerLink]="['/']"
-          (click)="logout(); toggleNavbar()">Logout</a>
-        <a class="nav-link" *ngIf="!loginDisplay"
-          [routerLink]="['/authentication/login']" (click)="toggleNavbar()">Login</a>
-        <a class="nav-link" *ngIf="loginDisplay"
-          [routerLink]="['/authentication/signup']" (click)="toggleNavbar()">Logout</a>
+        <a class="nav-link" href="#" *ngIf="!loginDisplay" (click)="login('en')"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+        <a class="nav-link" href="#" *ngIf="loginDisplay" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
       </div>
     </div>
   </div>

@@ -45,17 +45,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration, private authService: MsalService,
     private msalBroadcastService: MsalBroadcastService
   ) {
-    this.msalBroadcastService.msalSubject$.subscribe((event: EventMessage) => {
-      if (event.eventType === EventType.LOGIN_SUCCESS) {
-        console.log('Login success:', event);
-      } else if (event.eventType === EventType.LOGIN_FAILURE) {
-        console.error('Login failure:', event);
-      } else if (event.eventType === EventType.ACQUIRE_TOKEN_SUCCESS) {
-        console.log('Token acquired:', event);
-      } else if (event.eventType === EventType.ACQUIRE_TOKEN_FAILURE) {
-        console.error('Token acquisition failed:', event);
-      }
-    });
+    // this.msalBroadcastService.msalSubject$.subscribe((event: EventMessage) => {
+    //   if (event.eventType === EventType.LOGIN_SUCCESS) {
+    //     console.log('Login success:', event);
+    //   } else if (event.eventType === EventType.LOGIN_FAILURE) {
+    //     console.error('Login failure:', event);
+    //   } else if (event.eventType === EventType.ACQUIRE_TOKEN_SUCCESS) {
+    //     console.log('Token acquired:', event);
+    //   } else if (event.eventType === EventType.ACQUIRE_TOKEN_FAILURE) {
+    //     console.error('Token acquisition failed:', event);
+    //   }
+    // });
   }
   ngOnInit(): void {
     console.log('navbar page loaded');
