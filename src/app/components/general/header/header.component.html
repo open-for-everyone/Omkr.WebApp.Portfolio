@@ -16,13 +16,25 @@
         <a class="nav-link" (click)="scroll('contact'); toggleNavbar()" href="#footer">Contact me</a>
       </div>
       <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="#" (click)="download(slides)"><span>Resume<mat-icon>download</mat-icon></span></a>
         <a class="navbar-brand" href="#">
           <img src="https://avatars3.githubusercontent.com/keshavsingh4522?size=400" height="22" alt="Profile image"
             class="profileImg" />
         </a>
-        <a class="nav-link" href="#" *ngIf="!loginDisplay" (click)="login('en')"><span class="glyphicon glyphicon-log-in"></span> Login</a>
-        <a class="nav-link" href="#" *ngIf="loginDisplay" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+        <a class="nav-link" href="#" *ngIf="!loginDisplay" (click)="login('en')"><mat-icon>login</mat-icon></a>
+        <a class="nav-link" href="#" *ngIf="loginDisplay" (click)="logout()"><mat-icon>logout</mat-icon></a>
       </div>
     </div>
   </div>
 </nav>
+
+<mat-card>
+	<!-- <div class="file">
+		<p>{{ slides.name }}</p>
+		<button (click)="download(slides)" mat-raised-button color="primary">Download</button>
+	</div> -->
+	<mat-progress-bar *ngIf="download$ | async as download"
+		[mode]="download.state === 'PENDING' ? 'buffer' : 'determinate'"
+    [value]="download.progress">
+	</mat-progress-bar>
+</mat-card>

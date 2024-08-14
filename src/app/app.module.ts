@@ -44,6 +44,7 @@ import { InteractionType, PublicClientApplication } from '@azure/msal-browser';
 // Import the Azure AD B2C configuration
 import { msalConfig } from './auth-config';
 import { MSALInterceptorConfigFactory } from './interceptor-config';
+import { getSaver, SAVER } from './services/file/saver.provider';
 
 export function initializeMsal(msalService: MsalService) {
   return () => msalService.initialize();
@@ -134,8 +135,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     //   useFactory: MSALInterceptorConfigFactory,
     // },
 
-    MsalGuard
+    MsalGuard,
     /* Changes end here. */
+    {provide: SAVER, useFactory: getSaver}
   ],
   bootstrap: [
     AppComponent,

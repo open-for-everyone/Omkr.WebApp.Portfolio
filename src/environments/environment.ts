@@ -100,6 +100,7 @@ export const environment = {
     policies: {
       signupSignIn: "B2C_1A_signup_signin"
     },
+    logoutRedirectUri: "https://keshavsingh.net"
   }
   // End MSAL CONFIG Auth
 };

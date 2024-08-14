@@ -3,9 +3,13 @@ import { Router } from '@angular/router';
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { FormControl } from '@angular/forms';
 import { AnalyticService } from 'src/app/services/Analytics/analytic.service';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { MSAL_GUARD_CONFIG, MsalBroadcastService, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
 import { EventMessage, EventType, RedirectRequest } from '@azure/msal-browser';
+import { environment } from 'src/environments/environment';
+import { FileService } from 'src/app/services/file/file.service';
+import { DOCUMENT } from '@angular/common';
+import { Download } from 'src/app/services/file/Download';
 
 @Component({
   selector: 'app-header',
@@ -39,11 +43,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
   responsiveMenuVisible = false;
   pageYPosition = 0;
   cvName = "";
+  cvUrl="";
   languageFormControl: FormControl = new FormControl();
+  slides =
+    { name: 'Resume', url: environment.awsUserApiBaseUrl + environment.fileApiEndpoints.generateUrl.replace("{key}","Keshav_Singh_Resume_2024.pdf") };
+
+  download$!: Observable<Download>;
+
 
   constructor(private router: Router, public analyticsService: AnalyticService,
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration, private authService: MsalService,
-    private msalBroadcastService: MsalBroadcastService
+    private msalBroadcastService: MsalBroadcastService,
+    private downloads: FileService,
+    @Inject(DOCUMENT) private document: Document
   ) {
     // this.msalBroadcastService.msalSubject$.subscribe((event: EventMessage) => {
     //   if (event.eventType === EventType.LOGIN_SUCCESS) {
@@ -106,14 +118,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   logout() {
     this.authService.logoutRedirect({
-      postLogoutRedirectUri: 'http://localhost:4200'
+      postLogoutRedirectUri: environment.AzureAdB2C.logoutRedirectUri
     });
-    localStorage.removeItem('accountId');
   }
 
   setLoginDisplay() {
     // total accounts
     console.log("total accounts: ", this.authService.instance.getAllAccounts().length);
+    console.log("accounts: ", this.authService.instance.getAllAccounts());
     this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
   }
 
@@ -123,4 +135,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this._destroying$.complete();
   }
 
+  download({ name, url }: { name: string, url: string }) {
+    this.downloads.getUrl(url).subscribe((url) => {
+      this.download$ = this.downloads.download(url, name)
+     });
+  }
 }
