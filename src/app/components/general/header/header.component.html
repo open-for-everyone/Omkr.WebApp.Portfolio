@@ -1,4 +1,5 @@
-<nav [@animateMenu] class="navbar navbar-expand-lg navbar-light bg-light">
+<header>
+<nav [@animateMenu] class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
       <img src="../../assets/images/k.png" height="22" alt="brand image" class="brandImg" />
@@ -16,13 +17,14 @@
         <a class="nav-link" (click)="scroll('contact'); toggleNavbar()" href="#footer">Contact me</a>
       </div>
       <div class="navbar-nav ms-auto">
-        <a class="nav-link" href="#" (click)="download(slides)"><span>Resume<mat-icon>download</mat-icon></span></a>
+        <a class="nav-link" href="#" (click)="download(slides)" title="resume"><mat-icon class="mat-download-icon-custom">download</mat-icon> <i class="fa fa-file" aria-hidden="true"></i>
+        </a>
         <a class="navbar-brand" href="#">
           <img src="https://avatars3.githubusercontent.com/keshavsingh4522?size=400" height="22" alt="Profile image"
             class="profileImg" />
         </a>
-        <a class="nav-link" href="#" *ngIf="!loginDisplay" (click)="login('en')"><mat-icon>login</mat-icon></a>
-        <a class="nav-link" href="#" *ngIf="loginDisplay" (click)="logout()"><mat-icon>logout</mat-icon></a>
+        <a class="nav-link" href="#" *ngIf="!loginDisplay" (click)="login('en')" title="login"><mat-icon>login</mat-icon></a>
+        <a class="nav-link" href="#" *ngIf="loginDisplay" (click)="logout()" title="logout"><mat-icon>logout</mat-icon></a>
       </div>
     </div>
   </div>
@@ -38,3 +40,63 @@
     [value]="download.progress">
 	</mat-progress-bar>
 </mat-card>
+
+</header>
+<!-- <header>
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark">
+      <div class="home p-1 rounded">
+          <ul class="navbar-nav">
+              <li class="nav-item p-1 rounded">
+                  <a class="nav-link smooth-scroll text-uppercase" href="#"><i class='bx bx-home'></i> {{'header.home'
+                      | translate}}
+                  </a>
+              </li>
+          </ul>
+      </div>
+      <button class="navbar-toggler nav mb-1">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="container ">
+          <div style="width: 100%; float: right;" class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav" style=" float: right;">
+                  <li class="nav-item p-1 rounded">
+                      <a class="nav-link js-scroll-trigger smooth-scroll text-uppercase" href="#about"><i
+                              class='bx bx-user'></i> {{'header.about' | translate}}
+                      </a>
+                  </li>
+                  <li class="nav-item p-1 rounded">
+                      <a class="nav-link js-scroll-trigger smooth-scroll text-uppercase" href="#skills"><i
+                              class='bx bx-briefcase-alt'></i>{{'header.skills' | translate}}</a>
+                  </li>
+                  <li class="nav-item p-1 rounded">
+                      <a class="nav-link js-scroll-trigger smooth-scroll text-uppercase" href="#cv"> <i
+                              class='bx bx-file-blank'></i>CV</a>
+                  </li>
+                  <li class="nav-item p-1 rounded">
+                      <a class="nav-link js-scroll-trigger smooth-scroll text-uppercase" href="#portfolio"> <i
+                              class='bx bx-book-content'></i>Portfolio</a>
+                  </li>
+                  <li class="nav-item p-1 rounded">
+                      <a class="nav-link js-scroll-trigger smooth-scroll text-uppercase" href="#references"><i
+                              class='bx bxs-badge-check'></i> {{'header.references' | translate}}</a>
+                  </li>
+                  <li class="nav-item p-1 rounded">
+                      <a class="nav-link js-scroll-trigger smooth-scroll text-uppercase" href="#contact"> <i
+                              class='bx bx-envelope'></i>{{'header.contactMe' | translate}}</a>
+                  </li>
+                  <li class="nav-item p-1 rounded">
+                      <mat-radio-group  [(ngModel)]="language" style="margin-top: 5px;"
+                          (change)="languageChange($event)" aria-label="Select a language">
+                          <mat-radio-button value="en" >
+                              English
+                          </mat-radio-button>
+                          <mat-radio-button value="fr" class="pl-3">
+                              Français
+                          </mat-radio-button>
+                      </mat-radio-group>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </nav>
+</header> -->
