@@ -5,7 +5,7 @@ import { FormControl } from '@angular/forms';
 import { AnalyticService } from 'src/app/services/Analytics/analytic.service';
 import { Observable, Subject } from 'rxjs';
 import { MSAL_GUARD_CONFIG, MsalBroadcastService, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
-import { EventMessage, EventType, RedirectRequest } from '@azure/msal-browser';
+import { RedirectRequest } from '@azure/msal-browser';
 import { environment } from 'src/environments/environment';
 import { FileService } from 'src/app/services/file/file.service';
 import { DOCUMENT } from '@angular/common';
@@ -46,7 +46,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   cvUrl="";
   languageFormControl: FormControl = new FormControl();
   slides =
-    { name: 'Resume', url: environment.awsUserApiBaseUrl + environment.fileApiEndpoints.generateUrl.replace("{key}","Keshav_Singh_Resume_2024.pdf") };
+    { name: 'Keshav_Singh_Resume', url: environment.awsUserApiBaseUrl + environment.fileApiEndpoints.generateUrl.replace("{key}","Keshav_Singh_Resume_2024.pdf") };
 
   download$!: Observable<Download>;
 
@@ -89,14 +89,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.router.navigate(['/home']).then(() => document.getElementById(elementId)?.scrollIntoView({ behavior: 'smooth' }));
     }
     this.responsiveMenuVisible = false;
-  }
-
-  downloadCV() {
-    // app url
-    const url = window.location.href;
-
-    // Open a new window with the CV
-    window.open(url + "/../assets/cv/" + this.cvName, "_blank");
   }
 
   @HostListener('window:scroll', ['$event'])
