@@ -15,7 +15,7 @@ export class PageViewService {
   incrementPageView(path: string): Observable<unknown> {
     const pageId = this.createPageIdFromPath(path);
 
-    this.apiUrl = `${environment.awsUserApiBaseUrl}${environment.pageViewApiEndpoints.incrementPageView}`;
+    this.apiUrl = `${environment.awsUserApiBaseUrl}/${environment.mapConfig.analytics}/${environment.pageViewApiEndpoints.incrementPageView}`;
     this.apiUrl = this.apiUrl.replace("{pageId}", (pageId) ?? '');
     return this.http.post(this.apiUrl, { path });
   }
@@ -23,7 +23,7 @@ export class PageViewService {
   getPageViewCount(path: string): Observable<PageViewDetail> {
     const pageId = this.createPageIdFromPath(path);
 
-    this.apiUrl = `${environment.awsUserApiBaseUrl}${environment.pageViewApiEndpoints.pageView}`;
+    this.apiUrl = `${environment.awsUserApiBaseUrl}/${environment.mapConfig.analytics}/${environment.pageViewApiEndpoints.pageView}`;
     this.apiUrl = this.apiUrl.replace("{pageId}", (pageId) ?? '');
     return this.http.get<PageViewDetail>(this.apiUrl);
   }

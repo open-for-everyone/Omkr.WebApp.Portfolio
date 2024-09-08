@@ -46,7 +46,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   cvUrl="";
   languageFormControl: FormControl = new FormControl();
   slides =
-    { name: 'Keshav_Singh_Resume', url: environment.awsUserApiBaseUrl + environment.fileApiEndpoints.generateUrl.replace("{key}","Keshav_Singh_Resume_2024.pdf") };
+    { name: 'Keshav_Singh_Resume', url: environment.awsUserApiBaseUrl + '/'+ environment.mapConfig.analytics +'/' + environment.fileApiEndpoints.generateUrl.replace("{key}","Keshav_Singh_Resume_2024.pdf") };
 
   download$!: Observable<Download>;
 

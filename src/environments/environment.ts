@@ -1,7 +1,26 @@
 export const environment = {
   production: false,
-  awsUserApiBaseUrl: 'https://tzbmrk30i1.execute-api.eu-west-1.amazonaws.com/Prod',
+  awsUserApiBaseUrl: 'https://dev-api-v2.keshavsingh.net',
+  apiVersion: 'v1',
+  mapConfig:{
+    external:"ext",
+    analytics: "ext/analytics/v1",
+  },
+
   countryApiBaseUrl: 'https://api.example.com',
+
+  // Analytics
+  pageViewApiEndpoints: {
+    pageView: 'page-view/{pageId}',
+    incrementPageView: 'page-view/{pageId}',
+  },
+  fileApiEndpoints: {
+    getUrl: 'file/geturl/{key}',
+    generateUrl: 'file/generateUrl/{key}',
+  },
+  eventApiEndpoints: {
+    getEventByDate: 'events/{date}',
+  },
 
   awsUserApiEndpoints: {
     user: '/api/user',
@@ -37,10 +56,7 @@ export const environment = {
     updateMessage: '/api/message/{orgId}/{userName}/{messageId}',
     deleteMessage: '/api/message/{orgId}/{userName}/{messageId}',
   },
-  pageViewApiEndpoints: {
-    pageView: '/api/pageview/{pageId}',
-    incrementPageView: '/api/pageview/increment/{pageId}',
-  },
+
   spotifyApiEndpoints: {
     authUrl: '/api/spotify/auth/{orgId}/{userName}',
     accessToken: '/api/spotify/access-token/{orgId}/{userName}',
@@ -55,20 +71,7 @@ export const environment = {
     user: '/api/spotify/user/{orgId}/{userName}',
     userPlaylists: '/api/spotify/user/playlists/{orgId}/{userName}',
   },
-  eventApiEndpoints: {
-    events: '/api/event',
-    getEvent: '/api/event/{orgId}/{eventId}',
-    getEvents: '/api/event/{orgId}',
-    createEvent: '/api/event/{orgId}',
-    updateEvent: '/api/event/{orgId}/{eventId}',
-    deleteEvent: '/api/event/{orgId}/{eventId}',
 
-    getEventByDate: '/api/events/{date}',
-  },
-  fileApiEndpoints: {
-    getUrl: '/api/file/geturl/{key}',
-    generateUrl: '/api/file/generateUrl/{key}',
-  },
   github: {
     clientId: '26cb4ea080bd30fe7461',
     redirectUri: 'http://localhost:4200/authentication/github-callback',

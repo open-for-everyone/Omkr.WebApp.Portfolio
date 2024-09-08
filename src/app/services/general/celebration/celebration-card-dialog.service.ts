@@ -22,7 +22,7 @@ export class CelebrationCardDialogService {
 
 
   getEventForCurrentDate(): Observable<any> {
-    this.apiUrl = `${environment.awsUserApiBaseUrl}${environment.eventApiEndpoints.getEventByDate}`;
+    this.apiUrl = `${environment.awsUserApiBaseUrl}/${environment.mapConfig.analytics}/${environment.eventApiEndpoints.getEventByDate}`;
     const currentDate = new Date().toISOString().split('T')[0];
 
     this.apiUrl = this.apiUrl.replace('{date}', currentDate);

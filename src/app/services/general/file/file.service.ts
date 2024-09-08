@@ -28,7 +28,7 @@ export class FileService {
 
 
   generateUrl(fileName: string): Observable<string> {
-    const apiUrl = `${environment.awsUserApiBaseUrl}${environment.fileApiEndpoints.generateUrl}`;
+    const apiUrl = `${environment.awsUserApiBaseUrl}/${environment.mapConfig.analytics}/${environment.fileApiEndpoints.generateUrl}`;
     const urlWithFileName = apiUrl.replace('{key}', fileName);
     console.log('generate file Url endpoint: ' + urlWithFileName);
     return this.http.get<string>(urlWithFileName, { responseType: 'text' as 'json' });
