@@ -21,6 +21,11 @@ export const environment = {
   eventApiEndpoints: {
     getEventByDate: 'events/{date}',
   },
+  portfolioApiEndpoints: {
+    experience:{
+      getWorkExperiences: 'work-experience',
+    },
+  },
 
   awsUserApiEndpoints: {
     user: '/api/user',
