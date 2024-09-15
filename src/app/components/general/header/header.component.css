@@ -47,3 +47,7 @@ mat-card {
   justify-content: space-between;
   align-items: center;
 }
+
+.nav-link mat-icon {
+  margin-right: 5px; /* Adjust icon spacing */
+}

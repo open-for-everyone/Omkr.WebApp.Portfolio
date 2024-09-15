@@ -101,11 +101,16 @@
 </head>
 
 <body>
-  <app-root>loading...</app-root>
-  <app-redirect></app-redirect>
-  <noscript>Please enable JavaScript to continue using this application.</noscript>
   <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7491898429210678"
      crossorigin="anonymous"></script> -->
-</body>
 
+<app-root>
+  <div class="fade show" style="text-align: center; padding-top: calc(100vh / 2); height: 100vh">
+    <i class="spinner-grow spinner-grow-sm"></i>
+    <span class="m-1">Loading...</span>
+  </div>
+</app-root>
+<app-redirect></app-redirect>
+<noscript>Please enable JavaScript to continue using this application.</noscript>
+</body>
 </html>

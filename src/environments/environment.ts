@@ -1,6 +1,8 @@
 export const environment = {
   production: false,
   awsUserApiBaseUrl: 'https://dev-api-v2.keshavsingh.net',
+  blogUrl: 'https://www.blogs.keshavsingh.net',
+  adminUrl: 'https://www.admin.keshavsingh.net',
   apiVersion: 'v1',
   mapConfig:{
     external:"ext",

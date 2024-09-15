@@ -44,6 +44,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   pageYPosition = 0;
   cvName = "";
   cvUrl="";
+  blogUrl = environment.blogUrl;
+  adminUrl = environment.adminUrl;
   languageFormControl: FormControl = new FormControl();
   slides =
     { name: 'Keshav_Singh_Resume', url: environment.awsUserApiBaseUrl + '/'+ environment.mapConfig.analytics +'/' + environment.fileApiEndpoints.generateUrl.replace("{key}","Keshav_Singh_Resume_2024.pdf") };
