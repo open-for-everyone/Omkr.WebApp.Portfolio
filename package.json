@@ -45,7 +45,7 @@
     "ng-animate": "^2.0.1",
     "ngx-google-analytics": "^14.0.1",
     "rxjs": "~7.8.0",
-    "swagger-ui": "^5.10.3",
+    "swagger-ui": "^5.17.14",
     "swagger-ui-dist": "^5.10.3",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
