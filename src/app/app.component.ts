@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Location } from '@angular/common';
 
 
-import * as AOS from 'aos';
 import { VisitorDetail } from './models/admin/visitor/visitor-detail';
 
 @Component({
@@ -13,7 +11,7 @@ import { VisitorDetail } from './models/admin/visitor/visitor-detail';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'Keshav Singh Portfolio';
   visitorData: VisitorDetail={
     userAgent: '',
@@ -24,7 +22,7 @@ export class AppComponent implements OnInit {
     language: ''
   };
 
-  constructor(private router: Router, private titleService: Title,
+  constructor(private titleService: Title,
     private metaService: Meta,
     private translateService: TranslateService,
     private location: Location) {
@@ -33,19 +31,6 @@ export class AppComponent implements OnInit {
     translateService.use('en');
 
     this.visitorData = this.getVisitorInfo();
-  }
-
-  ngOnInit(): void {
-
-    // this.router.events.subscribe((event) => {
-    //   if (event instanceof NavigationEnd) {
-    //     AOS.refresh();
-    //   }
-    // });
-
-    AOS.init();
-
-    console.log('Visitor Data: ' + JSON.stringify(this.visitorData));
   }
 
   getVisitorInfo(): VisitorDetail {

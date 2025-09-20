@@ -1,17 +1,17 @@
-<section class="section contact" id='contact'>
+<section class="section contact" id='contact' [@fadeInOut]>
   <div class="container">
       <div class="section-box">
-          <div class="mb-4" data-aos="fade-up" data-aos-duration="1000">
+          <div class="mb-4">
               <h3 class="navbar-pre-title navbar-main-title">03. {{"Contact.Pretitle" | translate}}</h3>
               <h4 class="e-font navbar-title navbar-main-title">
                   {{"Contact.Title" | translate}}
               </h4>
           </div>
-          <p data-aos="fade-up" data-aos-duration="1000">
+          <p>
               {{"Contact.Content" | translate}}
           </p>
           <div class="mt-5">
-              <a (click)='analyticsService.sendAnalyticEvent("click_send_mail", "contact", "email")' href="mailto:keshavsingh4522@gmail.com" target="_blank" class="main-btn" data-aos="fade-up" data-aos-duration="1000">
+              <a (click)='analyticsService.sendAnalyticEvent("click_send_mail", "contact", "email")' href="mailto:keshavsingh4522@gmail.com" target="_blank" class="main-btn">
                   {{"Contact.Btn" | translate}}
               </a>
           </div>

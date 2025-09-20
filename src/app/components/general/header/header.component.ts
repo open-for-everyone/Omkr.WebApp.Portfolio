@@ -59,21 +59,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private downloads: FileService,
     @Inject(DOCUMENT) private document: Document
   ) {
-    // this.msalBroadcastService.msalSubject$.subscribe((event: EventMessage) => {
-    //   if (event.eventType === EventType.LOGIN_SUCCESS) {
-    //     console.log('Login success:', event);
-    //   } else if (event.eventType === EventType.LOGIN_FAILURE) {
-    //     console.error('Login failure:', event);
-    //   } else if (event.eventType === EventType.ACQUIRE_TOKEN_SUCCESS) {
-    //     console.log('Token acquired:', event);
-    //   } else if (event.eventType === EventType.ACQUIRE_TOKEN_FAILURE) {
-    //     console.error('Token acquisition failed:', event);
-    //   }
-    // });
   }
   ngOnInit(): void {
-    console.log('navbar page loaded');
     this.setLoginDisplay();
+  const theme = (localStorage.getItem('theme') as 'dark'|'light') || 'dark';
+  this.setTheme(theme);
   }
 
 
@@ -93,8 +83,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.responsiveMenuVisible = false;
   }
 
-  @HostListener('window:scroll', ['$event'])
-  getScrollPosition(event: Event) {
+  @HostListener('window:scroll')
+  getScrollPosition() {
     this.pageYPosition = window.pageYOffset;
   }
 
@@ -117,9 +107,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   setLoginDisplay() {
-    // total accounts
-    console.log("total accounts: ", this.authService.instance.getAllAccounts().length);
-    console.log("accounts: ", this.authService.instance.getAllAccounts());
     this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
   }
 
@@ -133,5 +120,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.downloads.getUrl(url).subscribe((url) => {
       this.download$ = this.downloads.download(url, name)
      });
+  }
+
+  // Theme toggle
+  toggleTheme(){
+    const current = localStorage.getItem('theme') || 'dark';
+    const next = current === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('theme', next);
+    this.setTheme(next);
+  }
+
+  private setTheme(mode: 'dark'|'light'){
+    const body = this.document.body;
+    body.classList.toggle('light', mode === 'light');
   }
 }

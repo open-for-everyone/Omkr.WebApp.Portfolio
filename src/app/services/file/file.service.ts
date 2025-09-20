@@ -3,7 +3,6 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Saver, SAVER } from './saver.provider';
 import { download, Download } from './Download';
-import { saveAs } from 'file-saver';
 
 
 @Injectable({
@@ -29,7 +28,7 @@ export class FileService {
   }
 
 
-  blob(url: string, filename?: string): Observable<Blob> {
+  blob(url: string): Observable<Blob> {
     return this.http.get(url, {
       responseType: 'blob'
     })
