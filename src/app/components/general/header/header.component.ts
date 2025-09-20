@@ -68,7 +68,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 
   isNavbarCollapsed = true;
-  activeSection: 'home'|'about'|'jobs'|'contact'|null = null;
+  activeSection: 'home'|'about'|'experience'|'contact'|null = null;
 
   toggleNavbar() {
     this.isNavbarCollapsed = !this.isNavbarCollapsed;
@@ -109,7 +109,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private updateActiveSection(){
     const sections = [
       { id: 'about', name: 'about' as const },
-      { id: 'jobs', name: 'jobs' as const },
+      { id: 'experience', name: 'experience' as const },
       { id: 'contact', name: 'contact' as const }
     ];
     let current: typeof this.activeSection = 'home';
