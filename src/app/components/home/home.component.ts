@@ -6,17 +6,20 @@ import { CelebrationCardDialogService } from 'src/app/services/general/celebrati
 import { CelebrationCardDialogComponent } from '../general/celebration-card-dialog/celebration-card-dialog.component';
 import { FileService } from 'src/app/services/general/file/file.service';
 
+interface ConfettiParticle { style: { left: string; backgroundColor: string } }
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent implements OnInit, OnChanges {
 
   pageUrl = '';
   currentEvent: unknown = null;
   @Input() show = false;
-  confetti: any[] = [];
+  confetti: ConfettiParticle[] = [];
   /**
    *
    */
@@ -34,39 +37,22 @@ export class HomeComponent implements OnInit, OnChanges {
   }
   ngOnInit(): void {
     this.pageUrl = this.router.url;
-    this.renderer2.setStyle(document.body, "background-color", "#0a192f");
     this.pageViewService.incrementPageView(this.router.url).subscribe();
-    // this.celebrationDialogService.openCelebrationDialog();
-
-    // this.celebrationDialogService.getEventForCurrentDate().subscribe(event => {
-    //   console.log(event);
-    //   this.currentEvent = event;
-    //   if (this.currentEvent) {
-    //     console.log('opening dialog');
-    //     this.celebrationDialogService.openCelebrationDialog();
-    //   }
-    // });
 
     this.celebrationDialogService.getEventForCurrentDate().subscribe(event => {
       if (event) {
-
-        console.log('Retrieving file URL');
         this.fileService.getUrl2(event.imageUrl).subscribe(fileUrl => {
-          // Now you have the additional URL (fileUrl), you can modify the event object or pass it separately
-          console.log('Opening dialog with file URL');
           event.imageUrl = fileUrl;
           this.dialog.open(CelebrationCardDialogComponent, {
-            data: event, // Pass the additional URL as part of the data
+            data: event,
             width: '400px'
           });
         }, fileServiceError => {
           console.error('Error retrieving file URL:', fileServiceError);
-          // Handle errors from file service here
         });
       }
     }, error => {
-      console.log(error);
-      // Handle errors here, for example, logging them
+      console.error('Error fetching celebration event:', error);
     });
 
   }
@@ -76,7 +62,6 @@ export class HomeComponent implements OnInit, OnChanges {
       style: {
         left: `${Math.random() * 100}%`,
         backgroundColor: this.getRandomColor(),
-        // Add more randomized styles for animation, size, etc.
       }
     }));
 

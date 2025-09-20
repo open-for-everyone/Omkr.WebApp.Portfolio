@@ -36,15 +36,19 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { QuestionEditDialogComponent } from './components/general/dialog/topic/question-edit-dialog/question-edit-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 // Import MSAL and MSAL browser libraries.
-import { MSAL_INTERCEPTOR_CONFIG, MsalGuard, MsalInterceptor, MsalModule, MsalRedirectComponent, MsalService } from '@azure/msal-angular';
+import { MsalGuard, MsalInterceptor, MsalModule, MsalRedirectComponent, MsalService } from '@azure/msal-angular';
 import { InteractionType, PublicClientApplication } from '@azure/msal-browser';
 
 // Import the Azure AD B2C configuration
 import { msalConfig } from './auth-config';
 import { MSALInterceptorConfigFactory } from './interceptor-config';
 import { getSaver, SAVER } from './services/file/saver.provider';
+import { SkillsComponent } from './components/home/skills/skills.component';
+import { ExperienceComponent } from './components/home/experience/experience.component';
+import { ProjectsCarouselComponent, ProjectDialogComponent } from './components/home/projects/projects-carousel.component';
 
 export function initializeMsal(msalService: MsalService) {
   return () => msalService.initialize();
@@ -76,6 +80,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     FileUploadComponent,
     ConfirmDialogComponent,
     QuestionEditDialogComponent,
+    SkillsComponent,
+    ExperienceComponent,
+    ProjectsCarouselComponent,
+    ProjectDialogComponent,
   ],
   // ...
 
@@ -105,6 +113,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatChipsModule, // Add this line
     MatProgressBarModule,
     MatChipsModule, // Add this line
+  MatTooltipModule,
     // Initiate the MSAL library with the MSAL configuration object
     MsalModule.forRoot(new PublicClientApplication(msalConfig),
       {

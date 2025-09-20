@@ -95,3 +95,80 @@ body {
   margin: auto;
   width: fit-content;
 }
+
+:root{
+  --bg:#0f1724; /* deep navy */
+  --card:#0b1220;
+  --muted:#94a3b8;
+  --accent:#64ffda;
+  --primary:#3976d2;
+  --glass: rgba(255,255,255,0.04);
+  --radius:12px;
+  --container-max:1080px;
+}
+
+/* Light theme fallback for existing color palette */
+body.light {
+  --bg:#f6f8fb;
+  --card:#fff;
+  --muted:#556779;
+  --accent:#0ea5a4;
+  --primary:#3976d2;
+  --glass: rgba(255,255,255,0.7);
+}
+
+html, body { background:var(--bg); color:var(--muted); }
+
+/* Responsive centered container */
+.container { max-width:var(--container-max); margin:0 auto; padding:0 1rem; }
+
+/* Hero section */
+.hero {
+  padding:6rem 0 4rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:2rem;
+}
+.hero-left { flex:1; }
+.hero-right { flex:1; display:flex; align-items:center; justify-content:center; }
+.hero .eyebrow { color:var(--accent); font-family: "SF Mono", monospace; letter-spacing:1px; }
+.hero h1 { color:#e6eef8; font-size: clamp(2rem, 5vw, 3.6rem); margin:0 0 .5rem; }
+.hero p.lead { color:var(--muted); font-size:1.05rem; max-width:60ch; }
+
+/* Cards */
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:var(--radius);
+  padding:1.25rem;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+  color: #cbd5e1;
+}
+
+/* Buttons */
+.btn-modern {
+  display:inline-flex; gap:.6rem; align-items:center; justify-content:center;
+  background: linear-gradient(90deg,var(--primary), #2b5fb3);
+  color:#fff; padding:.6rem 1rem; border-radius:10px; border:0; cursor:pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn-modern:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(57,118,210,0.18); }
+
+/* Glass navbar utility */
+.navbar-glass { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); backdrop-filter: blur(6px); border-bottom:1px solid rgba(255,255,255,0.03); }
+
+/* Utilities */
+.muted { color:var(--muted); }
+.accent { color:var(--accent); }
+
+/* Footer improvements */
+footer { color:var(--muted); padding:2rem 1rem; }
+
+/* Responsive tweaks */
+@media (max-width: 900px){
+  .hero { flex-direction:column-reverse; text-align:center; }
+  .hero-right { margin-bottom:1rem; }
+}
+
+/* Accessible focus outline */
+:focus { outline: 3px solid rgba(100,255,218,0.12); outline-offset:2px; }

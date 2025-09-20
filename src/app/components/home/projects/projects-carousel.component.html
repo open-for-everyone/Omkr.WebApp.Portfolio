@@ -1,0 +1,21 @@
+<section class="container" aria-label="projects">
+  <h2 class="navbar-title" style="font-size:2rem;margin:0 0 1rem;">Highlighted Projects</h2>
+  <ngb-carousel [interval]="6000" [keyboard]="true" [pauseOnHover]="true">
+    <ng-template ngbSlide *ngFor="let p of projects">
+      <div class="slide card">
+        <img [src]="p.image" alt="" />
+        <div class="content">
+          <h3>{{ p.title }}</h3>
+          <p class="muted">{{ p.summary }}</p>
+          <div class="chips">
+            <span class="chip" *ngFor="let t of p.tags">{{ t }}</span>
+          </div>
+          <div class="actions">
+            <button class="btn-modern" (click)="openDetails(p)">Details</button>
+            <a class="btn-modern" *ngIf="p.link" [href]="p.link" target="_blank">Open</a>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ngb-carousel>
+</section>

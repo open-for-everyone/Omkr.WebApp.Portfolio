@@ -7,8 +7,5 @@ import { AnalyticService } from 'src/app/services/Analytics/analytic.service';
   styleUrls: ['./about.component.css']
 })
 export class AboutComponent {
-  handleImageKeyUp($event: KeyboardEvent) {
-    console.log($event.type);
-}
-  constructor(public analyticsService: AnalyticService) { }
+  constructor(public readonly analyticsService: AnalyticService) {}
 }

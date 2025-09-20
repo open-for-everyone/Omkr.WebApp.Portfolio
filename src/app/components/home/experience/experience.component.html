@@ -1,0 +1,19 @@
+<section class="container timeline" aria-label="experience">
+  <h2 class="navbar-title" style="font-size:2rem;margin:0 0 1rem;">{{ title }}</h2>
+  <ol>
+    <li *ngFor="let e of items; let i = index" class="card">
+      <div class="dot">{{ i + 1 }}</div>
+      <div class="content">
+        <div class="meta">
+          <span class="role">{{ e.role }}</span>
+          <span class="period">{{ e.period }}</span>
+        </div>
+        <h3 class="company">{{ e.company }}</h3>
+        <p class="summary">{{ e.summary }}</p>
+        <div class="chips">
+          <span class="chip" *ngFor="let s of e.stack">{{ s }}</span>
+        </div>
+      </div>
+    </li>
+  </ol>
+</section>
