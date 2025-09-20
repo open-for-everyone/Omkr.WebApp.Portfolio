@@ -1,4 +1,4 @@
-<div class="page-view-counter">
-  <span class="view-count">{{ viewCount }}</span>
-  <span class="view-label">Views</span>
+<div class="page-view-counter" *ngIf="pageViewCount$ | async as count">
+  <mat-icon>visibility</mat-icon>
+  <span>{{ count }}</span>
 </div>

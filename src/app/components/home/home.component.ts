@@ -2,8 +2,6 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PageViewService } from 'src/app/services/PageView/page-view.service';
-import { CelebrationCardDialogService } from 'src/app/services/general/celebration/celebration-card-dialog.service';
-import { CelebrationCardDialogComponent } from '../general/celebration-card-dialog/celebration-card-dialog.component';
 import { FileService } from 'src/app/services/general/file/file.service';
 
 interface ConfettiParticle { style: { left: string; backgroundColor: string } }
@@ -24,7 +22,7 @@ export class HomeComponent implements OnInit, OnChanges {
    *
    */
   constructor(private pageViewService: PageViewService, private router: Router,
-    private celebrationDialogService: CelebrationCardDialogService, private dialog: MatDialog,
+    private dialog: MatDialog,
     private fileService: FileService) {
 
   }
@@ -38,23 +36,6 @@ export class HomeComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.pageUrl = this.router.url;
     this.pageViewService.incrementPageView(this.router.url).subscribe();
-
-    this.celebrationDialogService.getEventForCurrentDate().subscribe(event => {
-      if (event) {
-        this.fileService.getUrl2(event.imageUrl).subscribe(fileUrl => {
-          event.imageUrl = fileUrl;
-          this.dialog.open(CelebrationCardDialogComponent, {
-            data: event,
-            width: '400px'
-          });
-        }, fileServiceError => {
-          console.error('Error retrieving file URL:', fileServiceError);
-        });
-      }
-    }, error => {
-      console.error('Error fetching celebration event:', error);
-    });
-
   }
   startConfetti() {
     this.confetti = Array.from({ length: 100 }).map(() => ({

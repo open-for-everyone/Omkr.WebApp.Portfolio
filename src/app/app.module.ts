@@ -21,9 +21,7 @@ import { ProgressBarComponent } from './components/general/progress-bar/progress
 import { VideoComponent } from './components/home/video/video.component';
 import { PageViewCounterComponent } from './components/general/counter/page-view-counter/page-view-counter.component';
 import { MatIconModule } from '@angular/material/icon';
-import { CelebrationCardComponent } from './components/general/celebration-card/celebration-card.component';
 import { MatCardModule } from '@angular/material/card';
-import { CelebrationCardDialogComponent } from './components/general/celebration-card-dialog/celebration-card-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfettiComponent } from './components/general/confetti/confetti.component';
 import { FileUploadComponent } from './components/general/file/file-upload/file-upload.component';
@@ -70,10 +68,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     NotFoundComponent,
     ProgressBarComponent,
     VideoComponent,
-    //Remove the following line:
-    PageViewCounterComponent,
-    CelebrationCardComponent,
-    CelebrationCardDialogComponent,
     ConfettiComponent,
     FileUploadComponent,
     ConfirmDialogComponent,
@@ -82,6 +76,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ExperienceComponent,
     ProjectsCarouselComponent,
     ProjectDialogComponent,
+    PageViewCounterComponent,
   ],
   // ...
 
@@ -110,8 +105,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatFormFieldModule,
     MatChipsModule, // Add this line
     MatProgressBarModule,
-    MatChipsModule, // Add this line
-  MatTooltipModule,
+    MatTooltipModule,
     // Initiate the MSAL library with the MSAL configuration object
     MsalModule.forRoot(new PublicClientApplication(msalConfig),
       {

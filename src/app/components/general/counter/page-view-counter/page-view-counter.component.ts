@@ -1,38 +1,27 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { PageViewDetail } from 'src/app/models/PageView/page-view-detail';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { PageViewService } from 'src/app/services/PageView/page-view.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { PageViewDetail } from 'src/app/models/PageView/page-view-detail';
 
 @Component({
   selector: 'app-page-view-counter',
   templateUrl: './page-view-counter.component.html',
-  styleUrls: ['./page-view-counter.component.css']
+  styleUrls: ['./page-view-counter.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PageViewCounterComponent implements OnInit {
+  @Input() pageId!: string;
+  pageViewCount$!: Observable<number>;
 
-  @Input() pageId = '';
-  viewCount = 0;
+  constructor(private pageViewService: PageViewService) { }
 
-  /**
-   *
-   */
-  constructor(private pageViewService: PageViewService, private router: Router) {
-  }
   ngOnInit(): void {
-    this.getPageViewCount();
-  }
-
-  getPageViewCount(): void {
-    console.log('Page counter url: ' + this.router.url);
-    this.pageViewService.getPageViewCount(this.router.url).subscribe(
-      (pageViewDetail: PageViewDetail) => {
-        this.viewCount = pageViewDetail.viewCount;
-        console.log('Response View count: ' + pageViewDetail.viewCount);
-        console.log('Response View:', pageViewDetail);
-      },
-      (error) => {
-        console.error('Error fetching view count:', error);
-      }
-    );
+    if (this.pageId) {
+      this.pageViewService.incrementPageView(this.pageId).subscribe();
+      this.pageViewCount$ = this.pageViewService.getPageViewCount(this.pageId).pipe(
+        map((detail: PageViewDetail) => detail.viewCount)
+      );
+    }
   }
 }
