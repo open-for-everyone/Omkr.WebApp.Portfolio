@@ -5,9 +5,9 @@ import { NotFoundComponent } from './components/general/not-found/not-found.comp
 // import { MsalGuard } from '@azure/msal-angular';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: '', component: HomeComponent, pathMatch: 'full', data: { title: 'Keshav Singh — Portfolio' } },
   // Admin module is currently not present; route disabled
-  { path: '404', component: NotFoundComponent },
+  { path: '404', component: NotFoundComponent, data: { title: 'Page Not Found — Keshav Singh' } },
   { path: '**', redirectTo: '/404', pathMatch: 'full' }
 ];
 

@@ -3,7 +3,7 @@
   <ngb-carousel [interval]="6000" [keyboard]="true" [pauseOnHover]="true">
     <ng-template ngbSlide *ngFor="let p of projects">
       <div class="slide card">
-        <img [src]="p.image" alt="" />
+  <img [src]="p.image" alt="Project preview" loading="lazy" width="800" height="450" />
         <div class="content">
           <h3>{{ p.title }}</h3>
           <p class="muted">{{ p.summary }}</p>

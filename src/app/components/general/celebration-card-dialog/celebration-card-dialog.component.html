@@ -2,7 +2,7 @@
   <h1 class="title">{{ event.title }}</h1>
   <div class="content">
     <p>{{ event.description }}</p>
-    <img *ngIf="event.imageUrl" [src]="event.imageUrl" alt="{{ event.title }}" class="event-image">
+  <img *ngIf="event.imageUrl" [src]="event.imageUrl" alt="{{ event.title }}" class="event-image" loading="lazy">
   </div>
   <div class="actions">
     <button mat-button (click)="event = null">Close</button>
@@ -18,6 +18,6 @@
   </div>
   <mat-dialog-content class="event-content">
     <p>{{ data?.description }}</p>
-    <img *ngIf="data?.imageUrl" [src]="data.imageUrl" alt="{{ data.title }}" class="event-image" />
+  <img *ngIf="data?.imageUrl" [src]="data.imageUrl" alt="{{ data.title }}" class="event-image" loading="lazy" />
   </mat-dialog-content>
 </div>

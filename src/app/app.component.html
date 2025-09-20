@@ -1,1 +1,11 @@
-<router-outlet></router-outlet>
+<a class="skip-link" href="#main-content">Skip to content</a>
+
+<main id="main-content" tabindex="-1">
+	<router-outlet></router-outlet>
+</main>
+
+<button class="back-to-top" type="button" aria-label="Back to top" (click)="scrollToTop()" [class.show]="showBackToTop">
+	↑
+	<span class="visually-hidden">Back to top</span>
+
+</button>

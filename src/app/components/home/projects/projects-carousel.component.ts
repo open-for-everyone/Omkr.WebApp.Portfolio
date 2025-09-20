@@ -32,7 +32,7 @@ export class ProjectsCarouselComponent {
   selector: 'app-project-dialog',
   template: `
   <div class="dialog">
-    <img [src]="data.image" alt="" />
+  <img [src]="data.image" alt="Project image" loading="lazy" width="800" height="450" />
     <h3>{{ data.title }}</h3>
     <p>{{ data.summary }}</p>
     <div class="chips">

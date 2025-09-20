@@ -14,7 +14,6 @@ import { HeaderComponent } from './components/general/header/header.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AboutComponent } from './components/home/about/about.component';
 import { BannerComponent } from './components/home/banner/banner.component';
-import { JobComponent } from './components/home/job/job.component';
 import { ContactComponent } from './components/home/contact/contact.component';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/general/not-found/not-found.component';
@@ -67,7 +66,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     AboutComponent,
     BannerComponent,
     ContactComponent,
-    JobComponent,
     HomeComponent,
     NotFoundComponent,
     ProgressBarComponent,

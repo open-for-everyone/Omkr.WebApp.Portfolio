@@ -68,6 +68,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 
   isNavbarCollapsed = true;
+  activeSection: 'home'|'about'|'jobs'|'contact'|null = null;
 
   toggleNavbar() {
     this.isNavbarCollapsed = !this.isNavbarCollapsed;
@@ -83,9 +84,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.responsiveMenuVisible = false;
   }
 
+  scrollTop(){
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   @HostListener('window:scroll')
   getScrollPosition() {
     this.pageYPosition = window.pageYOffset;
+    this.updateActiveSection();
   }
 
   login(language: string) {
@@ -98,6 +104,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
     } else {
       this.authService.loginRedirect();
     }
+  }
+
+  private updateActiveSection(){
+    const sections = [
+      { id: 'about', name: 'about' as const },
+      { id: 'jobs', name: 'jobs' as const },
+      { id: 'contact', name: 'contact' as const }
+    ];
+    let current: typeof this.activeSection = 'home';
+    for(const s of sections){
+      const el = document.getElementById(s.id);
+      if(!el) continue;
+      const rect = el.getBoundingClientRect();
+      if(rect.top <= 120 && rect.bottom >= 120){
+        current = s.name;
+        break;
+      }
+    }
+    this.activeSection = current;
   }
 
   logout() {

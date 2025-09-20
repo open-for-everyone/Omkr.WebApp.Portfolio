@@ -118,6 +118,7 @@ body.light {
 }
 
 html, body { background:var(--bg); color:var(--muted); }
+html { scroll-behavior: smooth; }
 
 /* Responsive centered container */
 .container { max-width:var(--container-max); margin:0 auto; padding:0 1rem; }
@@ -171,4 +172,10 @@ footer { color:var(--muted); padding:2rem 1rem; }
 }
 
 /* Accessible focus outline */
-:focus { outline: 3px solid rgba(100,255,218,0.12); outline-offset:2px; }
+:focus-visible { outline: 3px solid rgba(100,255,218,0.18); outline-offset:2px; }
+:focus:not(:focus-visible) { outline: none; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}

@@ -1,7 +1,7 @@
 <nav [@animateMenu] class="navbar navbar-expand-lg navbar-dark bg-dark navbar-glass">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
-      <img src="../../assets/images/k.png" height="22" alt="brand image" class="brandImg" />
+  <img src="../../assets/images/k.png" height="22" alt="brand image" class="brandImg" loading="lazy" width="22" />
     </a>
     <button class="navbar-toggler" type="button" (click)="toggleNavbar()" aria-controls="navbarNavAltMarkup"
       [attr.aria-expanded]="!isNavbarCollapsed" aria-label="Toggle navigation">
@@ -9,10 +9,10 @@
     </button>
     <div [class.collapse]="isNavbarCollapsed" [class.navbar-collapse]="true" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" (click)="toggleNavbar()" href="#">Home</a>
-        <a class="nav-link" (click)="scroll('about'); toggleNavbar()" href="#about">About me</a>
-        <a class="nav-link" (click)="scroll('jobs'); toggleNavbar()" href="#jobs">Experience</a>
-        <a class="nav-link" (click)="scroll('contact'); toggleNavbar()" href="#footer">Contact me</a>
+  <a class="nav-link" [class.active]="activeSection==='home'" aria-current="page" (click)="scrollTop(); toggleNavbar()" href="#">Home</a>
+        <a class="nav-link" [class.active]="activeSection==='about'" (click)="scroll('about'); toggleNavbar()" href="#about">About me</a>
+        <a class="nav-link" [class.active]="activeSection==='jobs'" (click)="scroll('jobs'); toggleNavbar()" href="#jobs">Experience</a>
+        <a class="nav-link" [class.active]="activeSection==='contact'" (click)="scroll('contact'); toggleNavbar()" href="#contact">Contact me</a>
         <a class="nav-link" [href]="blogUrl" target="_blank">Blogs</a>
         <a class="nav-link" [href]="adminUrl" target="_blank">Admin</a>
       </div>
@@ -29,7 +29,7 @@
 
         <!-- Profile Image -->
         <a class="navbar-brand" href="#">
-          <img src="https://avatars3.githubusercontent.com/keshavsingh4522?size=400" height="22" alt="Profile image"
+          <img src="https://avatars3.githubusercontent.com/keshavsingh4522?size=400" height="22" width="22" alt="Profile image" loading="lazy"
             class="profileImg" />
         </a>
 
