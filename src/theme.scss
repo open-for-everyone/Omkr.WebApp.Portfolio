@@ -1,0 +1,36 @@
+@use '@angular/material' as mat;
+
+// Include core styles once
+@include mat.core();
+
+// Palettes
+$primary: mat.define-palette(mat.$indigo-palette, 500);
+$accent: mat.define-palette(mat.$teal-palette, 400);
+$warn: mat.define-palette(mat.$red-palette);
+
+// Themes
+$light-theme: mat.define-light-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+  ),
+));
+
+$dark-theme: mat.define-dark-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+  ),
+));
+
+// Apply typographies once to avoid duplication
+@include mat.all-component-typographies($light-theme);
+
+// Apply only color palettes per theme to avoid duplicate density/typography
+body.dark-theme { @include mat.all-component-colors($dark-theme); }
+body.light-theme { @include mat.all-component-colors($light-theme); }
+
+// Global density (compact) across all components
+@include mat.all-component-densities(-1);

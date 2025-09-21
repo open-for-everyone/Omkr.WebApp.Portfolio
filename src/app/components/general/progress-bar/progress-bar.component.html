@@ -1,7 +1,3 @@
-<!-- progress-bar.component.html -->
 <div class="progress-container">
-  <div class="progress-bar"
-       [style.width]="progress + '%'"
-       [@animateProgressBar]="{ value: progress, params: { progress: progress } }">
-  </div>
+  <mat-progress-bar mode="determinate" [value]="progress" color="accent"></mat-progress-bar>
 </div>

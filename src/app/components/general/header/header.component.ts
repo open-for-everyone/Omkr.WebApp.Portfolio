@@ -51,6 +51,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     { name: 'Keshav_Singh_Resume', url: environment.awsUserApiBaseUrl + '/'+ environment.mapConfig.analytics +'/' + environment.fileApiEndpoints.generateUrl.replace("{key}","Keshav_Singh_Resume_2024.pdf") };
 
   download$!: Observable<Download>;
+  isLight = false;
 
 
   constructor(private router: Router, public analyticsService: AnalyticService,
@@ -158,5 +159,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private setTheme(mode: 'dark'|'light'){
     const body = this.document.body;
     body.classList.toggle('light', mode === 'light');
+    body.classList.toggle('light-theme', mode === 'light');
+    body.classList.toggle('dark-theme', mode === 'dark');
+    this.isLight = mode === 'light';
   }
 }

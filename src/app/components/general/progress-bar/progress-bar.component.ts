@@ -1,4 +1,3 @@
-import { animate, style, transition, trigger } from '@angular/animations';
 import { DOCUMENT } from '@angular/common';
 import { Component, HostListener, Inject } from '@angular/core';
 
@@ -6,13 +5,6 @@ import { Component, HostListener, Inject } from '@angular/core';
   selector: 'app-progress-bar',
   templateUrl: './progress-bar.component.html',
   styleUrls: ['./progress-bar.component.css'],
-  animations: [
-    trigger('animateProgressBar', [
-      transition('* => *', [
-        animate('1s ease-in-out', style({ width: '{{progress}}%' })),
-      ]),
-    ]),
-  ],
 })
 export class ProgressBarComponent {
   progress = 0;

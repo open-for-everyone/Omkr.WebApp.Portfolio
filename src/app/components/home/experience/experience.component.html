@@ -1,19 +1,18 @@
-<section class="container timeline" aria-label="experience">
+<section class="container" aria-label="experience">
   <h2 class="navbar-title" style="font-size:2rem;margin:0 0 1rem;">{{ title }}</h2>
-  <ol>
-    <li *ngFor="let e of items; let i = index" class="card">
-      <div class="dot">{{ i + 1 }}</div>
-      <div class="content">
-        <div class="meta">
-          <span class="role">{{ e.role }}</span>
-          <span class="period">{{ e.period }}</span>
-        </div>
-        <h3 class="company">{{ e.company }}</h3>
+  <div class="experience-list">
+    <mat-card *ngFor="let e of items; let i = index" appearance="outlined" class="experience-card">
+      <mat-card-header>
+        <div mat-card-avatar class="dot">{{ i + 1 }}</div>
+        <mat-card-title>{{ e.company }}</mat-card-title>
+        <mat-card-subtitle>{{ e.role }} · {{ e.period }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
         <p class="summary">{{ e.summary }}</p>
-        <div class="chips">
-          <span class="chip" *ngFor="let s of e.stack">{{ s }}</span>
-        </div>
-      </div>
-    </li>
-  </ol>
+        <mat-chip-set class="chips">
+          <mat-chip *ngFor="let s of e.stack">{{ s }}</mat-chip>
+        </mat-chip-set>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </section>

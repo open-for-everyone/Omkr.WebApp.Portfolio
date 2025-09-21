@@ -1,12 +1,20 @@
 <section class="container" aria-label="projects">
   <h2 class="navbar-title" style="font-size:2rem;margin:0 0 1rem;">Highlighted Projects</h2>
-  <div class="filters card">
-    <input type="text" placeholder="Search projects..." [(ngModel)]="query" />
-    <div class="tag-row">
-      <button class="tag" [class.active]="!selectedTag" (click)="selectedTag=null">All</button>
-      <button class="tag" *ngFor="let t of tags" [class.active]="selectedTag===t" (click)="selectedTag=t">{{ t }}</button>
-    </div>
-  </div>
+  <mat-card appearance="outlined" class="filters">
+    <mat-card-content>
+      <mat-form-field appearance="outline" style="width:100%;">
+        <mat-label>Search projects</mat-label>
+        <input matInput [(ngModel)]="query" placeholder="Search projects..." />
+        <button mat-icon-button matSuffix aria-label="Clear" *ngIf="query" (click)="query=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <div class="tag-row">
+        <button mat-stroked-button color="primary" [class.active]="!selectedTag" (click)="selectedTag=null">All</button>
+        <button mat-stroked-button color="primary" *ngFor="let t of tags" [class.active]="selectedTag===t" (click)="selectedTag=t">{{ t }}</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
   <ngb-carousel [interval]="6000" [keyboard]="true" [pauseOnHover]="true">
     <ng-template ngbSlide *ngFor="let p of filtered">
       <div class="slide card">
@@ -18,8 +26,8 @@
             <span class="chip" *ngFor="let t of p.tags">{{ t }}</span>
           </div>
           <div class="actions">
-            <button class="btn-modern" (click)="openDetails(p)">Details</button>
-            <a class="btn-modern" *ngIf="p.link" [href]="p.link" target="_blank">Open</a>
+            <button mat-raised-button color="primary" (click)="openDetails(p)">Details</button>
+            <a mat-stroked-button color="accent" *ngIf="p.link" [href]="p.link" target="_blank" rel="noopener">Open</a>
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,20 +21,12 @@ import { NotFoundComponent } from './components/general/not-found/not-found.comp
 import { ProgressBarComponent } from './components/general/progress-bar/progress-bar.component';
 import { VideoComponent } from './components/home/video/video.component';
 import { PageViewCounterComponent } from './components/general/counter/page-view-counter/page-view-counter.component';
-import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MaterialModule } from './material.module';
 import { ConfettiComponent } from './components/general/confetti/confetti.component';
 import { FileUploadComponent } from './components/general/file/file-upload/file-upload.component';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 import { ConfirmDialogComponent } from './components/general/dialog/confirm-dialog/confirm-dialog.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { QuestionEditDialogComponent } from './components/general/dialog/topic/question-edit-dialog/question-edit-dialog.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatTooltipModule } from '@angular/material/tooltip';
+// Removed individual Material imports in favor of shared MaterialModule
 
 // Import MSAL and MSAL browser libraries.
 import { MsalGuard, MsalInterceptor, MsalModule, MsalRedirectComponent, MsalService } from '@azure/msal-angular';
@@ -98,16 +91,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    MatIconModule,
-    MatCardModule,
-    MatDialogModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    MatFormFieldModule,
-    MatChipsModule, // Add this line
-    MatProgressBarModule,
-    MatTooltipModule,
+    MaterialModule,
     // Initiate the MSAL library with the MSAL configuration object
     MsalModule.forRoot(new PublicClientApplication(msalConfig),
       {
@@ -121,32 +105,24 @@ export function HttpLoaderFactory(http: HttpClient) {
     )
   ],
   providers: [
-    /* Changes start here. */
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MsalInterceptor,
       multi: true,
     },
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } },
     {
       provide: APP_INITIALIZER,
       useFactory: initializeMsal,
       deps: [MsalService],
       multi: true
     },
-    // {
-    //   provide: MSAL_INTERCEPTOR_CONFIG,
-    //   useFactory: MSALInterceptorConfigFactory,
-    // },
-
     MsalGuard,
-    /* Changes end here. */
     {provide: SAVER, useFactory: getSaver}
   ],
   bootstrap: [
     AppComponent,
-    /* Changes start here. */
     MsalRedirectComponent
-    /* Changes end here. */
   ]
 })
 export class AppModule { }

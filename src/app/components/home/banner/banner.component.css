@@ -1,8 +1,7 @@
-.banner {
-  /* min-height: 100vh; */
-}
 .banner .container {
   display: table;
+  background: transparent !important;
+  color: #e6eef8;
   /* height: 100vh; */
 }
 .banner .container .section-box-banner {
@@ -41,3 +40,4 @@
 .banner .container .section-box-banner .div-btn-banner {
   height: 43px;
 }
+

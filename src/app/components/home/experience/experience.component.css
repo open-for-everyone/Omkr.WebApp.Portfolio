@@ -9,3 +9,4 @@ li { position:relative; padding-left:56px; margin: 0 0 1rem; }
 .summary { margin:0 0 .6rem; }
 .chips { display:flex; flex-wrap:wrap; gap:.4rem; }
 .chip { background:rgba(255,255,255,0.06); padding:.25rem .6rem; border-radius:999px; font-size:.8rem; }
+.experience-card{ background: transparent !important; color: #e6eef8;}

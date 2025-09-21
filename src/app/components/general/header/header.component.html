@@ -1,42 +1,47 @@
-<nav [@animateMenu] class="navbar navbar-expand-lg navbar-dark bg-dark navbar-glass">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-  <img src="../../assets/images/k.png" height="22" alt="brand image" class="brandImg" loading="lazy" width="22" />
+<mat-toolbar color="primary" class="navbar-glass" [@animateMenu]>
+  <button mat-icon-button aria-label="Home" (click)="scrollTop()">
+    <img src="../../assets/images/k.png" alt="brand image" class="brandImg" loading="lazy" />
+  </button>
+
+  <span class="spacer"></span>
+
+  <nav class="nav-links" [class.open]="!isNavbarCollapsed">
+    <button mat-button [class.active]="activeSection==='home'" (click)="scrollTop(); toggleNavbar()" (keyup.enter)="scrollTop(); toggleNavbar()" (keyup.space)="$event.preventDefault(); scrollTop(); toggleNavbar()">Home</button>
+    <button mat-button [class.active]="activeSection==='about'" (click)="scroll('about'); toggleNavbar()" (keyup.enter)="scroll('about'); toggleNavbar()" (keyup.space)="$event.preventDefault(); scroll('about'); toggleNavbar()">About me</button>
+    <button mat-button [class.active]="activeSection==='experience'" (click)="scroll('experience'); toggleNavbar()" (keyup.enter)="scroll('experience'); toggleNavbar()" (keyup.space)="$event.preventDefault(); scroll('experience'); toggleNavbar()">Experience</button>
+    <button mat-button [class.active]="activeSection==='contact'" (click)="scroll('contact'); toggleNavbar()" (keyup.enter)="scroll('contact'); toggleNavbar()" (keyup.space)="$event.preventDefault(); scroll('contact'); toggleNavbar()">Contact me</button>
+    <a mat-button [href]="blogUrl" target="_blank" rel="noopener">Blogs</a>
+    <a mat-button [href]="adminUrl" target="_blank" rel="noopener">Admin</a>
+  </nav>
+
+  <span class="spacer"></span>
+
+  <div class="actions">
+    <a mat-icon-button href="tel:+919982761929" title="Call us" aria-label="Call">
+      <mat-icon>phone</mat-icon>
     </a>
-    <button class="navbar-toggler" type="button" (click)="toggleNavbar()" aria-controls="navbarNavAltMarkup"
-      [attr.aria-expanded]="!isNavbarCollapsed" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <a mat-icon-button href="https://wa.me/9982761929" target="_blank" rel="noopener" title="WhatsApp" aria-label="WhatsApp">
+      <mat-icon>chat</mat-icon>
+    </a>
+    <button mat-stroked-button color="accent" (click)="download(slides)" title="Resume">Resume</button>
+
+    <button mat-icon-button (click)="toggleTheme()" [attr.aria-label]="'Toggle theme'" title="Toggle theme">
+      <mat-icon>{{ isLight ? 'light_mode' : 'dark_mode' }}</mat-icon>
     </button>
-    <div [class.collapse]="isNavbarCollapsed" [class.navbar-collapse]="true" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-  <a class="nav-link" [class.active]="activeSection==='home'" aria-current="page" (click)="scrollTop(); toggleNavbar()" href="#">Home</a>
-        <a class="nav-link" [class.active]="activeSection==='about'" (click)="scroll('about'); toggleNavbar()" href="#about">About me</a>
-        <a class="nav-link" [class.active]="activeSection==='experience'" (click)="scroll('experience'); toggleNavbar()" href="#experience">Experience</a>
-        <a class="nav-link" [class.active]="activeSection==='contact'" (click)="scroll('contact'); toggleNavbar()" href="#contact">Contact me</a>
-        <a class="nav-link" [href]="blogUrl" target="_blank">Blogs</a>
-        <a class="nav-link" [href]="adminUrl" target="_blank">Admin</a>
-      </div>
-      <div class="navbar-nav ms-auto">
-        <!-- Contact Links -->
-        <a class="nav-link" href="tel:+919982761929" title="Call us"><mat-icon>phone</mat-icon></a>
-        <a class="nav-link" href="https://wa.me/9982761929" target="_blank" title="WhatsApp"><mat-icon>chat</mat-icon></a>
 
-        <!-- Resume Download -->
-        <a class="nav-link" href="#" (click)="download(slides)" title="resume">Resume</a>
+    <button mat-icon-button aria-label="Profile">
+      <img src="https://avatars3.githubusercontent.com/keshavsingh4522?size=400" alt="Profile image" class="profileImg" loading="lazy" />
+    </button>
 
-  <!-- Theme Toggle -->
-  <a class="nav-link" href="#" (click)="toggleTheme()" title="Toggle theme"><mat-icon>dark_mode</mat-icon></a>
-
-        <!-- Profile Image -->
-        <a class="navbar-brand" href="#">
-          <img src="https://avatars3.githubusercontent.com/keshavsingh4522?size=400" height="22" width="22" alt="Profile image" loading="lazy"
-            class="profileImg" />
-        </a>
-
-        <!-- Login/Logout -->
-        <a class="nav-link" href="#" *ngIf="!loginDisplay" (click)="login('en')" title="login"><mat-icon>login</mat-icon></a>
-        <a class="nav-link" href="#" *ngIf="loginDisplay" (click)="logout()" title="logout"><mat-icon>logout</mat-icon></a>
-      </div>
-    </div>
+    <button mat-icon-button *ngIf="!loginDisplay" (click)="login('en')" title="login" aria-label="Login">
+      <mat-icon>login</mat-icon>
+    </button>
+    <button mat-icon-button *ngIf="loginDisplay" (click)="logout()" title="logout" aria-label="Logout">
+      <mat-icon>logout</mat-icon>
+    </button>
   </div>
-</nav>
+
+  <button mat-icon-button class="menu-toggle" (click)="toggleNavbar()" aria-label="Menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>

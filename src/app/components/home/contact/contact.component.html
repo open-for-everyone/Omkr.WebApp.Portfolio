@@ -1,20 +1,20 @@
-<section class="section contact" id='contact' [@fadeInOut]>
-  <div class="container">
-      <div class="section-box">
-          <div class="mb-4">
-              <h3 class="navbar-pre-title navbar-main-title"> {{"Contact.Pretitle" | translate}}</h3>
-              <h4 class="e-font navbar-title navbar-main-title">
-                  {{"Contact.Title" | translate}}
-              </h4>
-          </div>
-          <p>
-              {{"Contact.Content" | translate}}
-          </p>
-          <div class="mt-5">
-              <a (click)='analyticsService.sendAnalyticEvent("click_send_mail", "contact", "email")' href="mailto:keshavsingh4522@gmail.com" target="_blank" class="main-btn">
-                  {{"Contact.Btn" | translate}}
-              </a>
-          </div>
-      </div>
-  </div>
+<section id="contact" class="contact" [@fadeInOut]>
+    <mat-card class="contact-card" appearance="outlined">
+        <mat-card-header>
+            <mat-card-title>{{ 'Contact.Title' | translate }}</mat-card-title>
+            <mat-card-subtitle style="color: #e6eef8;">{{ 'Contact.Pretitle' | translate }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <p>{{ 'Contact.Content' | translate }}</p>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <a mat-raised-button color="primary"
+                 href="mailto:keshavsingh4522@gmail.com" target="_blank" rel="noopener"
+                 (click)="analyticsService.sendAnalyticEvent('click_send_mail','contact','email')">
+                <mat-icon aria-hidden="true">mail</mat-icon>
+                <span class="sr-only">Email</span>
+                {{ 'Contact.Btn' | translate }}
+            </a>
+        </mat-card-actions>
+    </mat-card>
 </section>

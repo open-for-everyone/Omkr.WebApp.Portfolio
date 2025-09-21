@@ -1,36 +1,46 @@
 <section class="section about" id="about">
-    <div class="container">
-        <h3 class="navbar-pre-title d-flex justify-content-start">
-            {{ 'AboutMe.Title' | translate }}
-        </h3>
-        <div class="row g-4 align-items-center">
-            <div class="col-12 col-md-6">
-                <div class="about-description card">
-                    <p *ngFor="let text of 'AboutMe.Paragraphs' | translate" [innerHTML]="text"></p>
-                    <div class="chips" aria-label="key skills">
-                        <span class="chip">.NET Core</span>
-                        <span class="chip">AWS</span>
-                        <span class="chip">Azure DevOps</span>
-                        <span class="chip">Microservices</span>
-                        <span class="chip">Swagger</span>
-                        <span class="chip">Jira</span>
-                        <span class="chip">TDD</span>
-                        <span class="chip">CI/CD</span>
-                    </div>
-                    <div class="about-actions">
-                        <a class="btn-modern" href="mailto:keshavsingh4522@gmail.com" (click)="analyticsService.sendAnalyticEvent('click_contact','about','email')">Contact</a>
-                        <a class="btn-modern" href="https://www.linkedin.com/in/keshavsingh4522/" target="_blank" rel="noopener" (click)="analyticsService.sendAnalyticEvent('click_resume','about','linkedin')">Resume</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 text-center">
-                <div class="about-img-container">
-                    <img class="profile" width="300" height="300" src="https://avatars.githubusercontent.com/u/43788985?s=400&u=cf0b65c4fa048d4dbc69e1e575993afaa427cda1&v=4" alt="Keshav Singh" loading="lazy"
-                        tabindex="0"
-                        (click)="analyticsService.sendAnalyticEvent('click_image','about','image')"
-                        (keyup.enter)="analyticsService.sendAnalyticEvent('click_image','about','image')" />
-                </div>
-            </div>
+  <div class="container">
+    <h3 class="navbar-pre-title d-flex justify-content-start">
+      {{ 'AboutMe.Title' | translate }}
+    </h3>
+    <div class="row g-4 align-items-center">
+      <div class="col-12 col-md-6">
+        <mat-card appearance="outlined" class="about-card">
+          <mat-card-content>
+            <p *ngFor="let text of 'AboutMe.Paragraphs' | translate" [innerHTML]="text"></p>
+            <mat-chip-set aria-label="key skills">
+              <mat-chip>.NET Core</mat-chip>
+              <mat-chip>AWS</mat-chip>
+              <mat-chip>Azure</mat-chip>
+              <mat-chip>Azure DevOps</mat-chip>
+              <mat-chip>Microservices</mat-chip>
+              <mat-chip>Swagger</mat-chip>
+              <mat-chip>Jira</mat-chip>
+              <mat-chip>TDD</mat-chip>
+              <mat-chip>CI/CD</mat-chip>
+            </mat-chip-set>
+          </mat-card-content>
+          <mat-card-actions>
+            <a mat-raised-button color="primary" href="mailto:keshavsingh4522@gmail.com"
+              (click)="analyticsService.sendAnalyticEvent('click_contact','about','email')">
+              Contact
+            </a>
+            <a mat-stroked-button color="accent" href="https://www.linkedin.com/in/keshavsingh4522/" target="_blank"
+              rel="noopener" (click)="analyticsService.sendAnalyticEvent('click_resume','about','linkedin')">
+              Resume
+            </a>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      <div class="col-12 col-md-6 text-center">
+        <div class="about-img-container">
+          <img class="profile" width="300" height="300"
+            src="https://avatars.githubusercontent.com/u/43788985?s=400&u=cf0b65c4fa048d4dbc69e1e575993afaa427cda1&v=4"
+            alt="Keshav Singh" loading="lazy" tabindex="0"
+            (click)="analyticsService.sendAnalyticEvent('click_image','about','image')"
+            (keyup.enter)="analyticsService.sendAnalyticEvent('click_image','about','image')" />
         </div>
+      </div>
     </div>
+  </div>
 </section>

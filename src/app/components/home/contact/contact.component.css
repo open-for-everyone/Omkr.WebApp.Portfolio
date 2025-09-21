@@ -1,26 +1,25 @@
 .contact {
-  margin: 0 auto;
-  max-width: 1000px;
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto;
-  /* height: 100vh; */
-  display: table;
-}
-.contact .container {
-  display: table-cell;
-  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 16px;
 }
 
-@media (max-width: 768px) {
-  .contact {
-    height: 100vh;
-    padding: 0 !important;
-    margin: 0 auto !important;
-    display: table;
- }
-  .contact .container {
-    display: table-cell;
-    vertical-align: middle;
- }
+.contact-card {
+  width: 100%;
+  max-width: 640px;
+  background-color: transparent !important;
+  color: #e6eef8;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
