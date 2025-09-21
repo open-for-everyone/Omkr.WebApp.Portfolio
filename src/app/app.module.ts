@@ -46,6 +46,7 @@ import { getSaver, SAVER } from './services/file/saver.provider';
 import { SkillsComponent } from './components/home/skills/skills.component';
 import { ExperienceComponent } from './components/home/experience/experience.component';
 import { ProjectsCarouselComponent, ProjectDialogComponent } from './components/home/projects/projects-carousel.component';
+import { CommandPaletteComponent } from './components/general/command-palette/command-palette.component';
 
 export function initializeMsal(msalService: MsalService) {
   return () => msalService.initialize();
@@ -77,6 +78,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProjectsCarouselComponent,
     ProjectDialogComponent,
     PageViewCounterComponent,
+  CommandPaletteComponent,
   ],
   // ...
 

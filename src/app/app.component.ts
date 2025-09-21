@@ -1,8 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Location } from '@angular/common';
+import { CommandPaletteComponent, CommandItem } from './components/general/command-palette/command-palette.component';
+import { environment } from 'src/environments/environment';
 
 
 import { VisitorDetail } from './models/admin/visitor/visitor-detail';
@@ -15,6 +17,11 @@ import { VisitorDetail } from './models/admin/visitor/visitor-detail';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'Keshav Singh Portfolio';
   showBackToTop = false;
+  paletteOpen = false;
+  @ViewChild(CommandPaletteComponent) palette?: CommandPaletteComponent;
+  confetti = false;
+  private konamiIndex = 0;
+  private readonly konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
   visitorData: VisitorDetail={
     userAgent: '',
     browserName: '',
@@ -71,9 +78,52 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     });
     window.addEventListener('scroll', this.onWindowScroll, { passive: true });
+
+    // Initialize command palette items after first tick
+    setTimeout(() => {
+      const items: CommandItem[] = [
+        { id:'home', label:'Go: Home', action: () => window.scrollTo({ top:0, behavior:'smooth' }) },
+        { id:'about', label:'Go: About', action: () => document.getElementById('about')?.scrollIntoView({ behavior:'smooth' }) },
+        { id:'experience', label:'Go: Experience', action: () => document.getElementById('experience')?.scrollIntoView({ behavior:'smooth' }) },
+        { id:'contact', label:'Go: Contact', action: () => document.getElementById('contact')?.scrollIntoView({ behavior:'smooth' }) },
+        { id:'blog', label:'Open Blog', hint: environment.blogUrl, action: () => window.open(environment.blogUrl, '_blank') },
+        { id:'admin', label:'Open Admin', hint: environment.adminUrl, action: () => window.open(environment.adminUrl, '_blank') },
+        { id:'resume', label:'Download Resume', action: () => document.querySelector('app-header a[title="resume"]')?.dispatchEvent(new MouseEvent('click', { bubbles:true })) },
+        { id:'github', label:'Open GitHub', hint: 'github.com/keshavsingh4522', action: () => window.open('https://github.com/keshavsingh4522', '_blank') },
+      ];
+      this.palette?.setCommands(items);
+    });
   }
 
   ngOnDestroy(): void {
     window.removeEventListener('scroll', this.onWindowScroll);
+  }
+
+  // Keyboard shortcuts: Ctrl+K or /
+  @HostListener('document:keydown', ['$event'])
+  onKeydown(ev: KeyboardEvent){
+    const isMac = navigator.platform.toUpperCase().includes('MAC');
+    const ctrlOrCmd = isMac ? ev.metaKey : ev.ctrlKey;
+    if((ctrlOrCmd && ev.key.toLowerCase() === 'k') || (!this.paletteOpen && ev.key === '/')){
+      this.paletteOpen = !this.paletteOpen;
+      ev.preventDefault();
+    }
+
+    // Konami code
+    const expected = this.konami[this.konamiIndex];
+    if(ev.key.toLowerCase() === expected.toLowerCase()){
+      this.konamiIndex++;
+      if(this.konamiIndex === this.konami.length){
+        this.triggerConfetti();
+        this.konamiIndex = 0;
+      }
+    } else {
+      this.konamiIndex = 0;
+    }
+  }
+
+  private triggerConfetti(){
+    this.confetti = true;
+    setTimeout(()=> this.confetti = false, 10000);
   }
 }

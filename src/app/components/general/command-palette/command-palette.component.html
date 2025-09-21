@@ -1,0 +1,15 @@
+<div class="overlay" *ngIf="open" tabindex="0" role="dialog" aria-modal="true" (click)="close()" (keyup.escape)="close()">
+  <div class="panel" (click)="$event.stopPropagation()">
+    <input type="text" placeholder="Search commands... (type to filter)" [(ngModel)]="query" />
+    <ul>
+      <li *ngFor="let i of filtered; let idx = index" [class.active]="idx===activeIndex" tabindex="0" (click)="select(idx)" (keyup.enter)="select(idx)">
+        <span class="label">{{ i.label }}</span>
+        <span class="hint" *ngIf="i.hint">{{ i.hint }}</span>
+      </li>
+      <li class="empty" *ngIf="filtered.length===0">No results</li>
+    </ul>
+    <div class="help">
+      <span>Enter: run</span><span>Esc: close</span><span>↑↓: navigate</span>
+    </div>
+  </div>
+  </div>

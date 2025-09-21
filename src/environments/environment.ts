@@ -82,6 +82,8 @@ export const environment = {
   github: {
     clientId: '26cb4ea080bd30fe7461',
     redirectUri: 'http://localhost:4200/authentication/github-callback',
+    username: 'keshavsingh4522',
+    apiBase: 'https://api.github.com'
   },
 
   // START MSAL CONFIG Auth

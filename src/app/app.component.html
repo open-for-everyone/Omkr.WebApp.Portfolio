@@ -4,6 +4,10 @@
 	<router-outlet></router-outlet>
 </main>
 
+<!-- Global Utilities -->
+<app-command-palette [(open)]="paletteOpen"></app-command-palette>
+<app-confetti [show]="confetti"></app-confetti>
+
 <button class="back-to-top" type="button" aria-label="Back to top" (click)="scrollToTop()" [class.show]="showBackToTop">
 	↑
 	<span class="visually-hidden">Back to top</span>

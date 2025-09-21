@@ -1,7 +1,14 @@
 <section class="container" aria-label="projects">
   <h2 class="navbar-title" style="font-size:2rem;margin:0 0 1rem;">Highlighted Projects</h2>
+  <div class="filters card">
+    <input type="text" placeholder="Search projects..." [(ngModel)]="query" />
+    <div class="tag-row">
+      <button class="tag" [class.active]="!selectedTag" (click)="selectedTag=null">All</button>
+      <button class="tag" *ngFor="let t of tags" [class.active]="selectedTag===t" (click)="selectedTag=t">{{ t }}</button>
+    </div>
+  </div>
   <ngb-carousel [interval]="6000" [keyboard]="true" [pauseOnHover]="true">
-    <ng-template ngbSlide *ngFor="let p of projects">
+    <ng-template ngbSlide *ngFor="let p of filtered">
       <div class="slide card">
   <img [src]="p.image" alt="Project preview" loading="lazy" width="800" height="450" />
         <div class="content">

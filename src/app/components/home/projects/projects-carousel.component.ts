@@ -23,6 +23,24 @@ export class ProjectsCarouselComponent {
     { title:'Events Pipeline', image:'assets/images/keshav-singh-portfolio-preview.png', summary:'Event-driven pipeline with queues, DLQs and observability.', tags:['Node.js','RabbitMQ','Grafana'] }
   ];
 
+  query = '';
+  selectedTag: string|null = null;
+
+  get tags(): string[]{
+    const set = new Set<string>();
+    this.projects.forEach(p => p.tags.forEach(t => set.add(t)));
+    return Array.from(set.values()).sort();
+  }
+
+  get filtered(){
+    const q = this.query.toLowerCase().trim();
+    return this.projects.filter(p => {
+      const matchesTag = !this.selectedTag || p.tags.includes(this.selectedTag);
+      const matchesText = !q || p.title.toLowerCase().includes(q) || p.summary.toLowerCase().includes(q) || p.tags.some(t => t.toLowerCase().includes(q));
+      return matchesTag && matchesText;
+    });
+  }
+
   openDetails(p: Project){
     this.dialog.open(ProjectDialogComponent, { data: p, panelClass: 'project-dialog' });
   }
