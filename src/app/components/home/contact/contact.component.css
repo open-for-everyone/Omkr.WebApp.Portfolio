@@ -4,7 +4,7 @@
   text-align: center;
   max-width: 600px;
   margin: 0 auto;
-  height: 100vh;
+  /* height: 100vh; */
   display: table;
 }
 .contact .container {
