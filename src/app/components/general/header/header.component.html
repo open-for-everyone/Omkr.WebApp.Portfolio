@@ -8,7 +8,9 @@
   <nav class="nav-links" [class.open]="!isNavbarCollapsed">
     <button mat-button [class.active]="activeSection==='home'" (click)="scrollTop(); toggleNavbar()" (keyup.enter)="scrollTop(); toggleNavbar()" (keyup.space)="$event.preventDefault(); scrollTop(); toggleNavbar()">Home</button>
     <button mat-button [class.active]="activeSection==='about'" (click)="scroll('about'); toggleNavbar()" (keyup.enter)="scroll('about'); toggleNavbar()" (keyup.space)="$event.preventDefault(); scroll('about'); toggleNavbar()">About me</button>
+    <button mat-button [class.active]="activeSection==='skills'" (click)="scroll('skills'); toggleNavbar()" (keyup.enter)="scroll('skills'); toggleNavbar()" (keyup.space)="$event.preventDefault(); scroll('skills'); toggleNavbar()">Skills</button>
     <button mat-button [class.active]="activeSection==='experience'" (click)="scroll('experience'); toggleNavbar()" (keyup.enter)="scroll('experience'); toggleNavbar()" (keyup.space)="$event.preventDefault(); scroll('experience'); toggleNavbar()">Experience</button>
+    <button mat-button [class.active]="activeSection==='projects'" (click)="scroll('projects'); toggleNavbar()" (keyup.enter)="scroll('projects'); toggleNavbar()" (keyup.space)="$event.preventDefault(); scroll('projects'); toggleNavbar()">Projects</button>
     <button mat-button [class.active]="activeSection==='contact'" (click)="scroll('contact'); toggleNavbar()" (keyup.enter)="scroll('contact'); toggleNavbar()" (keyup.space)="$event.preventDefault(); scroll('contact'); toggleNavbar()">Contact me</button>
     <a mat-button [href]="blogUrl" target="_blank" rel="noopener">Blogs</a>
     <a mat-button [href]="adminUrl" target="_blank" rel="noopener">Admin</a>
