@@ -1,104 +1,105 @@
 <section id="contact" class="contact" [@fadeInOut]>
-    <mat-card class="contact-card" appearance="outlined">
-        <mat-card-header>
-            <mat-card-title>{{ 'Contact.Title' | translate }}</mat-card-title>
-            <mat-card-subtitle>{{ 'Contact.Pretitle' | translate }}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-            <div class="contact-grid">
-                                <div class="map-col">
-                                                            <div class="map-search">
-                                                                <mat-form-field appearance="outline" class="full-width">
-                                                                    <mat-label>Search a place</mat-label>
-                                                                    <input #searchEl matInput [formControl]="searchControl" [matAutocomplete]="auto">
-                                                                    <mat-icon matSuffix>search</mat-icon>
-                                                                </mat-form-field>
-                                                                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="pickPlace($event.option.value)">
-                                                                    <mat-option *ngFor="let o of (options$ | async)" [value]="o">
-                                                                        {{ o.display_name }}
-                                                                    </mat-option>
-                                                                </mat-autocomplete>
-                                                            </div>
+  <mat-card class="contact-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>{{ 'Contact.Title' | translate }}</mat-card-title>
+      <mat-card-subtitle>{{ 'Contact.Pretitle' | translate }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="contact-grid">
+        <div class="map-col">
+          <div class="map-search">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Search a place</mat-label>
+              <input #searchEl matInput [formControl]="searchControl" [matAutocomplete]="auto">
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+              (optionSelected)="pickPlace($event.option.value)">
+              <mat-option *ngFor="let o of (options$ | async)" [value]="o">
+                {{ o.display_name }}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
 
-                                                            <div class="map-wrapper">
-                                                                <ng-container *ngIf="mapUrl; else inWrapperFallback">
-                                                                    <iframe title="Your location"
-                                                                            [src]="mapUrl | safeUrl"
-                                                                            loading="lazy"
-                                                                            referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                                                </ng-container>
-                                                                <ng-template #inWrapperFallback>
-                                                                    <div class="map-fallback">
-                                                                        <mat-icon>map</mat-icon>
-                                                                        <p>Location access is disabled. You can still contact me.</p>
-                                                                    </div>
-                                                                </ng-template>
-                                                            </div>
-                                                            <div class="map-actions">
-                                                                <button mat-stroked-button color="primary" type="button" (click)="togglePin()">
-                                                                    <mat-icon>{{ isPinned ? 'push_pin' : 'push_pin' }}</mat-icon>
-                                                                    <span>{{ isPinned ? 'Unpin' : 'Pin' }}</span>
-                                                                </button>
-                                                                <button mat-stroked-button color="accent" class="btn-outline-accent" type="button" (click)="useMyLocation()">
-                                                                    <mat-icon>my_location</mat-icon>
-                                                                    <span>Use my location</span>
-                                                                </button>
-                                                            </div>
-                                                                                <div class="map-status" aria-live="polite" [class.pulse]="pulse">
-                                                                                    <mat-icon class="status-pin" [class.pinned]="isPinned">room</mat-icon>
-                                                                                    <span class="status-text">{{ selectionLabel }}</span>
-                                                                                    <span class="status-meta" *ngIf="accuracy">± {{ accuracy | number:'1.0-0' }} m</span>
-                                                                                    <span class="status-chip" *ngIf="selectionSource">
-                                                                                        {{ selectionSource === 'search' ? 'Search' : selectionSource === 'gps' ? 'GPS' : 'Auto' }}
-                                                                                    </span>
-                                                                                    <button mat-button color="warn" type="button" class="status-clear" (click)="clearSelection()" *ngIf="latitude && longitude">
-                                                                                        <mat-icon>clear</mat-icon>
-                                                                                        Clear
-                                                                                    </button>
-                                                                                </div>
+          <div class="map-wrapper">
+            <ng-container *ngIf="mapUrl; else inWrapperFallback">
+              <iframe title="Your location" [src]="mapUrl | safeUrl" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </ng-container>
+            <ng-template #inWrapperFallback>
+              <div class="map-fallback">
+                <mat-icon>map</mat-icon>
+                <p>Location access is disabled. You can still contact me.</p>
+              </div>
+            </ng-template>
+          </div>
+          <div class="map-actions">
+            <button mat-stroked-button color="primary" type="button" (click)="togglePin()">
+              <mat-icon>{{ isPinned ? 'push_pin' : 'push_pin' }}</mat-icon>
+              <span>{{ isPinned ? 'Unpin' : 'Pin' }}</span>
+            </button>
+            <button mat-stroked-button color="accent" class="btn-outline-accent" type="button"
+              (click)="useMyLocation()">
+              <mat-icon>my_location</mat-icon>
+              <span>Use my location</span>
+            </button>
+          </div>
+          <div class="map-status" aria-live="polite" [class.pulse]="pulse">
+            <mat-icon class="status-pin" [class.pinned]="isPinned">room</mat-icon>
+            <span class="status-text">{{ selectionLabel }}</span>
+            <span class="status-meta" *ngIf="accuracy">± {{ accuracy | number:'1.0-0' }} m</span>
+            <span class="status-chip" *ngIf="selectionSource">
+              {{ selectionSource === 'search' ? 'Search' : selectionSource === 'gps' ? 'GPS' : 'Auto' }}
+            </span>
+            <button mat-button color="warn" type="button" class="status-clear" (click)="clearSelection()"
+              *ngIf="latitude && longitude">
+              <mat-icon>clear</mat-icon>
+              Clear
+            </button>
+          </div>
 
-                </div>
-                <div class="form-col">
-                    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
-                        <mat-form-field appearance="outline" class="full-width">
-                            <mat-label>Name</mat-label>
-                            <input matInput formControlName="name">
-                            <mat-icon matSuffix>person</mat-icon>
-                            <mat-error *ngIf="form.get('name')?.hasError('required')">Name is required</mat-error>
-                            <mat-error *ngIf="form.get('name')?.hasError('minlength')">At least 2 characters</mat-error>
-                        </mat-form-field>
+        </div>
+        <div class="form-col">
+          <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Name</mat-label>
+              <input matInput formControlName="name">
+              <mat-icon matSuffix>person</mat-icon>
+              <mat-error *ngIf="form.get('name')?.hasError('required')">Name is required</mat-error>
+              <mat-error *ngIf="form.get('name')?.hasError('minlength')">At least 2 characters</mat-error>
+            </mat-form-field>
 
-                        <mat-form-field appearance="outline" class="full-width">
-                            <mat-label>Email</mat-label>
-                            <input matInput type="email" formControlName="email">
-                            <mat-icon matSuffix>mail</mat-icon>
-                            <mat-error *ngIf="form.get('email')?.hasError('required')">Email is required</mat-error>
-                            <mat-error *ngIf="form.get('email')?.hasError('email')">Enter a valid email</mat-error>
-                        </mat-form-field>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Email</mat-label>
+              <input matInput type="email" formControlName="email">
+              <mat-icon matSuffix>mail</mat-icon>
+              <mat-error *ngIf="form.get('email')?.hasError('required')">Email is required</mat-error>
+              <mat-error *ngIf="form.get('email')?.hasError('email')">Enter a valid email</mat-error>
+            </mat-form-field>
 
-                        <mat-form-field appearance="outline" class="full-width">
-                            <mat-label>Message</mat-label>
-                            <textarea matInput rows="5" formControlName="message"></textarea>
-                            <mat-icon matSuffix>chat</mat-icon>
-                            <mat-error *ngIf="form.get('message')?.hasError('required')">Message is required</mat-error>
-                            <mat-error *ngIf="form.get('message')?.hasError('minlength')">At least 10 characters</mat-error>
-                        </mat-form-field>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Message</mat-label>
+              <textarea matInput rows="5" formControlName="message"></textarea>
+              <mat-icon matSuffix>chat</mat-icon>
+              <mat-error *ngIf="form.get('message')?.hasError('required')">Message is required</mat-error>
+              <mat-error *ngIf="form.get('message')?.hasError('minlength')">At least 10 characters</mat-error>
+            </mat-form-field>
 
-                        <div class="actions">
-                            <button mat-raised-button color="primary" class="btn-modern" type="submit" [disabled]="form.invalid || submitting">
-                                <mat-icon>send</mat-icon>
-                                <span>{{ submitting ? 'Sending…' : 'Send Message' }}</span>
-                            </button>
-                            <a mat-button color="accent"
-                                 href="mailto:keshavsingh4522@gmail.com" target="_blank" rel="noopener"
-                                 (click)="analyticsService.sendAnalyticEvent('click_send_mail','contact','email')">
-                                <mat-icon>alternate_email</mat-icon>
-                                <span>Email directly</span>
-                            </a>
-                        </div>
-                    </form>
-                </div>
+            <div class="actions">
+              <button mat-raised-button color="primary" class="btn-modern" type="submit"
+                [disabled]="form.invalid || submitting">
+                <mat-icon>send</mat-icon>
+                <span>{{ submitting ? 'Sending…' : 'Send Message' }}</span>
+              </button>
+              <a mat-button color="accent" href="mailto:keshavsingh4522@gmail.com" target="_blank" rel="noopener"
+                (click)="analyticsService.sendAnalyticEvent('click_send_mail','contact','email')">
+                <mat-icon>alternate_email</mat-icon>
+                <span>Email directly</span>
+              </a>
             </div>
-        </mat-card-content>
-    </mat-card>
+          </form>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </section>

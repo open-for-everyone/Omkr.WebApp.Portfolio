@@ -4,7 +4,7 @@
   height: 42px;
   display: inline-block;
   border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid var(--border);
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
   padding: 3px;
   box-sizing: border-box;
@@ -12,17 +12,28 @@
 }
 
 /* Navigation links */
-.nav-link {
+/* Theme-aware nav buttons/links */
+.nav-links button[mat-button],
+.nav-links a[mat-button] {
   font-size: 0.95rem;
-  color: rgba(255,255,255,0.92);
+  color: var(--text-strong);
   padding: .45rem .6rem;
   margin: 0 .15rem;
   border-radius: 8px;
-  transition: background .14s ease, transform .12s ease;
+  text-transform: none;
+  transition: background .14s ease, transform .12s ease, color .12s ease, box-shadow .12s ease;
 }
-.nav-link:hover { background: rgba(255,255,255,0.03); transform: translateY(-2px); }
-
-.nav-link mat-icon { margin-right: 6px; vertical-align: middle; }
+.nav-links button[mat-button]:hover,
+.nav-links a[mat-button]:hover {
+  background: color-mix(in oklab, var(--accent) 10%, transparent);
+  transform: translateY(-2px);
+}
+.nav-links button[mat-button].active,
+.nav-links a[mat-button].active {
+  color: var(--accent);
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+.nav-links mat-icon { margin-right: 6px; vertical-align: middle; }
 
 /* Sticky glass navbar */
 
@@ -31,6 +42,20 @@ mat-toolbar { position: sticky; top: 0; z-index: 1000; }
 .spacer { flex: 1 1 auto; }
 .nav-links { display: flex; gap: 4px; align-items: center; }
 .actions { display: flex; align-items: center; gap: .25rem; }
+.actions .mat-icon, .menu-toggle .mat-icon, .nav-links .mat-icon { color: var(--text-strong); }
+.actions a[mat-icon-button],
+.actions button[mat-icon-button] { color: var(--text-strong); }
+.actions a[mat-icon-button]:hover,
+.actions button[mat-icon-button]:hover { color: var(--accent); }
+
+/* Themed outlined action (Resume) */
+.actions .mat-mdc-outlined-button {
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
+}
+.actions .mat-mdc-outlined-button:hover {
+  background: color-mix(in oklab, var(--accent) 10%, transparent) !important;
+}
 .menu-toggle { display: none; }
 
 /* Utility file/card styles */
@@ -40,6 +65,12 @@ mat-card { display:flex; flex-direction:column; }
 /* Small screens: increase hit area for links */
 @media (max-width: 768px) {
   .nav-links { display: none; }
-  .nav-links.open { display: flex; position: fixed; top: 56px; left: 0; right: 0; background: rgba(0,0,0,0.7); padding: 8px; backdrop-filter: blur(6px); }
+  .nav-links.open {
+    display: flex;
+    position: fixed; top: 56px; left: 0; right: 0;
+    background: var(--glass);
+    padding: 8px; backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--border);
+  }
   .menu-toggle { display: inline-flex; }
 }
