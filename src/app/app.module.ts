@@ -40,6 +40,9 @@ import { SkillsComponent } from './components/home/skills/skills.component';
 import { ExperienceComponent } from './components/home/experience/experience.component';
 import { ProjectsCarouselComponent, ProjectDialogComponent } from './components/home/projects/projects-carousel.component';
 import { CommandPaletteComponent } from './components/general/command-palette/command-palette.component';
+import { ClockComponent } from './components/general/clock/clock.component';
+import { QuickLinksRailComponent } from './components/general/quick-links-rail/quick-links-rail.component';
+import { SideDockComponent } from './components/general/side-dock/side-dock.component';
 
 export function initializeMsal(msalService: MsalService) {
   return () => msalService.initialize();
@@ -72,6 +75,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProjectDialogComponent,
     PageViewCounterComponent,
   CommandPaletteComponent,
+  ClockComponent,
+  QuickLinksRailComponent,
+  SideDockComponent,
   ],
   // ...
 

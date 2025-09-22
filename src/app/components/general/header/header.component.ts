@@ -53,7 +53,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   download$!: Observable<Download>;
   isLight = false;
 
-
   constructor(private router: Router, public analyticsService: AnalyticService,
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration, private authService: MsalService,
     private msalBroadcastService: MsalBroadcastService,

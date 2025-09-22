@@ -18,7 +18,18 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'Keshav Singh Portfolio';
   showBackToTop = false;
   paletteOpen = false;
-  @ViewChild(CommandPaletteComponent) palette?: CommandPaletteComponent;
+  // Side dock state
+  showQuickLinks = false;
+  quickLinks = [
+    { label: 'Home', targetId: 'homeHeader', icon: 'home' },
+    { label: 'About', targetId: 'about', icon: 'person' },
+    { label: 'Skills', targetId: 'skills', icon: 'psychology' },
+    { label: 'Experience', targetId: 'experience', icon: 'work' },
+    { label: 'Projects', targetId: 'projects', icon: 'apps' },
+    { label: 'Contact', targetId: 'contact', icon: 'mail' },
+    { label: 'Blog', href: environment.blogUrl, icon: 'article' },
+    { label: 'Admin', href: environment.adminUrl, icon: 'admin_panel_settings' },
+  ];
   confetti = false;
   private konamiIndex = 0;
   private readonly konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
@@ -30,6 +41,8 @@ export class AppComponent implements OnInit, OnDestroy {
     platform: '',
     language: ''
   };
+
+  @ViewChild(CommandPaletteComponent) palette?: CommandPaletteComponent;
 
   constructor(private titleService: Title,
     private metaService: Meta,

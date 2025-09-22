@@ -30,7 +30,7 @@ mat-toolbar { position: sticky; top: 0; z-index: 1000; }
 .navbar-glass { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); backdrop-filter: blur(6px); border-bottom:1px solid rgba(255,255,255,0.03); }
 .spacer { flex: 1 1 auto; }
 .nav-links { display: flex; gap: 4px; align-items: center; }
-.actions { display: flex; gap: 6px; align-items: center; }
+.actions { display: flex; align-items: center; gap: .25rem; }
 .menu-toggle { display: none; }
 
 /* Utility file/card styles */

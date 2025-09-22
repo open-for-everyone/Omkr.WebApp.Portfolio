@@ -1,0 +1,9 @@
+.ql-rail{display:flex;align-items:center;gap:.25rem;padding:.5rem;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);transition:transform .25s ease;z-index:1000}
+/* default standalone fixed bottom */
+:host-context(body) .ql-rail{position:fixed;left:0;right:0;bottom:0;transform:translateY(105%)}
+:host-context(body) .ql-rail.show{transform:translateY(0)}
+/* inline container override */
+:host(.inline) .ql-rail{position:static;transform:none;border-radius:8px}
+.ql-scroller{display:flex;overflow:auto;scrollbar-width:thin;gap:.5rem;padding:0 .25rem;max-width:60vw}
+.ql-item{display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap}
+.ql-nav{background:rgba(0,0,0,.2)}
