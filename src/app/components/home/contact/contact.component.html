@@ -6,19 +6,57 @@
         </mat-card-header>
         <mat-card-content>
             <div class="contact-grid">
-                <div class="map-col">
-                    <div class="map-wrapper" *ngIf="mapUrl; else mapFallback">
-                        <iframe title="Your location"
-                                        [src]="mapUrl | safeUrl"
-                                        loading="lazy"
-                                        referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                    <ng-template #mapFallback>
-                        <div class="map-fallback">
-                            <mat-icon>map</mat-icon>
-                            <p>Location access is disabled. You can still contact me.</p>
-                        </div>
-                    </ng-template>
+                                <div class="map-col">
+                                                            <div class="map-search">
+                                                                <mat-form-field appearance="outline" class="full-width">
+                                                                    <mat-label>Search a place</mat-label>
+                                                                    <input #searchEl matInput [formControl]="searchControl" [matAutocomplete]="auto">
+                                                                    <mat-icon matSuffix>search</mat-icon>
+                                                                </mat-form-field>
+                                                                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="pickPlace($event.option.value)">
+                                                                    <mat-option *ngFor="let o of (options$ | async)" [value]="o">
+                                                                        {{ o.display_name }}
+                                                                    </mat-option>
+                                                                </mat-autocomplete>
+                                                            </div>
+
+                                                            <div class="map-wrapper">
+                                                                <ng-container *ngIf="mapUrl; else inWrapperFallback">
+                                                                    <iframe title="Your location"
+                                                                            [src]="mapUrl | safeUrl"
+                                                                            loading="lazy"
+                                                                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                                                </ng-container>
+                                                                <ng-template #inWrapperFallback>
+                                                                    <div class="map-fallback">
+                                                                        <mat-icon>map</mat-icon>
+                                                                        <p>Location access is disabled. You can still contact me.</p>
+                                                                    </div>
+                                                                </ng-template>
+                                                            </div>
+                                                            <div class="map-actions">
+                                                                <button mat-stroked-button color="primary" type="button" (click)="togglePin()">
+                                                                    <mat-icon>{{ isPinned ? 'push_pin' : 'push_pin' }}</mat-icon>
+                                                                    <span>{{ isPinned ? 'Unpin' : 'Pin' }}</span>
+                                                                </button>
+                                                                <button mat-stroked-button color="accent" class="btn-outline-accent" type="button" (click)="useMyLocation()">
+                                                                    <mat-icon>my_location</mat-icon>
+                                                                    <span>Use my location</span>
+                                                                </button>
+                                                            </div>
+                                                                                <div class="map-status" aria-live="polite" [class.pulse]="pulse">
+                                                                                    <mat-icon class="status-pin" [class.pinned]="isPinned">room</mat-icon>
+                                                                                    <span class="status-text">{{ selectionLabel }}</span>
+                                                                                    <span class="status-meta" *ngIf="accuracy">± {{ accuracy | number:'1.0-0' }} m</span>
+                                                                                    <span class="status-chip" *ngIf="selectionSource">
+                                                                                        {{ selectionSource === 'search' ? 'Search' : selectionSource === 'gps' ? 'GPS' : 'Auto' }}
+                                                                                    </span>
+                                                                                    <button mat-button color="warn" type="button" class="status-clear" (click)="clearSelection()" *ngIf="latitude && longitude">
+                                                                                        <mat-icon>clear</mat-icon>
+                                                                                        Clear
+                                                                                    </button>
+                                                                                </div>
+
                 </div>
                 <div class="form-col">
                     <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
@@ -47,7 +85,7 @@
                         </mat-form-field>
 
                         <div class="actions">
-                            <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || submitting">
+                            <button mat-raised-button color="primary" class="btn-modern" type="submit" [disabled]="form.invalid || submitting">
                                 <mat-icon>send</mat-icon>
                                 <span>{{ submitting ? 'Sending…' : 'Send Message' }}</span>
                             </button>

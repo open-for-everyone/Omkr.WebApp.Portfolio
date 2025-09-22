@@ -251,6 +251,19 @@ select:focus {
 }
 .btn-modern:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(57,118,210,0.18); }
 
+.btn-outline-accent {
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
+}
+.btn-outline-accent:hover {
+  background: color-mix(in oklab, var(--accent) 10%, transparent) !important;
+}
+
+/* Improve Material raised primary look to fit theme */
+.btn-modern.mat-mdc-raised-button.mat-primary {
+  background: linear-gradient(90deg,var(--primary), #2b5fb3) !important;
+}
+
 /* Glass navbar utility */
 .navbar-glass { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); backdrop-filter: blur(6px); border-bottom:1px solid rgba(255,255,255,0.03); }
 
@@ -275,3 +288,35 @@ footer { color:var(--muted); padding:2rem 1rem; }
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
+
+/* Themed autocomplete dropdown */
+.mat-mdc-autocomplete-panel {
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 10px !important;
+  color: var(--text-strong) !important;
+  box-shadow: 0 12px 30px rgba(2,6,23,0.55) !important;
+  backdrop-filter: blur(6px);
+}
+
+.mat-mdc-option {
+  color: var(--text-strong) !important;
+}
+.mat-mdc-option .mdc-list-item__primary-text {
+  color: var(--text-strong) !important;
+}
+
+/* Hover/active/selected states */
+.mat-mdc-option:hover,
+.mat-mdc-option.mat-mdc-option-active,
+.mat-mdc-option.mdc-list-item--selected {
+  background: color-mix(in oklab, var(--accent) 12%, transparent) !important;
+}
+
+/* Divider and panel scrollbars */
+.mat-mdc-autocomplete-panel .mat-mdc-option + .mat-mdc-option {
+  border-top: 1px solid rgba(203,213,225,0.07);
+}
+.mat-mdc-autocomplete-panel::-webkit-scrollbar { height: 8px; width: 8px; }
+.mat-mdc-autocomplete-panel::-webkit-scrollbar-thumb { background: rgba(203,213,225,0.2); border-radius: 8px; }
+.mat-mdc-autocomplete-panel::-webkit-scrollbar-thumb:hover { background: rgba(203,213,225,0.3); }

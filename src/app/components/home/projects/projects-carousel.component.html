@@ -4,7 +4,7 @@
     <mat-card-content>
       <mat-form-field appearance="outline" style="width:100%;">
         <mat-label>Search projects</mat-label>
-        <input matInput [(ngModel)]="query" placeholder="Search projects..." />
+        <input matInput [(ngModel)]="query" />
         <button mat-icon-button matSuffix aria-label="Clear" *ngIf="query" (click)="query=''">
           <mat-icon>close</mat-icon>
         </button>
