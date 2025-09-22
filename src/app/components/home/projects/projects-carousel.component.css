@@ -1,13 +1,13 @@
 section{ padding:2rem 0; }
 .filters{ display:flex; gap:.6rem; align-items:center; justify-content:space-between; margin:.5rem 0 1rem; }
-.filters input{ flex:1; padding:.5rem .8rem; border-radius:10px; border:1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); color:#e6eef8; }
+.filters input{ flex:1; padding:.5rem .8rem; border-radius:10px; border:1px solid var(--border); background: var(--input-bg); color: var(--text-strong); }
 .tag-row{ display:flex; flex-wrap:wrap; gap:.4rem; margin-left:.6rem; }
-.tag{ background: rgba(255,255,255,0.06); border:0; color:#e6eef8; padding:.35rem .7rem; border-radius:999px; cursor:pointer; }
+.tag{ background: var(--glass); border:0; color: var(--text-strong); padding:.35rem .7rem; border-radius:999px; cursor:pointer; }
 .tag.active, .tag:hover{ background: rgba(100,255,218,0.12); }
 .slide { display:grid; grid-template-columns: 1.2fr 1fr; gap:1rem; align-items:center; }
 .slide img{ width:100%; border-radius:12px; }
-.slide .content h3{ color:#e6eef8; margin:0 0 .4rem; }
+.slide .content h3{ color: var(--text-strong); margin:0 0 .4rem; }
 .slide .chips{ display:flex; gap:.4rem; flex-wrap:wrap; margin:.6rem 0; }
-.slide .chip{ background:rgba(255,255,255,0.06); padding:.25rem .6rem; border-radius:999px; font-size:.8rem; }
+.slide .chip{ background: var(--glass); padding:.25rem .6rem; border-radius:999px; font-size:.8rem; }
 .actions{ display:flex; gap:.6rem; margin-top:.6rem; }
 @media (max-width: 900px){ .slide{ grid-template-columns: 1fr; } }

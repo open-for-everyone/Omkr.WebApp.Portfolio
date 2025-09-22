@@ -100,9 +100,13 @@ body {
   --bg:#0f1724; /* deep navy */
   --card:#0b1220;
   --muted:#94a3b8;
+  --text-strong:#e6eef8;
+  --text-soft:#cbd5e1;
   --accent:#64ffda;
   --primary:#3976d2;
   --glass: rgba(255,255,255,0.04);
+  --border: rgba(203,213,225,0.16);
+  --input-bg: rgba(255,255,255,0.04);
   --radius:12px;
   --container-max:1080px;
 }
@@ -112,13 +116,105 @@ body.light {
   --bg:#f6f8fb;
   --card:#fff;
   --muted:#556779;
+  --text-strong:#0f1724;
+  --text-soft:#334155;
   --accent:#0ea5a4;
   --primary:#3976d2;
   --glass: rgba(255,255,255,0.7);
+  --border: rgba(2,6,23,0.08);
+  --input-bg: #ffffff;
 }
 
 html, body { background:var(--bg); color:var(--muted); }
 html { scroll-behavior: smooth; }
+
+/* Global Material surface and inputs tuned for theme */
+.mat-mdc-card {
+  background: var(--glass) !important;
+  border: 1px solid var(--border);
+  color: var(--text-strong);
+}
+
+.mat-mdc-form-field .mat-mdc-text-field-wrapper {
+  background: var(--input-bg);
+  border-radius: 10px;
+}
+
+.mat-mdc-form-field .mdc-notched-outline__leading,
+.mat-mdc-form-field .mdc-notched-outline__notch,
+.mat-mdc-form-field .mdc-notched-outline__trailing {
+  border-color: var(--border) !important;
+}
+
+/* Focus/hover states align to accent */
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: var(--accent) !important;
+}
+.mat-mdc-form-field:hover .mdc-notched-outline__leading,
+.mat-mdc-form-field:hover .mdc-notched-outline__notch,
+.mat-mdc-form-field:hover .mdc-notched-outline__trailing {
+  border-color: var(--border) !important; /* subtle hover keeps border aligned */
+}
+
+.mat-mdc-form-field .mat-mdc-floating-label {
+  color: var(--muted);
+}
+.mat-mdc-form-field.mat-focused .mat-mdc-floating-label {
+  color: var(--accent);
+}
+
+.mat-mdc-input-element,
+.mat-mdc-form-field .mat-mdc-form-field-icon-prefix,
+.mat-mdc-form-field .mat-mdc-form-field-icon-suffix {
+  color: var(--text-strong);
+}
+
+/* Placeholder colors per theme */
+input::placeholder,
+textarea::placeholder { color: var(--muted); opacity: 1; }
+.mat-mdc-input-element::placeholder { color: var(--muted); opacity: 1; }
+.mat-mdc-input-element { caret-color: var(--accent); }
+
+/* Use MDC variables for Angular Material outlined fields */
+.mat-mdc-form-field .mat-mdc-text-field-wrapper.mdc-text-field--outlined {
+  --mdc-outlined-text-field-outline-color: var(--border);
+  --mdc-outlined-text-field-hover-outline-color: var(--border);
+  --mdc-outlined-text-field-focus-outline-color: var(--accent); /* Fallback name */
+  --mdc-outlined-text-field-focused-outline-color: var(--accent);
+  --mdc-outlined-text-field-label-text-color: var(--muted);
+  --mdc-outlined-text-field-input-text-color: var(--text-strong);
+  --mdc-outlined-text-field-caret-color: var(--accent);
+  --mdc-outlined-text-field-input-text-placeholder-color: var(--muted);
+}
+
+/* Extra specificity to force placeholder color in MDC input */
+.mat-mdc-form-field .mdc-text-field__input::placeholder {
+  color: var(--muted) !important; opacity: 1;
+}
+
+/* Generic inputs (non-Material) — keep theme-consistent */
+input,
+textarea,
+select {
+  background: var(--input-bg);
+  color: var(--text-strong);
+  border: 1px solid var(--border);
+}
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--accent);
+  outline: 2px solid color-mix(in oklab, var(--accent) 30%, transparent);
+  outline-offset: 1px;
+}
+
+.mat-mdc-snack-bar-container {
+  background: var(--card) !important;
+  border: 1px solid var(--border);
+  color: var(--text-strong);
+}
 
 /* Responsive centered container */
 .container { max-width:var(--container-max); margin:0 auto; padding:0 1rem; }

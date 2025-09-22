@@ -1,6 +1,8 @@
 export const environment = {
   production: false,
   awsUserApiBaseUrl: 'https://dev-api-v2.keshavsingh.net',
+  // Base URL for contact form submissions (configure backend to send emails)
+  contactApiBaseUrl: 'https://dev-api-v2.keshavsingh.net',
   blogUrl: 'https://www.blogs.keshavsingh.net',
   adminUrl: 'https://www.admin.keshavsingh.net',
   apiVersion: 'v1',
@@ -62,6 +64,10 @@ export const environment = {
     createMessage: '/api/message',
     updateMessage: '/api/message/{orgId}/{userName}/{messageId}',
     deleteMessage: '/api/message/{orgId}/{userName}/{messageId}',
+  },
+  // Contact form endpoint — expected to accept POST of ContactMessage
+  contactApiEndpoints: {
+    submit: '/api/contact'
   },
 
   spotifyApiEndpoints: {

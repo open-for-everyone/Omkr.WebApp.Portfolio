@@ -1,6 +1,10 @@
 export const environment = {
   production: true,
   apiBaseUrl: 'https://api.example.com',
+  contactApiBaseUrl: 'https://api.example.com',
+  contactApiEndpoints: {
+    submit: '/api/contact'
+  },
   endpoints: {
     countries: '/v3.1/all',
     anotherEndpoint: '/another-endpoint',

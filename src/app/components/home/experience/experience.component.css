@@ -1,12 +1,12 @@
 .timeline { padding: 2rem 0; }
 ol { list-style:none; margin:0; padding:0; position:relative; }
-ol::before { content:''; position:absolute; left:18px; top:0; bottom:0; width:2px; background:rgba(255,255,255,0.08); }
+ol::before { content:''; position:absolute; left:18px; top:0; bottom:0; width:2px; background: var(--border); }
 li { position:relative; padding-left:56px; margin: 0 0 1rem; }
 .dot { position:absolute; left:6px; top:18px; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#0f1724; background:var(--accent); font-weight:600; box-shadow:0 10px 20px rgba(100,255,218,.18); }
 .content .meta { display:flex; gap:1rem; align-items:center; color:var(--muted); font-size:.9rem; }
-.content .role { color:#e6eef8; font-weight:600; }
-.company { color:#e6eef8; margin:.2rem 0 .4rem; }
+.content .role { color: var(--text-strong); font-weight:600; }
+.company { color: var(--text-strong); margin:.2rem 0 .4rem; }
 .summary { margin:0 0 .6rem; }
 .chips { display:flex; flex-wrap:wrap; gap:.4rem; }
 .chip { background:rgba(255,255,255,0.06); padding:.25rem .6rem; border-radius:999px; font-size:.8rem; }
-.experience-card{ background: transparent !important; color: #e6eef8;}
+.experience-card{ background: transparent !important; color: var(--text-strong);}

@@ -6,4 +6,4 @@
 .chip{ background:rgba(255,255,255,0.06); padding:.3rem .7rem; border-radius: 999px; font-size:.85rem; }
 
 .about-actions{ display:flex; gap:.6rem; margin-top:1rem; }
-.about-card{ background: transparent !important; color: #e6eef8;}
+.about-card{ background: transparent !important; color: var(--text-strong);}

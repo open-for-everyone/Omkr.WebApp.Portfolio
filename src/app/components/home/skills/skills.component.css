@@ -1,6 +1,6 @@
 section { padding: 2rem 0; }
 .skills-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:1rem; }
-.skill .row { display:flex; align-items:center; justify-content:space-between; margin-bottom:.5rem; color:#e6eef8; }
+.skill .row { display:flex; align-items:center; justify-content:space-between; margin-bottom:.5rem; color: var(--text-strong); }
 .skill mat-progress-bar { height: 10px; border-radius: 6px; }
 .skill { transition: transform .12s ease, box-shadow .12s ease; }
 .skill:hover { transform: translateY(-4px); box-shadow: 0 12px 26px rgba(2,6,23,0.35); }
