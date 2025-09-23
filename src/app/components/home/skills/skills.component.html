@@ -1,4 +1,5 @@
-<section class="container" aria-label="skills">
+<section aria-label="skills">
+  <div class="container">
   <h2 class="navbar-title" style="font-size:2rem;margin:0 0 1rem;">{{ title }}</h2>
   <div class="skills-grid">
     <div class="skill card" *ngFor="let s of skills" [matTooltip]="s.hint || ''" matTooltipPosition="above">
@@ -8,5 +9,6 @@
       </div>
       <mat-progress-bar color="primary" [value]="s.level" mode="determinate"></mat-progress-bar>
     </div>
+  </div>
   </div>
 </section>

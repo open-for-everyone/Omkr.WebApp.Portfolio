@@ -1,16 +1,6 @@
-.contact {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 48px 16px;
-}
+.contact { padding: 2rem 0; }
 
-.contact-card {
-  width: 100%;
-  max-width: 640px;
-  background-color: transparent !important;
-  color: var(--text-strong);
-}
+.contact-card { background-color: transparent !important; color: var(--text-strong); }
 
 .contact-grid {
   display: grid;
@@ -18,14 +8,7 @@
   gap: 16px;
 }
 
-@media (min-width: 900px) {
-  .contact-card {
-    max-width: 1080px;
-  }
-  .contact-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
+@media (min-width: 900px) { .contact-grid { grid-template-columns: 1fr 1fr; } }
 
 .map-wrapper {
   width: 100%;
