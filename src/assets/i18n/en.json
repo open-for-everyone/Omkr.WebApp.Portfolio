@@ -64,4 +64,9 @@
   "Contact.Title": "Get in touch!",
   "Contact.Content": "I'm always open to discussing new opportunities and innovative ideas. Feel free to reach out if you want to connect or explore potential collaborations. I look forward to hearing from you and will respond promptly.",
   "Contact.Btn": "Say Hello"
+  ,
+  "Legal.PrivacyPolicy.Title": "Privacy Policy",
+  "Legal.Terms.Title": "Terms & Conditions",
+  "Legal.CookiePolicy.Title": "Cookie Policy",
+  "Legal.Disclaimer.Title": "Disclaimer"
 }

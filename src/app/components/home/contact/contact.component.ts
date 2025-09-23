@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { ConsentService } from 'src/app/services/general/consent.service';
 
 interface Place { display_name: string; lat: string; lon: string }
 
@@ -43,7 +44,8 @@ export class ContactComponent implements OnInit {
     private fb: FormBuilder,
     private contactService: ContactService,
     private snackBar: MatSnackBar,
-    private http: HttpClient
+    private http: HttpClient,
+    private consent: ConsentService
   ) {}
 
   ngOnInit(): void {
@@ -67,24 +69,7 @@ export class ContactComponent implements OnInit {
       })
     );
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          this.latitude = pos.coords.latitude;
-          this.longitude = pos.coords.longitude;
-          this.accuracy = pos.coords.accuracy;
-          if (!this.selectedDisplay) {
-            this.selectedDisplay = 'Current location';
-          }
-          this.selectionSource = 'auto';
-          this.triggerPulse();
-        },
-        () => {
-          // Ignore errors silently; user can still submit without location
-        },
-        { enableHighAccuracy: true, timeout: 5000, maximumAge: 60000 }
-      );
-    }
+    // Removed auto geolocation; will request only on explicit user action with consent
   }
 
   get mapUrl(): string | null {
@@ -119,6 +104,10 @@ export class ContactComponent implements OnInit {
   }
 
   useMyLocation() {
+    if (!this.consent.isAllowed('geolocation')) {
+      this.snackBar.open('Please accept geolocation in cookie banner to use this feature.', 'Close', { duration: 4000 });
+      return;
+    }
     if (!navigator.geolocation) {
       this.snackBar.open('Geolocation not available on this device.', 'Close', { duration: 3000 });
       return;

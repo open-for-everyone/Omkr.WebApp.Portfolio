@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PageViewService } from 'src/app/services/PageView/page-view.service';
+import { ConsentService } from 'src/app/services/general/consent.service';
 import { FileService } from 'src/app/services/general/file/file.service';
 
 interface ConfettiParticle { style: { left: string; backgroundColor: string } }
@@ -23,7 +24,8 @@ export class HomeComponent implements OnInit, OnChanges {
    */
   constructor(private pageViewService: PageViewService, private router: Router,
     private dialog: MatDialog,
-    private fileService: FileService) {
+    private fileService: FileService,
+    private consent: ConsentService) {
 
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -35,7 +37,9 @@ export class HomeComponent implements OnInit, OnChanges {
   }
   ngOnInit(): void {
     this.pageUrl = this.router.url;
-    this.pageViewService.incrementPageView(this.router.url).subscribe();
+    if (this.consent.isAllowed('analytics')) {
+      this.pageViewService.incrementPageView(this.router.url).subscribe();
+    }
   }
   startConfetti() {
     this.confetti = Array.from({ length: 100 }).map(() => ({

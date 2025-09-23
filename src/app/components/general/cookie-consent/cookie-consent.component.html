@@ -1,0 +1,16 @@
+<div class="cookie-banner" *ngIf="visible" role="dialog" aria-live="polite" aria-label="Cookie consent">
+  <div class="cookie-text">
+    <p>
+      This site uses essentials and optional analytics to improve the experience.
+      See our <a routerLink="/cookie-policy">Cookie Policy</a> and <a routerLink="/privacy-policy">Privacy Policy</a>.
+    </p>
+  </div>
+  <div class="cookie-actions">
+    <button mat-stroked-button color="primary" (click)="rejectAll()">Decline</button>
+    <button mat-raised-button color="accent" (click)="acceptAll()">Accept</button>
+  </div>
+  <button class="cookie-close" title="Close" (click)="rejectAll()" aria-label="Close">
+    ×
+  </button>
+
+</div>

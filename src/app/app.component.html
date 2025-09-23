@@ -8,6 +8,9 @@
 <app-command-palette [(open)]="paletteOpen"></app-command-palette>
 <app-confetti [show]="confetti"></app-confetti>
 
+<!-- Cookie consent banner -->
+<app-cookie-consent></app-cookie-consent>
+
 <button mat-fab class="back-to-top" type="button" aria-label="Back to top" (click)="scrollToTop()" [class.show]="showBackToTop">
 	<mat-icon>arrow_upward</mat-icon>
 	<span class="visually-hidden">Back to top</span>

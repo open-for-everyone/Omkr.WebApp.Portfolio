@@ -85,6 +85,9 @@
               <mat-error *ngIf="form.get('message')?.hasError('minlength')">At least 10 characters</mat-error>
             </mat-form-field>
 
+            <div class="privacy-note">
+              <small>By contacting me, you agree your details are used to respond. See the <a routerLink="/privacy-policy">Privacy Policy</a>.</small>
+            </div>
             <div class="actions">
               <button mat-raised-button color="primary" class="btn-modern" type="submit"
                 [disabled]="form.invalid || submitting">

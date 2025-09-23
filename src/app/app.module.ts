@@ -41,6 +41,11 @@ import { ExperienceComponent } from './components/home/experience/experience.com
 import { ProjectsCarouselComponent, ProjectDialogComponent } from './components/home/projects/projects-carousel.component';
 import { CommandPaletteComponent } from './components/general/command-palette/command-palette.component';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
+import { PrivacyPolicyComponent } from './components/general/legal/privacy-policy/privacy-policy.component';
+import { TermsComponent } from './components/general/legal/terms/terms.component';
+import { CookiePolicyComponent } from './components/general/legal/cookie-policy/cookie-policy.component';
+import { DisclaimerComponent } from './components/general/legal/disclaimer/disclaimer.component';
+import { CookieConsentComponent } from './components/general/cookie-consent/cookie-consent.component';
 
 export function initializeMsal(msalService: MsalService) {
   return () => msalService.initialize();
@@ -74,6 +79,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     PageViewCounterComponent,
   CommandPaletteComponent,
   SafeUrlPipe,
+  PrivacyPolicyComponent,
+  TermsComponent,
+  CookiePolicyComponent,
+  DisclaimerComponent,
+  CookieConsentComponent,
   ],
   // ...
 
