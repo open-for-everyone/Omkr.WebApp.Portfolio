@@ -23,9 +23,7 @@ import { VideoComponent } from './components/home/video/video.component';
 import { PageViewCounterComponent } from './components/general/counter/page-view-counter/page-view-counter.component';
 import { MaterialModule } from './material.module';
 import { ConfettiComponent } from './components/general/confetti/confetti.component';
-import { FileUploadComponent } from './components/general/file/file-upload/file-upload.component';
 import { ConfirmDialogComponent } from './components/general/dialog/confirm-dialog/confirm-dialog.component';
-import { QuestionEditDialogComponent } from './components/general/dialog/topic/question-edit-dialog/question-edit-dialog.component';
 // Removed individual Material imports in favor of shared MaterialModule
 
 // Import MSAL and MSAL browser libraries.
@@ -69,9 +67,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProgressBarComponent,
     VideoComponent,
     ConfettiComponent,
-    FileUploadComponent,
     ConfirmDialogComponent,
-    QuestionEditDialogComponent,
     SkillsComponent,
     ExperienceComponent,
     ProjectsCarouselComponent,

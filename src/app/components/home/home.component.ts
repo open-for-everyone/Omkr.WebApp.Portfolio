@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PageViewService } from 'src/app/services/PageView/page-view.service';
 import { ConsentService } from 'src/app/services/general/consent.service';
-import { FileService } from 'src/app/services/general/file/file.service';
 
 interface ConfettiParticle { style: { left: string; backgroundColor: string } }
 
@@ -24,7 +23,6 @@ export class HomeComponent implements OnInit, OnChanges {
    */
   constructor(private pageViewService: PageViewService, private router: Router,
     private dialog: MatDialog,
-    private fileService: FileService,
     private consent: ConsentService) {
 
   }
