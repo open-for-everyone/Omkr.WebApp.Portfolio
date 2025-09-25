@@ -84,7 +84,8 @@
   <meta name="apple-mobile-web-app-title" content="Keshav Singh">
 
   <!-- Controls how much referrer information should be included with requests. -->
-  <meta name="referrer" content="no-referrer">
+  <!-- Using strict-origin-when-cross-origin keeps analytics referrer data while mitigating leakage -->
+  <meta name="referrer" content="strict-origin-when-cross-origin">
 
   <!-- Provides an age rating for the content. -->
   <meta name="rating" content="general">
@@ -92,15 +93,46 @@
   <!-- Helps prevent cross-site scripting (XSS), clickjacking, and other code injection attacks. -->
   <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'"> -->
 
+  <!-- Consolidated structured data graph (Person + Website + Organization + Sitelinks Search) -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Keshav Singh",
-      "url": "https://keshavsingh.net/",
-      "jobTitle": "Backend Developer",
-      "sameAs": [
-        "https://github.com/keshavsingh4522"
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://keshavsingh.net/#website",
+          "url": "https://keshavsingh.net/",
+          "name": "Keshav Singh — Portfolio",
+          "description": "Backend developer portfolio: APIs, microservices, AWS, Azure DevOps, architecture.",
+          "publisher": { "@id": "https://keshavsingh.net/#person" },
+          "inLanguage": "en",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://keshavsingh.net/?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://keshavsingh.net/#person",
+          "name": "Keshav Singh",
+          "url": "https://keshavsingh.net/",
+          "image": "https://keshavsingh.net/assets/images/k.png",
+            "jobTitle": "Backend Developer",
+          "sameAs": [
+            "https://github.com/keshavsingh4522"
+          ]
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://keshavsingh.net/#org",
+          "name": "Keshav Singh",
+          "url": "https://keshavsingh.net/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://keshavsingh.net/assets/images/k.png"
+          }
+        }
       ]
     }
   </script>

@@ -43,6 +43,8 @@ import { TermsComponent } from './components/general/legal/terms/terms.component
 import { CookiePolicyComponent } from './components/general/legal/cookie-policy/cookie-policy.component';
 import { DisclaimerComponent } from './components/general/legal/disclaimer/disclaimer.component';
 import { CookieConsentComponent } from './components/general/cookie-consent/cookie-consent.component';
+import { RobotsComponent } from './components/general/robots/robots.component';
+import { SitemapComponent } from './components/general/sitemap/sitemap.component';
 
 export function initializeMsal(msalService: MsalService) {
   return () => msalService.initialize();
@@ -78,6 +80,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   CookiePolicyComponent,
   DisclaimerComponent,
   CookieConsentComponent,
+  RobotsComponent,
+  SitemapComponent,
   ],
   // ...
 

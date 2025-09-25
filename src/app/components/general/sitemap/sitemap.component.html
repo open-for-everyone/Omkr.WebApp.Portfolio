@@ -1,0 +1,13 @@
+<section class="sitemap">
+  <h1>Sitemap (Human Readable)</h1>
+  <ul>
+    <li *ngFor="let u of urls">
+      <a [href]="u.loc" target="_blank" rel="noopener">{{ u.loc }}</a>
+      <small *ngIf="u.changefreq || u.priority">— {{u.changefreq || ''}} {{u.priority ? ('• priority ' + u.priority) : ''}}</small>
+    </li>
+  </ul>
+  <details>
+    <summary>Raw XML</summary>
+    <pre>{{ raw }}</pre>
+  </details>
+</section>

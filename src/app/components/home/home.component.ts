@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PageViewService } from 'src/app/services/PageView/page-view.service';
 import { ConsentService } from 'src/app/services/general/consent.service';
+import { SeoService } from 'src/app/services/general/seo.service';
 
 interface ConfettiParticle { style: { left: string; backgroundColor: string } }
 
@@ -23,7 +24,8 @@ export class HomeComponent implements OnInit, OnChanges {
    */
   constructor(private pageViewService: PageViewService, private router: Router,
     private dialog: MatDialog,
-    private consent: ConsentService) {
+    private consent: ConsentService,
+    private seo: SeoService) {
 
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -35,6 +37,10 @@ export class HomeComponent implements OnInit, OnChanges {
   }
   ngOnInit(): void {
     this.pageUrl = this.router.url;
+    // Ensure description exists if navigated directly (SSR/prerender safety net)
+    this.seo.update({
+      description: 'Backend developer portfolio showcasing APIs, microservices, AWS, Azure DevOps and software engineering projects.'
+    });
     if (this.consent.isAllowed('analytics')) {
       this.pageViewService.incrementPageView(this.router.url).subscribe();
     }
