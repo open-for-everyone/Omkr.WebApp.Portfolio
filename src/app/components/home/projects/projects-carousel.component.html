@@ -1,6 +1,6 @@
-<section aria-label="projects">
+<section aria-labelledby="projects-heading" role="region">
   <div class="container">
-  <h2 class="navbar-title" style="font-size:2rem;margin:0 0 1rem;">Highlighted Projects</h2>
+  <h2 id="projects-heading" class="navbar-title" style="font-size:2rem;margin:0 0 1rem;">Highlighted Projects</h2>
   <mat-card appearance="outlined" class="filters">
     <mat-card-content>
       <mat-form-field appearance="outline" style="width:100%;">
@@ -18,8 +18,11 @@
   </mat-card>
   <ngb-carousel [interval]="6000" [keyboard]="true" [pauseOnHover]="true">
     <ng-template ngbSlide *ngFor="let p of filtered">
-      <div class="slide card">
-  <img [src]="p.image" alt="Project preview" loading="lazy" width="800" height="450" />
+      <div class="slide card" role="group" [attr.aria-label]="p.title">
+        <figure style="margin:0">
+          <img [src]="p.image" [attr.alt]="p.title + ' preview screenshot'" loading="lazy" width="800" height="450" />
+          <figcaption class="visually-hidden">{{ p.summary }}</figcaption>
+        </figure>
         <div class="content">
           <h3>{{ p.title }}</h3>
           <p class="muted">{{ p.summary }}</p>

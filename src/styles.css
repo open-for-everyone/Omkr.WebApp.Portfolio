@@ -111,6 +111,20 @@ body {
   --container-max:1080px;
 }
 
+/* High contrast mode overrides */
+body.high-contrast {
+  --bg:#000 !important;
+  --card:#000 !important;
+  --text-strong:#fff !important;
+  --text-soft:#f5f5f5 !important;
+  --muted:#e0e0e0 !important;
+  --accent:#ffff00 !important; /* bright yellow */
+  --primary:#00b8ff !important;
+  --border:#fff !important;
+  --input-bg:#000 !important;
+}
+body.high-contrast a, body.high-contrast button { outline-color: #fff; }
+
 /* Light theme fallback for existing color palette */
 body.light {
   --bg:#f6f8fb;
@@ -320,3 +334,17 @@ footer { color:var(--muted); padding:2rem 1rem; }
 .mat-mdc-autocomplete-panel::-webkit-scrollbar { height: 8px; width: 8px; }
 .mat-mdc-autocomplete-panel::-webkit-scrollbar-thumb { background: rgba(203,213,225,0.2); border-radius: 8px; }
 .mat-mdc-autocomplete-panel::-webkit-scrollbar-thumb:hover { background: rgba(203,213,225,0.3); }
+
+/* A11y utility: globally available visually hidden class */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}

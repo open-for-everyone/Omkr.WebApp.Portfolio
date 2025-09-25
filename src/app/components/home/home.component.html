@@ -1,6 +1,7 @@
 <app-header id="homeHeader"></app-header>
 <app-progress-bar></app-progress-bar>
-<main>
+<div role="region" aria-labelledby="home-sections">
+  <h2 id="home-sections" class="visually-hidden">Portfolio Sections</h2>
   <!-- <app-video> </app-video> -->
   <app-banner></app-banner>
   <app-about id="about"></app-about>
@@ -8,6 +9,6 @@
   <app-experience id="experience"></app-experience>
   <app-projects-carousel id="projects"></app-projects-carousel>
   <app-contact id="contact"></app-contact>
-</main>
+</div>
 <app-footer></app-footer>
 <app-page-view-counter [pageId]="pageUrl"></app-page-view-counter>

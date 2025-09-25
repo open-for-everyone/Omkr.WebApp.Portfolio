@@ -52,6 +52,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   download$!: Observable<Download>;
   isLight = false;
+  isHighContrast = false;
 
   constructor(private router: Router, public analyticsService: AnalyticService,
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration, private authService: MsalService,
@@ -64,6 +65,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.setLoginDisplay();
   const theme = (localStorage.getItem('theme') as 'dark'|'light') || 'dark';
   this.setTheme(theme);
+  this.isHighContrast = localStorage.getItem('highContrast') === '1';
+  if(this.isHighContrast){
+    this.document.body.classList.add('high-contrast');
+  }
   }
 
 
@@ -163,5 +168,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     body.classList.toggle('light-theme', mode === 'light');
     body.classList.toggle('dark-theme', mode === 'dark');
     this.isLight = mode === 'light';
+  }
+
+  toggleHighContrast(){
+    this.isHighContrast = !this.isHighContrast;
+    this.document.body.classList.toggle('high-contrast', this.isHighContrast);
+    localStorage.setItem('highContrast', this.isHighContrast ? '1' : '0');
   }
 }

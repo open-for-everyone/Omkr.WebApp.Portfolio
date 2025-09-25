@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output, ElementRef, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 
 export interface CommandItem {
   id: string;
@@ -12,9 +12,12 @@ export interface CommandItem {
   templateUrl: './command-palette.component.html',
   styleUrls: ['./command-palette.component.css']
 })
-export class CommandPaletteComponent {
+export class CommandPaletteComponent implements OnChanges {
   @Input() open = false;
   @Output() openChange = new EventEmitter<boolean>();
+  @ViewChild('commandInput') commandInput?: ElementRef<HTMLInputElement>;
+
+  private lastFocused?: HTMLElement | null;
 
   query = '';
   activeIndex = 0;
@@ -22,6 +25,13 @@ export class CommandPaletteComponent {
 
   setCommands(items: CommandItem[]) {
     this.items = items;
+  }
+
+  ngOnChanges(changes: SimpleChanges){
+    if(changes['open'] && this.open){
+      this.lastFocused = document.activeElement as HTMLElement;
+      setTimeout(()=> this.commandInput?.nativeElement.focus(), 0);
+    }
   }
 
   get filtered() {
@@ -33,6 +43,10 @@ export class CommandPaletteComponent {
   close(){
     this.open = false;
     this.openChange.emit(this.open);
+    // restore focus if possible
+    if(this.lastFocused && typeof this.lastFocused.focus === 'function'){
+      setTimeout(()=> this.lastFocused?.focus(), 0);
+    }
   }
 
   select(index: number){

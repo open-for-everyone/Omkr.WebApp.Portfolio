@@ -1,123 +1,289 @@
-# OmkrWebAppPortfolio
+# Omkr Web App Portfolio
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.0.
+An Angular 16 portfolio & showcase application featuring accessible UI components, theming (light/dark/high-contrast), internationalization scaffolding, sitemap generation, analytics integration hooks, and modular architecture for future expansion (blog, admin, visitor analytics, messaging, Spotify/GitHub integrations, Azure AD B2C auth skeleton).
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+![Preview](./src/assets/images/keshav-singh-portfolio-preview.png)
 
-## Code scaffolding
+## Table of Contents
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. Overview
+2. Key Features
+3. Tech Stack
+4. Architecture & Project Structure
+5. Getting Started
+6. Available NPM Scripts
+7. Configuration & Environment
+8. Theming & Accessibility
+9. Internationalization (i18n)
+10. SEO, Sitemap & Robots
+11. Analytics & Telemetry
+12. Development Guidelines (Scaffolding Reference)
+13. Future Roadmap
+14. Contributing
+15. License
 
-## Build
+---
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## 1. Overview
 
-## Running unit tests
+This repository contains a personal / professional portfolio web application built with Angular 16 and Material Design principles. It emphasizes progressive enhancement, accessibility (WCAG-aligned improvements), content structure, and readiness for future service integrations (authentication, analytics, file handling, visitor tracking, messaging, Spotify, GitHub data, etc.).
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## 2. Key Features
 
-## Running end-to-end tests
+- Angular 16 + Standalone-friendly module structure (classic NgModules retained for organization)
+- Responsive layout with Bootstrap 5 & custom SCSS theme variables
+- Light / Dark theme toggle with persistent preference
+- High Contrast mode for accessibility (stored in `localStorage`)
+- Accessible command palette (dialog + combobox ARIA pattern)
+- Enhanced navigation semantics (`aria-current`, skip link, structured landmarks)
+- Contact form with validation, live status + assertive error summary region
+- SEO assets: `sitemap.xml`, `robots.txt`, dynamic sitemap generator script
+- i18n foundation (`assets/i18n/en.json`, `@ngx-translate/*`)
+- Modular service layers (files, messages, page views, visitors, analytics placeholders)
+- Environment-based API endpoint mapping (dev vs prod)
+- Image & static asset organization
+- Future-ready integration endpoints (GitHub, Spotify, Azure AD B2C, AWS-like user APIs)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## 3. Tech Stack
 
-## Further help
+| Layer | Technology |
+|-------|------------|
+| Framework | Angular 16.x |
+| UI Toolkit | Angular Material, Bootstrap 5, Font Awesome |
+| Styling | SCSS (`theme.scss`) + CSS custom properties |
+| Routing | Angular Router |
+| i18n | `@ngx-translate/core` |
+| Auth (planned) | Azure AD B2C (`@azure/msal-angular`) skeleton config |
+| Analytics (optional) | `ngx-google-analytics` (present) + custom services |
+| Build | Angular CLI |
+| Deployment (example) | Static hosting (Firebase config present) |
+| Tooling | ESLint, Karma/Jasmine tests |
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## 4. Architecture & Project Structure
 
-## Create Component
+High-level directories:
 
-- In a root folder
-
-```bash
-n g c componentName
-# or
-ng generate component componentName
+```text
+src/
+   app/
+      components/        # Feature + UI components (home, general, etc.)
+      models/            # Data models & interfaces
+      services/          # Layered service APIs (analytics, files, messages, etc.)
+      pipes/             # Custom pipes (e.g., SafeUrl)
+      animations/        # Reusable animation definitions
+   assets/
+      i18n/              # Translation JSON files
+      images/            # Static images / previews
+      files/             # PWA manifest and related
+   environments/        # environment.ts & environment.prod.ts
+tools/
+   generate-sitemap.mjs # Route-based sitemap generator
 ```
 
-- In a specific folder
+Key design notes:
+
+- Services isolate endpoint templates (`{orgId}`, `{userName}`, `{pageId}`) for dynamic substitution.
+- Accessibility-first component updates (header, command palette, contact form) focus on keyboard navigation & screen reader clarity.
+- Theming handled via CSS variables toggled at the `body` level.
+
+## 5. Getting Started
+
+Prerequisites:
+
+- Node 18+ (recommended) & npm
+- Angular CLI (`npm install -g @angular/cli`)
+
+Install dependencies:
 
 ```bash
-ng generate component path/to/your/folder/your-component-name
+npm install
 ```
 
-## Create Service
-
-- In a root folder
+Run dev server:
 
 ```bash
-n g s serviceName
-# or
-ng generate service serviceName
+npm start
+# Visit http://localhost:4200/
 ```
 
-- In a specific folder
+Generate sitemap before a production build (automatically chained in build script):
 
 ```bash
-ng g s path/to/your/folder/your-service-name
+npm run build
 ```
 
-## Linting the Application
+Serve production build (example using `http-server`):
 
-- This below command runs the linter on your application code to check for code quality issues.
+```bash
+npm i -g http-server
+http-server dist/omkr.web-app.portfolio
+```
 
-```shell
+## 6. Available NPM Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `start` | Run dev server (Angular live reload) |
+| `build` | Generate sitemap then build production bundle |
+| `sitemap` | Manually regenerate `src/sitemap.xml` |
+| `test` | Run unit tests (Karma/Jasmine) |
+| `lint` | Run ESLint over application source |
+| `watch` | Build in watch mode (development) |
+
+## 7. Configuration & Environment
+
+Environment files: `src/environments/environment.ts` & `.prod.ts`.
+
+Notable dev settings (non-sensitive examples shown):
+
+```ts
+awsUserApiBaseUrl: 'https://dev-api-v2.keshavsingh.net'
+contactApiBaseUrl: 'https://dev-api-v2.keshavsingh.net'
+blogUrl / adminUrl
+github: { clientId, redirectUri, username }
+AzureAdB2C: { tenantName, clientId, policies, logoutRedirectUri }
+scopes: { weather: [...], user: [...] }
+```
+
+Sensitive values (API keys like `x-api-key`) should be externalized for production via build-time injection or server-driven proxies. Do NOT commit real secrets to version control.
+
+### Endpoint Token Replacement
+
+Placeholder segments like `{orgId}`, `{userName}`, `{pageId}`, `{key}` are replaced at runtime by services before HTTP calls.
+
+## 8. Theming & Accessibility
+
+Implemented accessibility features:
+
+- Skip link for keyboard users
+- Single `<main>` landmark enforcement
+- Hidden structural `<h1>` for consistent document outline
+- High contrast mode (`body.high-contrast` class; persisted)
+- Theme toggle with `aria-pressed` state
+- Command palette: dialog + combobox semantics (`role="dialog"`, `aria-activedescendant`, listbox/options)
+- Live regions: polite status + assertive error summary for forms
+- Improved focus styling and respect for `prefers-reduced-motion`
+- Back-to-top button hidden from AT when not visible
+
+High Contrast Mode: stored in `localStorage` key `highContrast` (`'1' | '0'`).
+
+Future a11y enhancements (roadmap candidates):
+
+- Automated axe-core audits in CI
+- Focus trap utility for dialogs/modals
+- Language switcher controlling `<html lang>`
+- More robust error message association using `aria-describedby`
+
+## 9. Internationalization (i18n)
+
+Currently English only (`assets/i18n/en.json`). To add another language:
+
+1. Create `assets/i18n/<lang>.json`.
+2. Provide a language switch service & persist choice.
+3. Update `TranslateModule` configuration and dynamically set `<html lang>` attribute.
+
+## 10. SEO, Sitemap & Robots
+
+- `tools/generate-sitemap.mjs` parses `app-routing.module.ts` and emits `src/sitemap.xml`.
+- Output includes priority heuristic & last modified date.
+- `robots.txt` and duplicate `sitemap.xml` also mirrored under `src/assets/` for hosting flexibility.
+- Add meta tags / structured data via a future SEO service (`SeoService` already present for titles/descriptions).
+
+## 11. Analytics & Telemetry
+
+`Analytics`, `PageView`, and `Visitor` services provide an abstraction layer for tracking. Integrations can push events to:
+
+- Google Analytics (via `ngx-google-analytics`)
+- Custom backend endpoints (defined in environment endpoint maps)
+
+Add error monitoring (Sentry/App Insights) by wrapping a provider at `AppModule` level.
+
+## 12. Development Guidelines (Scaffolding Reference)
+
+Common Angular generation commands:
+
+```bash
+ng g component path/to/feature/your-component
+ng g service path/to/feature/your-service
+ng g guard auth/auth-guard
+ng g interface models/thing --type=model
+ng g enum models/status
+ng g module feature/feature-name --routing
+ng g directive shared/directives/your-directive
+ng g pipe shared/pipes/your-pipe
+```
+
+Run linter:
+
+```bash
 ng lint
 ```
 
-## Adding Support for Features
+Add 3rd party feature schematics:
 
 ```bash
-ng add package-name
+ng add <package-name>
 ```
 
-## Generating Guards or Add the auth
+## 13. Future Roadmap
 
-```bash
-ng generate guard guard-name
-```
+- Re-introduce automated accessibility tests (axe-core) via Playwright or Jest + jsdom
+- Add lazy loading boundaries for feature areas (home subsections / admin)
+- Implement PWA enhancements (service worker, offline caching, manifest pruning)
+- Dark mode contrast tuning & custom theme editor
+- Performance budgets & bundle analysis (e.g. `source-map-explorer`)
+- Image optimization pipeline (WebP/AVIF + responsive sources)
+- Integrate GitHub API (recent repos/activity) & Spotify now-playing widget
+- Enhanced security: strict CSP headers, SRI hashes for external CDNs
+- CI pipeline (GitHub Actions) for lint + test + build + deploy
+- Error monitoring integration (Sentry / Azure App Insights)
+- Internationalization expansion (hi, es, fr, etc.)
 
-## Generating Interfaces
+## 14. Contributing
 
-```bash
-ng generate interface interface-name
-```
+Contributions, issues, and suggestions are welcome.
 
-## Generating Enums
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feat/awesome-thing`
+3. Commit changes: `git commit -m "feat: add awesome thing"`
+4. Push branch: `git push origin feat/awesome-thing`
+5. Open a Pull Request describing motivation & changes
 
-```bash
-ng generate enum enum-name
-```
+Coding style:
+ 
+- Follow Angular & ESLint rules (`npm run lint`)
+- Prefer accessible HTML first; only add ARIA when needed
+- Keep service method names verb-based and model interfaces noun-based
 
-## Generating Modules
+## 15. License
 
-```bash
-   ng generate module module-name
-   ng g m module-name
-```
+If no LICENSE file is present this project currently defaults to “All rights reserved” by the author. To make it open source under MIT, add a `LICENSE` file (see suggestion section in repository issues or ask the maintainer).
 
-- Generate route file also
+---
 
-```bash
-   ng generate module module-name --routing
-   ng g m module-name --routing
-```
+### Accessibility (Detailed Summary Reference)
 
-## Generating Directives
+For quick auditing, notable implemented patterns:
 
-```bash
-   ng generate directive directive-name
-```
+- `.visually-hidden` utility for screen-reader-only text
+- Skip link jumps to main content region
+- Single `<main>` landmark maintained
+- Header nav uses semantic anchors w/ `aria-current`
+- Hidden `<h1>` preserves logical heading outline
+- Command palette: dialog, focus restore, active descendant for list keyboard navigation
+- Contact form: autocomplete hints, assertive error summary, polite status region
+- High contrast & theme toggles with persisted state
+- Back-to-top hidden from AT when off-screen
 
-## Generating Pipes
-  
-```bash
-   ng generate pipe pipe-name
-```
 
-## Generate Class
+### Security Note
 
-```bash
-ng generate class hero --type=model
-```
+Do not expose real API keys or secrets in committed `environment.ts` files for production. Use environment variable replacement or remote configuration.
+
+### Support
+
+For questions open an issue or reach out via the contact form implemented in the app.
+
+Enjoy building & iterating! 🔧

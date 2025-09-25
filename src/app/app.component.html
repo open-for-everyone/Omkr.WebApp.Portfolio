@@ -11,7 +11,7 @@
 <!-- Cookie consent banner -->
 <app-cookie-consent></app-cookie-consent>
 
-<button mat-fab class="back-to-top" type="button" aria-label="Back to top" (click)="scrollToTop()" [class.show]="showBackToTop">
+<button mat-fab class="back-to-top" type="button" aria-label="Back to top" (click)="scrollToTop()" [class.show]="showBackToTop" [attr.aria-hidden]="!showBackToTop">
 	<mat-icon>arrow_upward</mat-icon>
 	<span class="visually-hidden">Back to top</span>
 </button>

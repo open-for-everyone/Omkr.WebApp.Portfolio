@@ -45,7 +45,7 @@
               <span>Use my location</span>
             </button>
           </div>
-          <div class="map-status" aria-live="polite" [class.pulse]="pulse">
+          <div class="map-status" aria-live="polite" [class.pulse]="pulse" id="map-status" role="status">
             <mat-icon class="status-pin" [class.pinned]="isPinned">room</mat-icon>
             <span class="status-text">{{ selectionLabel }}</span>
             <span class="status-meta" *ngIf="accuracy">± {{ accuracy | number:'1.0-0' }} m</span>
@@ -64,7 +64,7 @@
           <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Name</mat-label>
-              <input matInput formControlName="name">
+              <input matInput formControlName="name" autocomplete="name" aria-describedby="map-status">
               <mat-icon matSuffix>person</mat-icon>
               <mat-error *ngIf="form.get('name')?.hasError('required')">Name is required</mat-error>
               <mat-error *ngIf="form.get('name')?.hasError('minlength')">At least 2 characters</mat-error>
@@ -72,7 +72,7 @@
 
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Email</mat-label>
-              <input matInput type="email" formControlName="email">
+              <input matInput type="email" formControlName="email" autocomplete="email">
               <mat-icon matSuffix>mail</mat-icon>
               <mat-error *ngIf="form.get('email')?.hasError('required')">Email is required</mat-error>
               <mat-error *ngIf="form.get('email')?.hasError('email')">Enter a valid email</mat-error>
@@ -80,7 +80,7 @@
 
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Message</mat-label>
-              <textarea matInput rows="5" formControlName="message"></textarea>
+              <textarea matInput rows="5" formControlName="message" autocomplete="off"></textarea>
               <mat-icon matSuffix>chat</mat-icon>
               <mat-error *ngIf="form.get('message')?.hasError('required')">Message is required</mat-error>
               <mat-error *ngIf="form.get('message')?.hasError('minlength')">At least 10 characters</mat-error>
@@ -101,6 +101,7 @@
                 <span>Email directly</span>
               </a>
             </div>
+            <div class="visually-hidden" aria-live="assertive">{{ lastErrorSummary }}</div>
           </form>
         </div>
       </div>

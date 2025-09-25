@@ -1,19 +1,20 @@
 <mat-toolbar color="primary" class="navbar-glass" [@animateMenu]>
-  <button mat-icon-button aria-label="Home" (click)="scrollTop()">
-    <img src="../../assets/images/k.png" alt="brand image" class="brandImg" loading="lazy" />
-  </button>
+  <h1 class="visually-hidden">Keshav Singh Portfolio</h1>
+  <a mat-icon-button aria-label="Home" (click)="scrollTop()" href="#top">
+    <img src="../../assets/images/k.png" alt="Keshav Singh logo" class="brandImg" loading="lazy" />
+  </a>
 
   <span class="spacer"></span>
 
-  <nav class="nav-links" [class.open]="!isNavbarCollapsed">
-    <button mat-button [class.active]="activeSection==='home'" (click)="scrollTop(); toggleNavbar()" (keyup.enter)="scrollTop(); toggleNavbar()" (keyup.space)="$event.preventDefault(); scrollTop(); toggleNavbar()">Home</button>
-    <button mat-button [class.active]="activeSection==='about'" (click)="scroll('about'); toggleNavbar()" (keyup.enter)="scroll('about'); toggleNavbar()" (keyup.space)="$event.preventDefault(); scroll('about'); toggleNavbar()">About me</button>
-    <button mat-button [class.active]="activeSection==='skills'" (click)="scroll('skills'); toggleNavbar()" (keyup.enter)="scroll('skills'); toggleNavbar()" (keyup.space)="$event.preventDefault(); scroll('skills'); toggleNavbar()">Skills</button>
-    <button mat-button [class.active]="activeSection==='experience'" (click)="scroll('experience'); toggleNavbar()" (keyup.enter)="scroll('experience'); toggleNavbar()" (keyup.space)="$event.preventDefault(); scroll('experience'); toggleNavbar()">Experience</button>
-    <button mat-button [class.active]="activeSection==='projects'" (click)="scroll('projects'); toggleNavbar()" (keyup.enter)="scroll('projects'); toggleNavbar()" (keyup.space)="$event.preventDefault(); scroll('projects'); toggleNavbar()">Projects</button>
-    <button mat-button [class.active]="activeSection==='contact'" (click)="scroll('contact'); toggleNavbar()" (keyup.enter)="scroll('contact'); toggleNavbar()" (keyup.space)="$event.preventDefault(); scroll('contact'); toggleNavbar()">Contact me</button>
-    <a mat-button [href]="blogUrl" target="_blank" rel="noopener">Blogs</a>
-    <a mat-button [href]="adminUrl" target="_blank" rel="noopener">Admin</a>
+  <nav class="nav-links" [class.open]="!isNavbarCollapsed" aria-label="Primary" id="primary-navigation">
+    <a mat-button href="#homeHeader" (click)="scrollTop(); toggleNavbar()" [attr.aria-current]="activeSection==='home' ? 'page' : null" [class.active]="activeSection==='home'">Home</a>
+    <a mat-button href="#about" (click)="scroll('about'); toggleNavbar()" [attr.aria-current]="activeSection==='about' ? 'location' : null" [class.active]="activeSection==='about'">About me</a>
+    <a mat-button href="#skills" (click)="scroll('skills'); toggleNavbar()" [attr.aria-current]="activeSection==='skills' ? 'location' : null" [class.active]="activeSection==='skills'">Skills</a>
+    <a mat-button href="#experience" (click)="scroll('experience'); toggleNavbar()" [attr.aria-current]="activeSection==='experience' ? 'location' : null" [class.active]="activeSection==='experience'">Experience</a>
+    <a mat-button href="#projects" (click)="scroll('projects'); toggleNavbar()" [attr.aria-current]="activeSection==='projects' ? 'location' : null" [class.active]="activeSection==='projects'">Projects</a>
+    <a mat-button href="#contact" (click)="scroll('contact'); toggleNavbar()" [attr.aria-current]="activeSection==='contact' ? 'location' : null" [class.active]="activeSection==='contact'">Contact me</a>
+    <a mat-button [href]="blogUrl" target="_blank" rel="noopener" aria-label="Blog (opens in new tab)">Blogs</a>
+    <a mat-button [href]="adminUrl" target="_blank" rel="noopener" aria-label="Admin (opens in new tab)">Admin</a>
   </nav>
 
   <span class="spacer"></span>
@@ -27,8 +28,11 @@
     </a>
     <button mat-stroked-button color="accent" (click)="download(slides)" title="Resume">Resume</button>
 
-    <button mat-icon-button (click)="toggleTheme()" [attr.aria-label]="'Toggle theme'" title="Toggle theme">
+    <button mat-icon-button (click)="toggleTheme()" [attr.aria-label]="isLight ? 'Switch to dark theme' : 'Switch to light theme'" [attr.aria-pressed]="isLight" title="Toggle theme">
       <mat-icon>{{ isLight ? 'light_mode' : 'dark_mode' }}</mat-icon>
+    </button>
+    <button mat-icon-button (click)="toggleHighContrast()" [attr.aria-label]="isHighContrast ? 'Disable high contrast' : 'Enable high contrast'" [attr.aria-pressed]="isHighContrast" title="High contrast mode">
+      <mat-icon>contrast</mat-icon>
     </button>
 
     <button mat-icon-button aria-label="Profile">
@@ -43,7 +47,7 @@
     </button>
   </div>
 
-  <button mat-icon-button class="menu-toggle" (click)="toggleNavbar()" aria-label="Menu">
+  <button mat-icon-button class="menu-toggle" (click)="toggleNavbar()" aria-label="Menu" aria-haspopup="true" [attr.aria-expanded]="!isNavbarCollapsed" aria-controls="primary-navigation">
     <mat-icon>menu</mat-icon>
   </button>
 </mat-toolbar>

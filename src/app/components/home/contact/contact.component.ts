@@ -32,6 +32,7 @@ export class ContactComponent implements OnInit {
   isPinned = false;
   selectionSource: 'search' | 'gps' | 'auto' | undefined;
   pulse = false;
+  lastErrorSummary = '';
 
   @ViewChild(MatAutocompleteTrigger) autoTrigger?: MatAutocompleteTrigger;
   @ViewChild('searchEl') searchEl?: ElementRef<HTMLInputElement>;
@@ -165,6 +166,16 @@ export class ContactComponent implements OnInit {
   submit(): void {
     if (this.form.invalid || this.submitting) {
       this.form.markAllAsTouched();
+      // Build simple summary of first invalid control for assertive live region
+      const firstInvalidKey = Object.keys(this.form.controls).find(k => this.form.get(k)?.invalid);
+      if(firstInvalidKey){
+        const ctrl = this.form.get(firstInvalidKey);
+        if(ctrl?.errors){
+          if(ctrl.errors['required']) this.lastErrorSummary = `${firstInvalidKey} is required.`;
+          else if(ctrl.errors['email']) this.lastErrorSummary = `Enter a valid email.`;
+          else if(ctrl.errors['minlength']) this.lastErrorSummary = `${firstInvalidKey} is too short.`;
+        }
+      }
       return;
     }
 
