@@ -10,6 +10,7 @@ import { filter, map, mergeMap } from 'rxjs/operators';
 import { SeoService } from './services/general/seo.service';
 import { RobotsComponent } from './components/general/robots/robots.component';
 import { SitemapComponent } from './components/general/sitemap/sitemap.component';
+import { ResumeComponent } from './components/general/resume/resume.component';
 // import { MsalGuard } from '@azure/msal-angular';
 
 const routes: Routes = [
@@ -57,6 +58,12 @@ const routes: Routes = [
     }
   },
   { path: 'sitemap.xml', redirectTo: 'sitemap', pathMatch: 'full' },
+  {
+    path: 'resume', component: ResumeComponent, data: {
+      title: 'Resume — Keshav Singh',
+      description: 'Printable resume highlighting experience, skills, education and key links.'
+    }
+  },
   { path: '404', component: NotFoundComponent, data: { title: 'Page Not Found — Keshav Singh', description: 'The page you are looking for could not be found.' } },
   { path: '**', redirectTo: '/404', pathMatch: 'full' }
 ];

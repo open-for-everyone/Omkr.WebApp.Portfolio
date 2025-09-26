@@ -45,6 +45,7 @@ import { DisclaimerComponent } from './components/general/legal/disclaimer/discl
 import { CookieConsentComponent } from './components/general/cookie-consent/cookie-consent.component';
 import { RobotsComponent } from './components/general/robots/robots.component';
 import { SitemapComponent } from './components/general/sitemap/sitemap.component';
+import { ResumeComponent } from './components/general/resume/resume.component';
 
 export function initializeMsal(msalService: MsalService) {
   return () => msalService.initialize();
@@ -82,6 +83,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   CookieConsentComponent,
   RobotsComponent,
   SitemapComponent,
+  ResumeComponent,
   ],
   // ...
 

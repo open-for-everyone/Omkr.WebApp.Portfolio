@@ -1,0 +1,72 @@
+<article class="resume-page" aria-labelledby="resume-title" *ngIf="data as d">
+  <header class="resume-header">
+    <h1 id="resume-title">{{ d.name }}</h1>
+    <p class="tagline">{{ d.title }}</p>
+    <p class="contact" aria-label="Contact details">
+      <span>Email: <a [href]="'mailto:' + d.contact.email">{{ d.contact.email }}</a></span>
+      <span>Mobile: <a [href]="'tel:' + d.contact.mobile" aria-label="Mobile number">{{ d.contact.mobile }}</a></span>
+      <span>GitHub: <a [href]="d.contact.github" rel="noopener noreferrer">{{ d.contact.github.replace('https://github.com/','') }}</a></span>
+      <span>Portfolio: <a [href]="d.contact.portfolio" rel="noopener noreferrer">{{ d.contact.portfolio.replace('https://','') }}</a></span>
+      <span>Location: {{ d.contact.locations.join(' / ') }}</span>
+    </p>
+    <div class="actions" aria-label="Resume actions">
+      <button type="button" (click)="print()" class="print-btn" aria-label="Print this resume">Print</button>
+      <button type="button" (click)="downloadPdf()" class="print-btn download" [disabled]="generating" aria-live="off">
+        {{ generating ? 'Generating…' : 'Download PDF' }}
+      </button>
+    </div>
+    <p class="status" *ngIf="statusMsg" aria-live="polite">{{ statusMsg }}</p>
+  </header>
+
+  <!-- Print fallback contact line to ensure visibility even if flex wraps oddly -->
+  <p class="print-contact-only" aria-hidden="true">{{ d.name }} | {{ d.contact.email }} | {{ d.contact.mobile }}</p>
+
+  <section class="resume-section" aria-labelledby="summary-heading">
+    <h2 id="summary-heading">Summary</h2>
+    <p>{{ d.summary }}</p>
+  </section>
+
+  <section class="resume-section" aria-labelledby="experience-heading">
+    <h2 id="experience-heading">Experience</h2>
+  <div class="experience-item" *ngFor="let e of d.experience; trackBy: trackExp">
+      <h3><span class="role">{{ e.role }}</span> — {{ e.company }} <small>({{ e.dateRange }} | {{ e.location }})</small></h3>
+      <div class="meta" *ngIf="e.project">Project: {{ e.project }}</div>
+      <div class="meta" *ngIf="e.projects">Projects: {{ e.projects.join(' • ') }}</div>
+      <ul *ngIf="e.bullets">
+        <li *ngFor="let b of e.bullets">{{ b }}</li>
+      </ul>
+      <ng-container *ngIf="e.projectGroups">
+        <ng-container *ngFor="let pg of e.projectGroups">
+          <div class="meta">{{ pg.name }}</div>
+          <ul>
+            <li *ngFor="let pb of pg.bullets">{{ pb }}</li>
+          </ul>
+        </ng-container>
+      </ng-container>
+    </div>
+  </section>
+
+  <section class="resume-section" aria-labelledby="skills-heading">
+    <h2 id="skills-heading">Skills</h2>
+    <ul>
+      <li><strong>Languages & Frameworks:</strong> {{ d.skills.languagesFrameworks.join(', ') }}</li>
+      <li><strong>AWS:</strong> {{ d.skills.aws.join(', ') }}</li>
+      <li><strong>Azure:</strong> {{ d.skills.azure.join(', ') }}</li>
+      <li><strong>Databases:</strong> {{ d.skills.databases.join(', ') }}</li>
+      <li><strong>DevOps & Tools:</strong> {{ d.skills.devopsTools.join(', ') }}</li>
+      <li><strong>Security & Observability:</strong> {{ d.skills.securityObservability.join(', ') }}</li>
+      <li><strong>Other:</strong> {{ d.skills.other.join(', ') }}</li>
+    </ul>
+  </section>
+
+  <section class="resume-section" aria-labelledby="education-heading">
+    <h2 id="education-heading">Education</h2>
+    <ul>
+      <li *ngFor="let ed of d.education">
+        <strong>{{ ed.degree }}</strong>, {{ ed.institution }} ({{ ed.dateRange }})<span *ngIf="ed.aggregate"> – Aggregate: {{ ed.aggregate }}</span>
+      </li>
+    </ul>
+  </section>
+
+</article>
+<p *ngIf="!data" class="status" aria-live="polite">Loading resume…</p>

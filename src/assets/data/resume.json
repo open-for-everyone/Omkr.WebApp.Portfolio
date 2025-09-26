@@ -1,0 +1,107 @@
+{
+  "name": "Keshav Singh",
+  "title": "Senior Software Engineer • .NET / Cloud / Microservices / Angular",
+  "contact": {
+    "email": "keshavsingh4522@gmail.com",
+    "mobile": "+91-9982761929",
+    "github": "https://github.com/keshavsingh4522",
+    "portfolio": "https://keshavsingh.net",
+    "locations": ["Gurgaon", "Noida", "Bangalore", "India"]
+  },
+  "summary": "Results-driven engineer delivering distributed, secure & observable platforms across Azure and AWS. Designed microservice & event-driven (gRPC, Lambda, Step Functions, queues) architectures, implemented identity (Azure AD B2C custom policies), performance tuning (40% latency improvements) & IaC (ARM, API Gateway, Kubernetes). Passionate about accessible UI, resilient services & reusable internal packages.",
+  "experience": [
+    {
+      "role": "Senior Associate Technology L1",
+      "company": "R Systems",
+      "location": "Gurgaon, India",
+      "dateRange": "Jul 2025 – Present",
+      "project": "UPS Prism",
+      "bullets": [
+        "Implemented a Figma-accurate Angular landing page with reusable components and accessibility semantics."
+      ]
+    },
+    {
+      "role": "Senior Software Engineer",
+      "company": "R Systems",
+      "location": "Noida, India",
+      "dateRange": "Feb 2024 – Jul 2025",
+      "projects": ["Autodata", "Cowan", "CA"],
+      "bullets": [
+        "Produced ARM deployment POCs provisioning VPN, App Services, SQL, subnets, alerts, Key Vault, Storage Accounts.",
+        "Implemented Azure AD B2C OAuth with custom policies (token flows + user lifecycle automation).",
+        "Integrated push notifications via Azure SignalR (real-time messaging).",
+        "Delivered Kubernetes + Datadog observability POC (logs, metrics, basic tracing).",
+        "Migrated legacy monolith to microservices using gRPC; improved modularity and deployment independence.",
+        "Engineered event-driven POC on AWS (Lambda, Step Functions, API Gateway, SQS, MassTransit, AppConfig) with EKS microservices exposed via Ingress + API Gateway routing.",
+        "Automated AWS API Gateway deployment from YAML → generated Swagger → hosted interactive docs in S3.",
+        "Built Azure Logic App for automated Azure AD B2C user create/update using certificate-based auth.",
+        "Mentored team members across Angular, Blazor, .NET, Azure, and Power Platform initiatives."
+      ]
+    },
+    {
+      "role": "Backend Developer",
+      "company": "Marlabs",
+      "location": "Bangalore, India",
+      "dateRange": "Jul 2023 – Oct 2023",
+      "projects": ["Loan Worksheet", "Loan Origin", "ApplicationRisk", "Third Party", "Associate Service"],
+      "bullets": [
+        "Developed and optimized EF Core backed REST APIs with performance-focused query adjustments.",
+        "Implemented column-level encryption/decryption via AWS KMS symmetric key integrator at model binder layer."
+      ]
+    },
+    {
+      "role": "Backend .NET Developer",
+      "company": "Unthinkable Solutions LLP",
+      "location": "Gurgaon, India",
+      "dateRange": "Jan 2021 – Jul 2023",
+      "projectGroups": [
+        {
+          "name": "Microservices Platform",
+          "bullets": [
+            "Built gRPC microservices (Protocol Buffers + gRPC-Web) orchestrated through an API aggregator.",
+            "Improved API response time ~40% (8s → 4s) via async SQS + MassTransit and microservice extraction.",
+            "Created reusable NuGet packages (Salesforce integration, query builder, SQL/NoSQL, cryptography, helpers) with CI publishing.",
+            "Authored production incident RCAs with remediation plans.",
+            "Practiced TDD (NUnit + Moq) ensuring maintainable, low-defect releases.",
+            "Participated in estimation, refinement, and agile ceremonies."
+          ]
+        },
+        {
+          "name": "Push Doctor Private & GP Ltd",
+          "bullets": [
+            "Developed serverless APIs (API Gateway + Lambda + ASP.NET Core) implementing MFA & identity flows.",
+            "Collaborated with mobile teams on contract evolution and integration."
+          ]
+        },
+        {
+          "name": "Customer Support (Data Protection)",
+          "bullets": [
+            "Implemented ticket lifecycle APIs with event bus routing to specialized Lambdas + AppFlow + Salesforce events for low latency."
+          ]
+        }
+      ]
+    }
+  ],
+  "skills": {
+    "languagesFrameworks": ["C#", ".NET Core", "ASP.NET Core Web API", "TypeScript", "Angular", "REST", "gRPC", "Microservices", "OOP", "NUnit (TDD)"],
+    "aws": ["AppConfig", "Parameter Store", "KMS", "SQS", "SNS", "SES", "Event Bus", "AppFlow", "API Gateway", "Lambda", "Cognito", "Step Functions", "DynamoDB", "S3", "EKS"],
+    "azure": ["AD B2C", "SignalR", "Storage", "Key Vault", "SQL", "VPN", "App Service", "Functions", "API Management"],
+    "databases": ["MySQL", "PostgreSQL", "MongoDB", "Redis", "Salesforce (SOQL)", "OpenSearch"],
+    "devopsTools": ["ARM Templates", "YAML Infra Specs", "Kubernetes", "Docker", "CI/CD", "Datadog", "SonarQube", "Jira", "Azure DevOps", "Bitbucket", "Git"],
+    "securityObservability": ["OAuth2 / B2C Policies", "KMS Encryption", "Logging", "Metrics"],
+    "other": ["Event-driven Design", "Accessibility", "Performance Tuning", "Package Design", "Mentoring"]
+  },
+  "education": [
+    {
+      "degree": "B.Tech – Computer Science",
+      "institution": "Jaipur Engineering College & Research Centre",
+      "location": "Jaipur, India",
+      "dateRange": "2017 – 2021",
+      "aggregate": "72%"
+    }
+  ],
+  "links": [
+    { "label": "GitHub", "url": "https://github.com/keshavsingh4522" },
+    { "label": "Portfolio", "url": "https://keshavsingh.net" }
+  ]
+}

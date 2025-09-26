@@ -33,6 +33,8 @@ export class AppComponent implements OnInit, OnDestroy {
   confetti = false;
   private konamiIndex = 0;
   private readonly konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  private beforePrintHandler?: () => void;
+  private afterPrintHandler?: () => void;
   visitorData: VisitorDetail={
     userAgent: '',
     browserName: '',
@@ -92,6 +94,25 @@ export class AppComponent implements OnInit, OnDestroy {
     });
     window.addEventListener('scroll', this.onWindowScroll, { passive: true });
 
+    // Print handling: ensure readable light palette while preserving accent contrast
+    this.beforePrintHandler = () => {
+      document.body.classList.add('printing');
+      // Provide print-specific CSS variables (fallback if not already set)
+      document.body.style.setProperty('--print-bg', '#ffffff');
+      document.body.style.setProperty('--print-fg', '#000000');
+      // If high contrast mode, keep accent visible but ensure background still white
+      if(document.body.classList.contains('high-contrast')){
+        document.body.style.setProperty('--accent', '#0000aa');
+      }
+    };
+    this.afterPrintHandler = () => {
+      document.body.classList.remove('printing');
+      document.body.style.removeProperty('--print-bg');
+      document.body.style.removeProperty('--print-fg');
+    };
+    window.addEventListener('beforeprint', this.beforePrintHandler);
+    window.addEventListener('afterprint', this.afterPrintHandler);
+
     // Initialize command palette items after first tick
     setTimeout(() => {
       const items: CommandItem[] = [
@@ -110,6 +131,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     window.removeEventListener('scroll', this.onWindowScroll);
+    if(this.beforePrintHandler){
+      window.removeEventListener('beforeprint', this.beforePrintHandler);
+    }
+    if(this.afterPrintHandler){
+      window.removeEventListener('afterprint', this.afterPrintHandler);
+    }
   }
 
   // Keyboard shortcuts: Ctrl+K or /

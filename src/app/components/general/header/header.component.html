@@ -13,8 +13,8 @@
     <a mat-button href="#experience" (click)="scroll('experience'); toggleNavbar()" [attr.aria-current]="activeSection==='experience' ? 'location' : null" [class.active]="activeSection==='experience'">Experience</a>
     <a mat-button href="#projects" (click)="scroll('projects'); toggleNavbar()" [attr.aria-current]="activeSection==='projects' ? 'location' : null" [class.active]="activeSection==='projects'">Projects</a>
     <a mat-button href="#contact" (click)="scroll('contact'); toggleNavbar()" [attr.aria-current]="activeSection==='contact' ? 'location' : null" [class.active]="activeSection==='contact'">Contact me</a>
-    <a mat-button [href]="blogUrl" target="_blank" rel="noopener" aria-label="Blog (opens in new tab)">Blogs</a>
-    <a mat-button [href]="adminUrl" target="_blank" rel="noopener" aria-label="Admin (opens in new tab)">Admin</a>
+  <a mat-button routerLink="/resume" (click)="toggleNavbar()" routerLinkActive="active" aria-label="Resume page">Resume</a>
+    <!-- Blog & Admin moved into profile menu -->
   </nav>
 
   <span class="spacer"></span>
@@ -26,25 +26,32 @@
     <a mat-icon-button href="https://wa.me/9982761929" target="_blank" rel="noopener" title="WhatsApp" aria-label="WhatsApp">
       <mat-icon>chat</mat-icon>
     </a>
-    <button mat-stroked-button color="accent" (click)="download(slides)" title="Resume">Resume</button>
-
+    <!-- Removed duplicate Resume download button; Resume accessible via nav link -->
     <button mat-icon-button (click)="toggleTheme()" [attr.aria-label]="isLight ? 'Switch to dark theme' : 'Switch to light theme'" [attr.aria-pressed]="isLight" title="Toggle theme">
       <mat-icon>{{ isLight ? 'light_mode' : 'dark_mode' }}</mat-icon>
     </button>
-    <button mat-icon-button (click)="toggleHighContrast()" [attr.aria-label]="isHighContrast ? 'Disable high contrast' : 'Enable high contrast'" [attr.aria-pressed]="isHighContrast" title="High contrast mode">
-      <mat-icon>contrast</mat-icon>
-    </button>
+    <!-- Removed high contrast toggle per duplication request -->
 
-    <button mat-icon-button aria-label="Profile">
+    <button mat-icon-button [matMenuTriggerFor]="profileMenu" aria-label="Profile menu" aria-haspopup="true">
       <img src="https://avatars3.githubusercontent.com/keshavsingh4522?size=400" alt="Profile image" class="profileImg" loading="lazy" />
     </button>
 
-    <button mat-icon-button *ngIf="!loginDisplay" (click)="login('en')" title="login" aria-label="Login">
-      <mat-icon>login</mat-icon>
-    </button>
-    <button mat-icon-button *ngIf="loginDisplay" (click)="logout()" title="logout" aria-label="Logout">
-      <mat-icon>logout</mat-icon>
-    </button>
+    <mat-menu #profileMenu="matMenu" xPosition="before" yPosition="below" class="profile-dropdown">
+      <button mat-menu-item (click)="openExternal(blogUrl)" aria-label="Open Blog">
+        <mat-icon>article</mat-icon><span>Blog</span>
+      </button>
+      <button mat-menu-item (click)="openExternal(adminUrl)" aria-label="Open Admin">
+        <mat-icon>admin_panel_settings</mat-icon><span>Admin</span>
+      </button>
+      <button mat-menu-item *ngIf="!loginDisplay" (click)="login('en')" aria-label="Login">
+        <mat-icon>login</mat-icon>
+        <span>Login</span>
+      </button>
+      <button mat-menu-item *ngIf="loginDisplay" (click)="logout()" aria-label="Logout">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
   </div>
 
   <button mat-icon-button class="menu-toggle" (click)="toggleNavbar()" aria-label="Menu" aria-haspopup="true" [attr.aria-expanded]="!isNavbarCollapsed" aria-controls="primary-navigation">

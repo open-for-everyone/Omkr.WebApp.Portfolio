@@ -52,6 +52,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   download$!: Observable<Download>;
   isLight = false;
+  // Removed high contrast toggle per user request
+  // isHighContrast retained only if other parts rely on body class; currently not toggled
   isHighContrast = false;
 
   constructor(private router: Router, public analyticsService: AnalyticService,
@@ -65,10 +67,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.setLoginDisplay();
   const theme = (localStorage.getItem('theme') as 'dark'|'light') || 'dark';
   this.setTheme(theme);
-  this.isHighContrast = localStorage.getItem('highContrast') === '1';
-  if(this.isHighContrast){
-    this.document.body.classList.add('high-contrast');
-  }
+  // High contrast initialization removed (feature disabled)
+  this.document.body.classList.remove('high-contrast');
   }
 
 
@@ -170,9 +170,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isLight = mode === 'light';
   }
 
-  toggleHighContrast(){
-    this.isHighContrast = !this.isHighContrast;
-    this.document.body.classList.toggle('high-contrast', this.isHighContrast);
-    localStorage.setItem('highContrast', this.isHighContrast ? '1' : '0');
+  // toggleHighContrast removed as per duplication cleanup
+
+  openExternal(url: string){
+    if(!url) return;
+    window.open(url, '_blank', 'noopener');
   }
 }

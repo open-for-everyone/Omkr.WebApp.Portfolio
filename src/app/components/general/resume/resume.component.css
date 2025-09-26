@@ -1,0 +1,79 @@
+.resume-page {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1.25rem 1.75rem;
+  background: var(--card, #111);
+  color: var(--text-strong, #e6eef8);
+  line-height: 1.5;
+  font-size: 0.95rem;
+  border: 1px solid var(--border, rgba(255,255,255,0.12));
+  border-radius: var(--radius, 12px);
+  box-shadow: 0 4px 18px rgba(0,0,0,0.35);
+}
+.resume-header { text-align: center; margin-bottom: 1.75rem; }
+.resume-header h1 { margin: 0 0 0.35rem; font-size: 2.1rem; letter-spacing: .5px; color: var(--text-strong, #fff); }
+.resume-header .tagline { margin: 0 0 .65rem; font-weight: 500; color: var(--accent, #64ffda); letter-spacing: .5px; }
+.resume-header .contact { display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center; font-size: .8rem; color: var(--muted, #94a3b8); }
+.resume-header .contact span { white-space: nowrap; }
+.print-btn { margin-top: .85rem; background: linear-gradient(90deg,var(--primary,#3976d2), #2b5fb3); color: #fff; border: 0; padding: .55rem 1rem; cursor: pointer; border-radius: 6px; font-size:.8rem; box-shadow:0 4px 10px rgba(0,0,0,0.4); }
+.print-btn:hover { filter: brightness(1.05); }
+.print-btn:focus { outline: 3px solid color-mix(in oklab,var(--accent,#64ffda) 45%, transparent); outline-offset: 2px; }
+.resume-section { margin-bottom: 1.4rem; }
+.resume-section h2 { margin: 0 0 .5rem; font-size: 1rem; font-weight:600; text-transform:uppercase; letter-spacing:.7px; position:relative; padding-bottom:.35rem; color: var(--text-soft,#cbd5e1); }
+.resume-section h2:after { content:""; position:absolute; left:0; bottom:0; width:80px; height:2px; background: var(--accent,#64ffda); border-radius:2px; }
+.experience-item { margin-bottom: 1rem; }
+.experience-item h3 { margin: 0 0 .25rem; font-size: .95rem; font-weight:500; color: var(--text-strong,#fff); }
+.experience-item h3 .role { color: var(--accent,#64ffda); font-weight:600; }
+.experience-item .meta { font-size:.7rem; letter-spacing:.5px; text-transform:uppercase; color: var(--muted,#94a3b8); margin-bottom:.3rem; }
+.experience-item ul { margin: 0 0 .6rem 1.15rem; padding: 0; }
+.resume-section ul { margin: .25rem 0 .6rem 1.15rem; padding: 0; }
+.resume-section li { margin-bottom: .3rem; }
+.keywords { display:flex; flex-wrap:wrap; gap:.45rem; margin:.4rem 0 .2rem; }
+.keywords span { background: color-mix(in oklab, var(--accent,#64ffda) 14%, transparent); color: var(--accent,#64ffda); padding:.25rem .55rem; border-radius:999px; font-size:.6rem; letter-spacing:.5px; font-weight:500; }
+.actions { display:flex; gap:.6rem; flex-wrap:wrap; justify-content:center; margin-top:.75rem; }
+.status { text-align:center; font-size:.7rem; letter-spacing:.5px; color: var(--muted,#94a3b8); margin-top:.4rem; }
+.print-btn[disabled] { opacity:.65; cursor: progress; }
+.print-contact-only { display:none; font-size:.85rem; text-align:center; margin:0 0 1rem; font-weight:600; line-height:1.3; white-space:normal; overflow:visible; }
+
+/* Light theme adjustments ensure borders stay subtle */
+body.light .resume-page { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+body.light .resume-section h2 { color: var(--text-soft,#334155); }
+body.light .experience-item h3 { color: var(--text-strong,#0f1724); }
+body.light .keywords span { background: color-mix(in oklab, var(--accent,#0ea5a4) 18%, transparent); }
+
+/* High contrast: rely entirely on core variables already swapped */
+body.high-contrast .resume-page { box-shadow:none; }
+body.high-contrast .resume-section h2:after { background: var(--accent,#ffff00); }
+body.high-contrast .keywords span { background: #000; border:1px solid var(--accent,#ffff00); color: var(--accent,#ffff00); }
+
+/* Download button variant */
+.print-btn.download { background: linear-gradient(90deg,var(--accent,#0ea5a4), var(--primary,#3976d2)); }
+.print-btn.download:focus { outline: 3px solid color-mix(in oklab,var(--accent,#64ffda) 55%, transparent); outline-offset: 2px; }
+
+/* Screen-only helpers */
+@media screen {
+  .print-btn { display: inline-block; }
+}
+
+/* Print styles specific to component (global print rules added separately) */
+@media print {
+  .print-btn { display: none !important; }
+  .actions { display:none !important; }
+  .resume-header .contact { display:none !important; } /* hide original wrapped contact row to avoid duplication */
+  .print-contact-only { display:block; width:100%; }
+  .resume-page {
+    box-shadow: none !important;
+    margin: 0;
+    padding: 0.5rem 0.75rem;
+    width: 100%;
+    background: var(--print-bg,#fff) !important;
+    color: var(--print-fg,#000) !important;
+    border:0 !important;
+    border-radius:0 !important;
+  }
+  a { color: var(--print-fg,#000) !important; text-decoration: none; }
+  a[href]:after { content: " (" attr(href) ")"; font-size: 0.7em; }
+  body[data-no-print-urls] a[href]:after { content: ""; }
+}
+
+body.exporting .actions, body.exporting .status { display:none !important; }

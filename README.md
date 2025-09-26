@@ -169,6 +169,24 @@ Implemented accessibility features:
 
 High Contrast Mode: stored in `localStorage` key `highContrast` (`'1' | '0'`).
 
+See `docs/development-guidelines.md` for detailed theming + accessibility conventions (focus states, variable usage, high contrast policy, and checklist for new components).
+ 
+### Printable Resume (/resume)
+
+The application now includes a dedicated `/resume` route providing a print‑optimized résumé view:
+
+- Minimal layout (no navigation, theme toggles, or interactive UI in print)
+- Semantic sections: Summary, Experience, Skills, Education, Links
+- Screen-only Print button triggers `window.print()`
+- Global `@media print` stylesheet hides non-essential elements and adds link URL suffixes
+
+To customize:
+
+- Edit `resume.component.html` content blocks
+- Adjust print tweaks in `resume.component.css` and global `styles.css` `@media print` rules
+- Replace placeholder email / experience entries with real data
+
+
 Future a11y enhancements (roadmap candidates):
 
 - Automated axe-core audits in CI
@@ -256,6 +274,8 @@ Coding style:
 - Follow Angular & ESLint rules (`npm run lint`)
 - Prefer accessible HTML first; only add ARIA when needed
 - Keep service method names verb-based and model interfaces noun-based
+
+Extended practices (architecture, a11y checklist, print rules, theming tokens) are documented in `docs/development-guidelines.md`.
 
 ## 15. License
 

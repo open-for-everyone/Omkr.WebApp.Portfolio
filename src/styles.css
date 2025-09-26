@@ -348,3 +348,24 @@ footer { color:var(--muted); padding:2rem 1rem; }
   white-space: nowrap !important;
   border: 0 !important;
 }
+
+/* Global print rules (theme-aware) */
+@media print {
+  header, nav, footer, .menu-toggle, .command-palette-trigger, .cookie-banner,
+  .back-to-top, .theme-toggle, .high-contrast-toggle, .progress-bar-wrapper { display: none !important; }
+  body {
+    /* Use light theme variables for best legibility when printing dark theme */
+    background: var(--print-bg, #fff) !important;
+    color: var(--print-fg, #000) !important;
+    font-size: 12pt;
+  }
+  /* When body has .high-contrast keep strong contrast but invert to white page */
+  body.high-contrast { --print-bg:#fff; --print-fg:#000; }
+  a { color: var(--print-fg, #000) !important; text-decoration:none; }
+  a[href]:after { content: " (" attr(href) ")"; font-size: .7em; }
+  .mat-mdc-card, .card { box-shadow:none !important; background:var(--print-bg,#fff) !important; border:0 !important; }
+  * { animation: none !important; transition: none !important; }
+  /* Optional body.printing class allows JS toggle (in case of conditional styling) */
+  body.printing .no-print-meta { display:none !important; }
+  @page { margin: 12mm; }
+}
