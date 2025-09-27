@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -45,6 +45,7 @@ export class AppComponent implements OnInit, OnDestroy {
   };
 
   @ViewChild(CommandPaletteComponent) palette?: CommandPaletteComponent;
+  @ViewChild('chatHost', { read: ViewContainerRef }) chatHost?: ViewContainerRef;
 
   constructor(private titleService: Title,
     private metaService: Meta,
@@ -126,6 +127,8 @@ export class AppComponent implements OnInit, OnDestroy {
         { id:'github', label:'Open GitHub', hint: 'github.com/keshavsingh4522', action: () => window.open('https://github.com/keshavsingh4522', '_blank') },
       ];
       this.palette?.setCommands(items);
+      // Dynamically load chat widget to bypass template compilation issue
+      this.loadChatWidget();
     });
   }
 
@@ -159,6 +162,16 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     } else {
       this.konamiIndex = 0;
+    }
+  }
+
+  private async loadChatWidget(){
+    if(!this.chatHost) return;
+    try {
+      const { ChatWidgetComponent } = await import('./components/general/chat-widget/chat-widget.component');
+      this.chatHost.createComponent(ChatWidgetComponent);
+    } catch (e){
+      console.error('Failed to load chat widget', e);
     }
   }
 

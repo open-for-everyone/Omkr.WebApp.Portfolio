@@ -119,6 +119,12 @@ export const environment = {
       signupSignIn: "B2C_1A_signup_signin"
     },
     logoutRedirectUri: "https://keshavsingh.net"
+  },
+  // AI Chat configuration (placeholder – do not put secrets here)
+  aiChat: {
+    enabled: true,
+    baseUrl: 'https://api.example.com/ai-chat', // replace with real endpoint
+    apiKey: '' // NEVER store real keys client-side; server proxy recommended
   }
   // End MSAL CONFIG Auth
 };

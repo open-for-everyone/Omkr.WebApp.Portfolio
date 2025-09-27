@@ -14,5 +14,10 @@ export const environment = {
   github: {
     username: 'keshavsingh4522',
     apiBase: 'https://api.github.com'
+  },
+  aiChat: {
+    enabled: true,
+    baseUrl: 'https://api.example.com/ai-chat',
+    apiKey: ''
   }
 };
