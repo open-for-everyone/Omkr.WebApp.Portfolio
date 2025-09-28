@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Inactivity Warning</h2>
+<div mat-dialog-content>
+  <p>You have been inactive for a while. Your session will end in <strong>{{ (countdown$ | async) ?? data.seconds }}</strong> seconds.</p>
+  <p>This login is valid for 30 minutes of total time. Activity resets the 2-minute inactivity timer (not the 30-minute absolute limit).</p>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button color="primary" (click)="continue()">Continue Session</button>
+  <button mat-stroked-button color="warn" (click)="logout()">Logout</button>
+</div>

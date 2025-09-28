@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { FileService } from 'src/app/services/file/file.service';
 import { DOCUMENT } from '@angular/common';
 import { Download } from 'src/app/services/file/Download';
+import { SessionService } from 'src/app/services/auth/session.service';
 
 @Component({
   selector: 'app-header',
@@ -56,19 +57,47 @@ export class HeaderComponent implements OnInit, OnDestroy {
   // isHighContrast retained only if other parts rely on body class; currently not toggled
   isHighContrast = false;
 
+  sessionCountdown: string = '';
+  sessionExpiry: number | undefined;
+  sessionSub?: any;
   constructor(private router: Router, public analyticsService: AnalyticService,
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration, private authService: MsalService,
     private msalBroadcastService: MsalBroadcastService,
     private downloads: FileService,
-    @Inject(DOCUMENT) private document: Document
-  ) {
-  }
+    @Inject(DOCUMENT) private document: Document,
+    public session: SessionService
+  ) {}
   ngOnInit(): void {
-    this.setLoginDisplay();
-  const theme = (localStorage.getItem('theme') as 'dark'|'light') || 'dark';
-  this.setTheme(theme);
-  // High contrast initialization removed (feature disabled)
-  this.document.body.classList.remove('high-contrast');
+    this.session.isLoggedIn$.subscribe(v => this.loginDisplay = v);
+    // Subscribe to sessionState$ for countdown
+    this.sessionSub = this.session.sessionState$.subscribe(st => {
+      if (st.loggedIn && st.absoluteExpiry) {
+        this.sessionExpiry = st.absoluteExpiry;
+        this.updateCountdown();
+      } else {
+        this.sessionCountdown = '';
+        this.sessionExpiry = undefined;
+      }
+    });
+    setInterval(() => this.updateCountdown(), 1000);
+    const theme = (localStorage.getItem('theme') as 'dark'|'light') || 'dark';
+    this.setTheme(theme);
+    this.document.body.classList.remove('high-contrast');
+  }
+
+  updateCountdown() {
+    if (!this.sessionExpiry) {
+      this.sessionCountdown = '';
+      return;
+    }
+    const msLeft = this.sessionExpiry - Date.now();
+    if (msLeft <= 0) {
+      this.sessionCountdown = '';
+      return;
+    }
+    const min = Math.floor(msLeft / 60000);
+    const sec = Math.floor((msLeft % 60000) / 1000);
+    this.sessionCountdown = `${min}:${sec.toString().padStart(2, '0')} remaining`;
   }
 
 
@@ -138,14 +167,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
-  setLoginDisplay() {
-    this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
-  }
+  // setLoginDisplay() { /* replaced by session subscription */ }
 
   ngOnDestroy(): void {
-    // Add your code here
     this._destroying$.next(undefined);
     this._destroying$.complete();
+    if (this.sessionSub) this.sessionSub.unsubscribe();
   }
 
   download({ name, url }: { name: string, url: string }) {

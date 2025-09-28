@@ -1,0 +1,5 @@
+:host { display:block; max-width:420px; }
+
+p { margin: 0 0 .75rem; line-height:1.4; }
+
+[mat-dialog-actions] { margin-top: .5rem; }

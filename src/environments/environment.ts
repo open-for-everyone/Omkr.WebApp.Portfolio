@@ -1,4 +1,9 @@
 export const environment = {
+  sessionConfig: {
+    absoluteSessionMinutes: 30,
+    inactivityMinutes: 1,
+    warningCountdownSeconds: 30
+  },
   production: false,
   awsUserApiBaseUrl: 'https://dev-api-v2.keshavsingh.net',
   // Base URL for contact form submissions (configure backend to send emails)
