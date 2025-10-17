@@ -70,6 +70,8 @@ export class EpfoAuthService {
    * Store token in localStorage
    */
   private setToken(token: string): void {
+    // Note: For production, consider using httpOnly cookies or more secure storage
+    // localStorage exposes tokens to XSS attacks
     localStorage.setItem('epfo_token', token);
     this.tokenSubject.next(token);
   }

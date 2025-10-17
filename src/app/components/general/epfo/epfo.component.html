@@ -232,7 +232,7 @@
       </mat-card-header>
       <mat-card-content>
         <div class="contributions-table">
-          <table mat-table [dataSource]="passbook!.contributions" class="full-width">
+          <table mat-table [dataSource]="passbook.contributions" class="full-width">
             <ng-container matColumnDef="period">
               <th mat-header-cell *matHeaderCellDef>Period</th>
               <td mat-cell *matCellDef="let contribution">

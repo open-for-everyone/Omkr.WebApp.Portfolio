@@ -14,6 +14,12 @@ import {
   EpfoPassbook
 } from '../../../models/epfo/epfo-data';
 
+interface HttpErrorResponse {
+  error?: { message?: string };
+  status?: number;
+  message?: string;
+}
+
 @Component({
   selector: 'app-epfo',
   templateUrl: './epfo.component.html',
@@ -144,7 +150,7 @@ export class EpfoComponent implements OnInit, OnDestroy {
   /**
    * Get error message from HTTP error
    */
-  private getErrorMessage(error: {error?: {message?: string}; status?: number; message?: string}): string {
+  private getErrorMessage(error: HttpErrorResponse): string {
     if (error.error && error.error.message) {
       return error.error.message;
     }
