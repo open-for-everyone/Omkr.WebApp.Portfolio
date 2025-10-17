@@ -1,0 +1,292 @@
+<div class="epfo-container">
+  <!-- Header -->
+  <div class="epfo-header">
+    <h1>EPFO - Employee Provident Fund Organisation</h1>
+    <p class="subtitle">View your provident fund details, contributions, and account information</p>
+  </div>
+
+  <!-- Login Section -->
+  <div *ngIf="!isAuthenticated" class="login-section">
+    <mat-card class="login-card">
+      <mat-card-header>
+        <mat-card-title>Login to EPFO</mat-card-title>
+        <mat-card-subtitle>Enter your UAN and password to access your account</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>UAN (Universal Account Number)</mat-label>
+            <input matInput 
+                   formControlName="uan" 
+                   placeholder="Enter 12-digit UAN"
+                   maxlength="12"
+                   type="text">
+            <mat-error *ngIf="loginForm.get('uan')?.hasError('required')">
+              UAN is required
+            </mat-error>
+            <mat-error *ngIf="loginForm.get('uan')?.hasError('pattern')">
+              UAN must be 12 digits
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput 
+                   formControlName="password" 
+                   type="password"
+                   placeholder="Enter password">
+            <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+              Password is required
+            </mat-error>
+            <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">
+              Password must be at least 6 characters
+            </mat-error>
+          </mat-form-field>
+
+          <div *ngIf="loginError" class="error-message">
+            <mat-icon>error</mat-icon>
+            <span>{{ loginError }}</span>
+          </div>
+
+          <button mat-raised-button 
+                  color="primary" 
+                  type="submit" 
+                  [disabled]="loginForm.invalid || isLoading"
+                  class="login-button">
+            <mat-spinner *ngIf="isLoading" diameter="20" class="spinner"></mat-spinner>
+            <span *ngIf="!isLoading">Login</span>
+          </button>
+        </form>
+
+        <div class="login-info">
+          <mat-icon>info</mat-icon>
+          <p>Use your EPFO portal credentials to login. If you don't have an account, visit 
+             <a href="https://unifiedportal-mem.epfindia.gov.in/" target="_blank" rel="noopener">EPFO Portal</a>
+          </p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Dashboard Section -->
+  <div *ngIf="isAuthenticated" class="dashboard-section">
+    <!-- Action Bar -->
+    <div class="action-bar">
+      <button mat-raised-button color="accent" (click)="fetchEpfoData()" [disabled]="isLoading">
+        <mat-icon>refresh</mat-icon>
+        Refresh Data
+      </button>
+      <button mat-raised-button color="warn" (click)="onLogout()">
+        <mat-icon>logout</mat-icon>
+        Logout
+      </button>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div *ngIf="isLoading" class="loading-container">
+      <mat-spinner></mat-spinner>
+      <p>Loading your EPFO data...</p>
+    </div>
+
+    <!-- Account Details -->
+    <mat-card *ngIf="!isLoading && accountDetail" class="info-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>account_circle</mat-icon>
+          Account Details
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="details-grid">
+          <div class="detail-item">
+            <span class="label">Name:</span>
+            <span class="value">{{ accountDetail.name }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">UAN:</span>
+            <span class="value">{{ accountDetail.uan }}</span>
+          </div>
+          <div class="detail-item" *ngIf="accountDetail.dateOfBirth">
+            <span class="label">Date of Birth:</span>
+            <span class="value">{{ formatDate(accountDetail.dateOfBirth) }}</span>
+          </div>
+          <div class="detail-item" *ngIf="accountDetail.dateOfJoining">
+            <span class="label">Date of Joining:</span>
+            <span class="value">{{ formatDate(accountDetail.dateOfJoining) }}</span>
+          </div>
+          <div class="detail-item" *ngIf="accountDetail.mobileNumber">
+            <span class="label">Mobile:</span>
+            <span class="value">{{ accountDetail.mobileNumber }}</span>
+          </div>
+          <div class="detail-item" *ngIf="accountDetail.emailId">
+            <span class="label">Email:</span>
+            <span class="value">{{ accountDetail.emailId }}</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Balance Summary -->
+    <mat-card *ngIf="!isLoading && balance" class="balance-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>account_balance</mat-icon>
+          Balance Summary
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="balance-summary">
+          <div class="balance-item total">
+            <h3>Total Balance</h3>
+            <p class="amount">{{ formatCurrency(balance.totalBalance) }}</p>
+          </div>
+          <div class="balance-breakdown">
+            <div class="balance-item">
+              <span class="label">Employee Share:</span>
+              <span class="amount">{{ formatCurrency(balance.employeeShare) }}</span>
+            </div>
+            <div class="balance-item">
+              <span class="label">Employer Share:</span>
+              <span class="amount">{{ formatCurrency(balance.employerShare) }}</span>
+            </div>
+            <div class="balance-item">
+              <span class="label">Pension Share:</span>
+              <span class="amount">{{ formatCurrency(balance.pensionShare) }}</span>
+            </div>
+          </div>
+          <p class="last-updated" *ngIf="balance.lastUpdated">
+            Last Updated: {{ formatDate(balance.lastUpdated) }}
+          </p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Employers -->
+    <mat-card *ngIf="!isLoading && employers.length > 0" class="info-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>business</mat-icon>
+          Employment History
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="employers-list">
+          <div *ngFor="let employer of employers" class="employer-item" [class.active]="employer.isActive">
+            <div class="employer-header">
+              <h4>{{ employer.establishmentName }}</h4>
+              <span class="status-badge" *ngIf="employer.isActive">Active</span>
+            </div>
+            <div class="employer-details">
+              <p><strong>Establishment ID:</strong> {{ employer.establishmentId }}</p>
+              <p *ngIf="employer.joiningDate">
+                <strong>Joining Date:</strong> {{ formatDate(employer.joiningDate) }}
+              </p>
+              <p *ngIf="employer.leavingDate">
+                <strong>Leaving Date:</strong> {{ formatDate(employer.leavingDate) }}
+              </p>
+              <p *ngIf="employer.address"><strong>Address:</strong> {{ employer.address }}</p>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Nominees -->
+    <mat-card *ngIf="!isLoading && nominees.length > 0" class="info-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>people</mat-icon>
+          Nominee Details
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="nominees-list">
+          <div *ngFor="let nominee of nominees" class="nominee-item">
+            <div class="nominee-header">
+              <h4>{{ nominee.nomineeName }}</h4>
+              <span class="share-badge">{{ nominee.sharePercentage }}%</span>
+            </div>
+            <div class="nominee-details">
+              <p><strong>Relationship:</strong> {{ nominee.relationshipWithMember }}</p>
+              <p *ngIf="nominee.dateOfBirth">
+                <strong>Date of Birth:</strong> {{ formatDate(nominee.dateOfBirth) }}
+              </p>
+              <p *ngIf="nominee.guardianName">
+                <strong>Guardian:</strong> {{ nominee.guardianName }}
+              </p>
+              <p *ngIf="nominee.address"><strong>Address:</strong> {{ nominee.address }}</p>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Passbook / Contributions -->
+    <mat-card *ngIf="!isLoading && passbook && passbook.contributions && passbook.contributions.length > 0" class="info-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>history</mat-icon>
+          Contribution History
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="contributions-table">
+          <table mat-table [dataSource]="passbook!.contributions" class="full-width">
+            <ng-container matColumnDef="period">
+              <th mat-header-cell *matHeaderCellDef>Period</th>
+              <td mat-cell *matCellDef="let contribution">
+                {{ contribution.month }} {{ contribution.year }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="company">
+              <th mat-header-cell *matHeaderCellDef>Company</th>
+              <td mat-cell *matCellDef="let contribution">
+                {{ contribution.establishmentName || '-' }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="employee">
+              <th mat-header-cell *matHeaderCellDef>Employee</th>
+              <td mat-cell *matCellDef="let contribution">
+                {{ formatCurrency(contribution.employeeContribution) }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="employer">
+              <th mat-header-cell *matHeaderCellDef>Employer</th>
+              <td mat-cell *matCellDef="let contribution">
+                {{ formatCurrency(contribution.employerContribution) }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="pension">
+              <th mat-header-cell *matHeaderCellDef>Pension</th>
+              <td mat-cell *matCellDef="let contribution">
+                {{ formatCurrency(contribution.pensionContribution) }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="total">
+              <th mat-header-cell *matHeaderCellDef>Total</th>
+              <td mat-cell *matCellDef="let contribution" class="total-column">
+                {{ formatCurrency(contribution.totalContribution) }}
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="['period', 'company', 'employee', 'employer', 'pension', 'total']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['period', 'company', 'employee', 'employer', 'pension', 'total']"></tr>
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Empty State -->
+    <div *ngIf="!isLoading && !accountDetail && !balance" class="empty-state">
+      <mat-icon>info</mat-icon>
+      <h3>No Data Available</h3>
+      <p>Unable to fetch EPFO data. Please try refreshing or contact support.</p>
+    </div>
+  </div>
+</div>
