@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { EpfoAuthService } from '../../../services/epfo/epfo-auth.service';
@@ -13,12 +14,6 @@ import {
   EpfoEmployerDetail,
   EpfoPassbook
 } from '../../../models/epfo/epfo-data';
-
-interface HttpErrorResponse {
-  error?: { message?: string };
-  status?: number;
-  message?: string;
-}
 
 @Component({
   selector: 'app-epfo',
@@ -151,7 +146,7 @@ export class EpfoComponent implements OnInit, OnDestroy {
    * Get error message from HTTP error
    */
   private getErrorMessage(error: HttpErrorResponse): string {
-    if (error.error && error.error.message) {
+    if (error.error?.message) {
       return error.error.message;
     }
     
