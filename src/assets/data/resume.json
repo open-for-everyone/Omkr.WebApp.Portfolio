@@ -5,7 +5,7 @@
     "email": "keshavsingh4522@gmail.com",
     "mobile": "+91-9982761929",
     "github": "https://github.com/keshavsingh4522",
-    "portfolio": "https://keshavsingh.net",
+    "portfolio": "https://keshavsingh.in",
     "locations": ["Gurgaon", "Noida", "Bangalore", "India"]
   },
   "summary": "Results-driven engineer delivering distributed, secure & observable platforms across Azure and AWS. Designed microservice & event-driven (gRPC, Lambda, Step Functions, queues) architectures, implemented identity (Azure AD B2C custom policies), performance tuning (40% latency improvements) & IaC (ARM, API Gateway, Kubernetes). Passionate about accessible UI, resilient services & reusable internal packages.",
@@ -102,6 +102,6 @@
   ],
   "links": [
     { "label": "GitHub", "url": "https://github.com/keshavsingh4522" },
-    { "label": "Portfolio", "url": "https://keshavsingh.net" }
+    { "label": "Portfolio", "url": "https://keshavsingh.in" }
   ]
 }

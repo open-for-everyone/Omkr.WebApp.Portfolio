@@ -15,7 +15,7 @@ const projectRoot = resolve(__dirname, '..');
 const routingFile = resolve(projectRoot, 'src/app/app-routing.module.ts');
 const outputFile = resolve(projectRoot, 'src/sitemap.xml');
 
-const BASE_URL = process.env.SITEMAP_BASE_URL || 'https://keshavsingh.net';
+const BASE_URL = process.env.SITEMAP_BASE_URL || 'https://keshavsingh.in';
 
 const src = readFileSync(routingFile, 'utf-8');
 

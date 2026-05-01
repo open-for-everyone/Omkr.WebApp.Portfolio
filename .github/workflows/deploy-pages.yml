@@ -44,6 +44,9 @@ jobs:
       - name: Build
         run: npx ng build --base-href "${{ steps.pages.outputs.base_path }}/"
 
+      - name: Add CNAME for custom domain
+        run: echo "keshavsingh.in" > ${{ env.OUTPUT_DIR }}/CNAME
+
       - name: Copy index.html to 404.html for SPA routing
         run: cp ${{ env.OUTPUT_DIR }}/index.html ${{ env.OUTPUT_DIR }}/404.html
 
