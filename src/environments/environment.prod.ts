@@ -9,8 +9,8 @@ export const environment = {
     countries: '/v3.1/all',
     anotherEndpoint: '/another-endpoint',
   },
-  blogUrl: 'https://www.blogs.keshavsingh.net',
-  adminUrl: 'https://www.admin.keshavsingh.net',
+  blogUrl: 'https://www.blogs.keshavsingh.in',
+  adminUrl: 'https://www.admin.keshavsingh.in',
   github: {
     username: 'keshavsingh4522',
     apiBase: 'https://api.github.com'

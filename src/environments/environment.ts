@@ -5,11 +5,11 @@ export const environment = {
     warningCountdownSeconds: 30
   },
   production: false,
-  awsUserApiBaseUrl: 'https://dev-api-v2.keshavsingh.net',
+  awsUserApiBaseUrl: 'https://dev-api-v2.keshavsingh.in',
   // Base URL for contact form submissions (configure backend to send emails)
-  contactApiBaseUrl: 'https://dev-api-v2.keshavsingh.net',
-  blogUrl: 'https://www.blogs.keshavsingh.net',
-  adminUrl: 'https://www.admin.keshavsingh.net',
+  contactApiBaseUrl: 'https://dev-api-v2.keshavsingh.in',
+  blogUrl: 'https://www.blogs.keshavsingh.in',
+  adminUrl: 'https://www.admin.keshavsingh.in',
   apiVersion: 'v1',
   mapConfig:{
     external:"ext",
@@ -123,7 +123,7 @@ export const environment = {
     policies: {
       signupSignIn: "B2C_1A_signup_signin"
     },
-    logoutRedirectUri: "https://keshavsingh.net"
+    logoutRedirectUri: "https://keshavsingh.in"
   },
   // AI Chat configuration (placeholder – do not put secrets here)
   aiChat: {

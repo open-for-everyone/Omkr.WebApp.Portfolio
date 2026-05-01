@@ -14,7 +14,7 @@ export interface SeoData {
 @Injectable({ providedIn: 'root' })
 export class SeoService {
   private default: Required<Pick<SeoData, 'image' | 'type'>> = {
-    image: 'https://keshavsingh.net/assets/images/keshav-singh-portfolio-preview.png',
+    image: 'https://keshavsingh.in/assets/images/keshav-singh-portfolio-preview.png',
     type: 'website'
   };
 

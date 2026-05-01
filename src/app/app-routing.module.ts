@@ -88,7 +88,7 @@ export class AppRoutingModule {
         seo.update({
           title: data['title'],
           description: data['description'],
-          canonicalUrl: 'https://keshavsingh.net' + router.url
+          canonicalUrl: 'https://keshavsingh.in' + router.url
         });
       }
     });
