@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faGithub, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { environment } from 'src/environments/environment';
 import { AnalyticService } from 'src/app/services/Analytics/analytic.service';
 
 @Component({
@@ -30,11 +31,13 @@ export class BannerComponent implements OnInit, OnDestroy {
   /** Roles cycled through by the typing animation */
   readonly roles = ['Backend Developer', 'Cloud Engineer', '.NET Architect', 'API Designer'];
 
+  readonly avatarUrl = environment.githubAvatarUrl;
+
   currentRole = '';
   private roleIdx = 0;
   private charIdx = 0;
   private isTyping = true;
-  private typingTimer: ReturnType<typeof setTimeout> | null = null;
+  private typingTimer: number | null = null;
 
   constructor(public analyticsService: AnalyticService, private library: FaIconLibrary) {
     library.addIcons(faGithub, faLinkedinIn, faEnvelope);
@@ -45,7 +48,7 @@ export class BannerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.typingTimer) clearTimeout(this.typingTimer);
+    if (this.typingTimer !== null) clearTimeout(this.typingTimer);
   }
 
   private type(): void {
@@ -54,7 +57,7 @@ export class BannerComponent implements OnInit, OnDestroy {
       this.currentRole = target.slice(0, ++this.charIdx);
       if (this.charIdx >= target.length) {
         this.isTyping = false;
-        this.typingTimer = setTimeout(() => this.type(), 2000);
+        this.typingTimer = window.setTimeout(() => this.type(), 2000);
         return;
       }
     } else {
@@ -64,6 +67,6 @@ export class BannerComponent implements OnInit, OnDestroy {
         this.roleIdx = (this.roleIdx + 1) % this.roles.length;
       }
     }
-    this.typingTimer = setTimeout(() => this.type(), this.isTyping ? 85 : 45);
+    this.typingTimer = window.setTimeout(() => this.type(), this.isTyping ? 85 : 45);
   }
 }
