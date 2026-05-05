@@ -1,6 +1,53 @@
-section { padding: 2rem 0; }
-.skills-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:1rem; }
-.skill .row { display:flex; align-items:center; justify-content:space-between; margin-bottom:.5rem; color: var(--text-strong); }
-.skill mat-progress-bar { height: 10px; border-radius: 6px; }
-.skill { transition: transform .12s ease, box-shadow .12s ease; }
-.skill:hover { transform: translateY(-4px); box-shadow: 0 12px 26px rgba(2,6,23,0.35); }
+.skills-section { padding: 5rem 0; }
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.category-card {
+  padding: 1.5rem;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  transition-delay: var(--delay, 0ms);
+}
+.category-card:hover {
+  transform: translateY(-5px);
+  border-color: color-mix(in oklab, var(--accent) 30%, transparent);
+  box-shadow: 0 14px 36px rgba(2,6,23,.45), 0 0 0 1px color-mix(in oklab, var(--accent) 10%, transparent);
+}
+
+.cat-header {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: 1rem;
+}
+.cat-icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: color-mix(in oklab, var(--accent) 10%, transparent);
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.cat-icon-wrap mat-icon {
+  font-size: 1.2rem;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+.cat-header h3 {
+  color: var(--text-strong);
+  font-size: .95rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+}

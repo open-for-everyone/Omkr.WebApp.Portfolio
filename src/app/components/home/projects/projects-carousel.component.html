@@ -1,41 +1,69 @@
-<section aria-labelledby="projects-heading" role="region">
+<section class="projects-section section reveal" appReveal aria-labelledby="projects-heading" role="region">
   <div class="container">
-  <h2 id="projects-heading" class="navbar-title" style="font-size:2rem;margin:0 0 1rem;">Highlighted Projects</h2>
-  <mat-card appearance="outlined" class="filters">
-    <mat-card-content>
-      <mat-form-field appearance="outline" style="width:100%;">
-        <mat-label>Search projects</mat-label>
-        <input matInput [(ngModel)]="query" />
-        <button mat-icon-button matSuffix aria-label="Clear" *ngIf="query" (click)="query=''">
+    <h2 id="projects-heading" class="section-title">Highlighted Projects</h2>
+
+    <!-- Filters bar -->
+    <div class="filters-bar">
+      <div class="search-wrap">
+        <mat-icon class="search-icon" aria-hidden="true">search</mat-icon>
+        <input
+          type="text"
+          class="search-input"
+          [(ngModel)]="query"
+          placeholder="Search projects…"
+          aria-label="Search projects" />
+        <button class="clear-btn" *ngIf="query" (click)="query=''" aria-label="Clear search">
           <mat-icon>close</mat-icon>
         </button>
-      </mat-form-field>
-      <div class="tag-row">
-        <button mat-stroked-button color="primary" [class.active]="!selectedTag" (click)="selectedTag=null">All</button>
-        <button mat-stroked-button color="primary" *ngFor="let t of tags" [class.active]="selectedTag===t" (click)="selectedTag=t">{{ t }}</button>
       </div>
-    </mat-card-content>
-  </mat-card>
-  <ngb-carousel [interval]="6000" [keyboard]="true" [pauseOnHover]="true">
-    <ng-template ngbSlide *ngFor="let p of filtered">
-      <div class="slide card" role="group" [attr.aria-label]="p.title">
-        <figure style="margin:0">
-          <img [src]="p.image" [attr.alt]="p.title + ' preview screenshot'" loading="lazy" width="800" height="450" />
-          <figcaption class="visually-hidden">{{ p.summary }}</figcaption>
-        </figure>
-        <div class="content">
-          <h3>{{ p.title }}</h3>
-          <p class="muted">{{ p.summary }}</p>
-          <div class="chips">
-            <span class="chip" *ngFor="let t of p.tags">{{ t }}</span>
-          </div>
-          <div class="actions">
-            <button mat-raised-button color="primary" (click)="openDetails(p)">Details</button>
-            <a mat-stroked-button color="accent" *ngIf="p.link" [href]="p.link" target="_blank" rel="noopener">Open</a>
+      <div class="tag-row" role="group" aria-label="Filter by tag">
+        <button class="tag-btn" [class.active]="!selectedTag" (click)="selectedTag=null">All</button>
+        <button class="tag-btn" *ngFor="let t of tags" [class.active]="selectedTag===t" (click)="selectedTag=t">{{ t }}</button>
+      </div>
+    </div>
+
+    <!-- Card grid -->
+    <div class="projects-grid" role="list">
+      <article class="project-card glass-card" role="listitem"
+        *ngFor="let p of filtered"
+        [attr.aria-label]="p.title">
+        <!-- Image -->
+        <div class="project-img-wrap">
+          <img [src]="p.image" [alt]="p.title + ' preview'" loading="lazy" width="800" height="450" />
+          <div class="project-overlay">
+            <button class="overlay-action" (click)="openDetails(p)" aria-label="View project details">
+              <mat-icon>open_in_new</mat-icon>
+            </button>
+            <a class="overlay-action" *ngIf="p.link" [href]="p.link" target="_blank" rel="noopener"
+              aria-label="Open project link">
+              <mat-icon>link</mat-icon>
+            </a>
           </div>
         </div>
+
+        <!-- Content -->
+        <div class="project-body">
+          <h3 class="project-title">{{ p.title }}</h3>
+          <p class="project-desc">{{ p.summary }}</p>
+          <div class="badges">
+            <span class="badge-pill" *ngFor="let t of p.tags">{{ t }}</span>
+          </div>
+          <div class="project-actions">
+            <button mat-button color="primary" (click)="openDetails(p)">Details</button>
+            <a mat-button color="accent" *ngIf="p.link" [href]="p.link" target="_blank" rel="noopener"
+              class="btn-outline-accent">
+              Open <mat-icon inline>open_in_new</mat-icon>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Empty state -->
+      <div class="empty-state" *ngIf="filtered.length === 0">
+        <mat-icon>search_off</mat-icon>
+        <p>No projects match your filter.</p>
+        <button mat-button (click)="query=''; selectedTag=null">Clear filters</button>
       </div>
-    </ng-template>
-  </ngb-carousel>
+    </div>
   </div>
 </section>

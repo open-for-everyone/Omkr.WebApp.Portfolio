@@ -47,8 +47,8 @@ body {
   -webkit-font-smoothing: antialiased;
   color: #8892b0;
   line-height: 1.3;
-  font-family: Calibre, San Francisco, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, Roboto, Helvetica Neue, Segoe UI, Arial, sans-serif;
-  font-size: 20px;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica Neue, Arial, sans-serif;
+  font-size: 18px;
 }
 
 .navbar-pre-title {
@@ -368,4 +368,78 @@ footer { color:var(--muted); padding:2rem 1rem; }
   /* Optional body.printing class allows JS toggle (in case of conditional styling) */
   body.printing .no-print-meta { display:none !important; }
   @page { margin: 12mm; }
+}
+
+/* =============================================
+   MODERN PORTFOLIO GLOBALS
+   ============================================= */
+
+/* --- Typography tweaks --- */
+code, kbd, samp, .mono {
+  font-family: "JetBrains Mono", "SF Mono", monospace;
+}
+
+/* --- Section-level title --- */
+.section-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  color: var(--text-strong);
+  margin: 0 0 2rem;
+  position: relative;
+  display: inline-block;
+  letter-spacing: -.02em;
+}
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 36px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  border-radius: 2px;
+}
+
+/* --- Shared badge / pill --- */
+.badge-pill {
+  display: inline-block;
+  padding: .28rem .72rem;
+  border-radius: 999px;
+  font-size: .8rem;
+  font-family: "JetBrains Mono", monospace;
+  background: color-mix(in oklab, var(--primary) 12%, transparent);
+  border: 1px solid color-mix(in oklab, var(--primary) 25%, transparent);
+  color: var(--text-soft);
+  transition: background .12s ease, color .12s ease, border-color .12s ease;
+  cursor: default;
+}
+.badge-pill:hover {
+  background: color-mix(in oklab, var(--accent) 12%, transparent);
+  border-color: color-mix(in oklab, var(--accent) 30%, transparent);
+  color: var(--accent);
+}
+
+/* --- Scroll-reveal animation --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: .1s; }
+.reveal-delay-2 { transition-delay: .2s; }
+.reveal-delay-3 { transition-delay: .3s; }
+
+/* --- Standard section padding --- */
+.section { padding: 5rem 0; }
+
+/* --- Glass card --- */
+.glass-card {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(6px);
 }
