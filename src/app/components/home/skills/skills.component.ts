@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 
-interface Skill {
-  name: string;
-  level: number; // 0-100
-  hint?: string;
+interface SkillCategory {
+  label: string;
+  icon: string;
+  skills: string[];
 }
 
 @Component({
@@ -12,13 +12,33 @@ interface Skill {
   styleUrls: ['./skills.component.css']
 })
 export class SkillsComponent {
-  @Input() title = 'Skills';
-  @Input() skills: Skill[] = [
-    { name: 'C#/.NET', level: 85, hint: 'APIs, EF Core, Async, LINQ' },
-    { name: 'Node.js', level: 75, hint: 'NestJS/Express, REST, Auth' },
-    { name: 'SQL', level: 80, hint: 'PostgreSQL, MSSQL, query tuning' },
-    { name: 'Azure/AWS', level: 70, hint: 'Functions, S3, IAM, CI/CD' },
-    { name: 'Angular', level: 70, hint: 'Material, RxJS, state' },
-    { name: 'Microservices', level: 65, hint: 'Queues, contracts, observability' }
+  @Input() title = 'Tech Stack';
+
+  @Input() categories: SkillCategory[] = [
+    {
+      label: 'Backend',
+      icon: 'memory',
+      skills: ['C#', '.NET Core', 'ASP.NET Web API', 'Node.js', 'NestJS', 'gRPC', 'Entity Framework', 'LINQ', 'MassTransit', 'SignalR']
+    },
+    {
+      label: 'Cloud & DevOps',
+      icon: 'cloud',
+      skills: ['Azure', 'AWS', 'Docker', 'Kubernetes', 'CI/CD', 'Azure DevOps', 'JFROG', 'SonarQube', 'Datadog', 'SQS', 'Lambda']
+    },
+    {
+      label: 'Databases',
+      icon: 'storage',
+      skills: ['SQL Server', 'PostgreSQL', 'Redis', 'MongoDB', 'Azure Cosmos DB', 'AWS RDS']
+    },
+    {
+      label: 'Frontend',
+      icon: 'web',
+      skills: ['Angular', 'TypeScript', 'HTML', 'CSS', 'Bootstrap', 'Angular Material', 'Blazor']
+    },
+    {
+      label: 'Architecture & Practices',
+      icon: 'hub',
+      skills: ['Microservices', 'Event-Driven', 'REST APIs', 'OAuth2 / OpenID', 'TDD', 'DDD', 'Agile / Scrum', 'Clean Architecture']
+    }
   ];
 }

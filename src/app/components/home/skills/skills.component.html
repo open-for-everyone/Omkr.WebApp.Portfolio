@@ -1,14 +1,19 @@
-<section aria-label="skills">
+<section class="skills-section section reveal" appReveal aria-label="Tech Stack">
   <div class="container">
-  <h2 class="navbar-title" style="font-size:2rem;margin:0 0 1rem;">{{ title }}</h2>
-  <div class="skills-grid">
-    <div class="skill card" *ngFor="let s of skills" [matTooltip]="s.hint || ''" matTooltipPosition="above">
-      <div class="row">
-        <span class="name">{{ s.name }}</span>
-        <span class="value">{{ s.level }}%</span>
+    <h2 class="section-title">{{ title }}</h2>
+    <div class="categories-grid">
+      <div class="category-card glass-card reveal reveal-delay-1" appReveal *ngFor="let cat of categories; let i = index"
+        [style.--delay]="(i * 80) + 'ms'">
+        <div class="cat-header">
+          <span class="cat-icon-wrap">
+            <mat-icon aria-hidden="true">{{ cat.icon }}</mat-icon>
+          </span>
+          <h3>{{ cat.label }}</h3>
+        </div>
+        <div class="badges">
+          <span class="badge-pill" *ngFor="let s of cat.skills">{{ s }}</span>
+        </div>
       </div>
-      <mat-progress-bar color="primary" [value]="s.level" mode="determinate"></mat-progress-bar>
     </div>
-  </div>
   </div>
 </section>

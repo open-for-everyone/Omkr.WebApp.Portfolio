@@ -1,44 +1,42 @@
-<section class="section about" id="about">
+<section class="about-section section reveal" appReveal id="about">
   <div class="container">
-    <h3 class="navbar-pre-title d-flex justify-content-start">
-      {{ 'AboutMe.Title' | translate }}
-    </h3>
-    <div class="row g-4 align-items-center">
-      <div class="col-12 col-md-6">
-        <mat-card appearance="outlined" class="about-card">
-          <mat-card-content>
-            <p *ngFor="let text of 'AboutMe.Paragraphs' | translate" [innerHTML]="text"></p>
-            <mat-chip-set aria-label="key skills">
-              <mat-chip>.NET Core</mat-chip>
-              <mat-chip>AWS</mat-chip>
-              <mat-chip>Azure</mat-chip>
-              <mat-chip>Azure DevOps</mat-chip>
-              <mat-chip>Microservices</mat-chip>
-              <mat-chip>Swagger</mat-chip>
-              <mat-chip>Jira</mat-chip>
-              <mat-chip>TDD</mat-chip>
-              <mat-chip>CI/CD</mat-chip>
-            </mat-chip-set>
-          </mat-card-content>
-          <mat-card-actions>
+    <h2 class="section-title">{{ 'AboutMe.Title' | translate }}</h2>
+    <div class="about-grid">
+      <!-- Text column -->
+      <div class="about-text">
+        <div class="about-content glass-card">
+          <p *ngFor="let text of 'AboutMe.Paragraphs' | translate" [innerHTML]="text"></p>
+          <!-- Key skills chips -->
+          <div class="key-skills" aria-label="Key skills">
+            <span class="badge-pill" *ngFor="let chip of keySkills">{{ chip }}</span>
+          </div>
+          <div class="about-actions">
             <a mat-raised-button color="primary" href="mailto:keshavsingh4522@gmail.com"
               (click)="analyticsService.sendAnalyticEvent('click_contact','about','email')">
-              Contact
+              <mat-icon>email</mat-icon> Contact
             </a>
-            <a mat-stroked-button color="accent" href="https://www.linkedin.com/in/keshavsingh4522/" target="_blank"
-              rel="noopener" (click)="analyticsService.sendAnalyticEvent('click_resume','about','linkedin')">
-              Resume
+            <a mat-stroked-button class="btn-outline-accent" href="https://www.linkedin.com/in/keshavsingh4522/"
+              target="_blank" rel="noopener"
+              (click)="analyticsService.sendAnalyticEvent('click_resume','about','linkedin')">
+              <mat-icon>open_in_new</mat-icon> LinkedIn
             </a>
-          </mat-card-actions>
-        </mat-card>
+          </div>
+        </div>
       </div>
-      <div class="col-12 col-md-6 text-center">
-        <div class="about-img-container">
-          <img class="profile" width="300" height="300"
-            src="https://avatars.githubusercontent.com/u/43788985?s=400&u=cf0b65c4fa048d4dbc69e1e575993afaa427cda1&v=4"
-            alt="Keshav Singh" loading="lazy" tabindex="0"
+
+      <!-- Avatar column -->
+      <div class="about-avatar">
+        <div class="avatar-glow-wrap">
+          <img
+            class="about-profile"
+            width="340" height="340"
+            [src]="avatarUrl"
+            alt="Keshav Singh"
+            loading="lazy"
+            tabindex="0"
             (click)="analyticsService.sendAnalyticEvent('click_image','about','image')"
             (keyup.enter)="analyticsService.sendAnalyticEvent('click_image','about','image')" />
+          <div class="avatar-glow" aria-hidden="true"></div>
         </div>
       </div>
     </div>

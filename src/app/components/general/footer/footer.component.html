@@ -1,52 +1,59 @@
 <footer [@animateFooter]="state" id="footer">
-    <div class="footer-container">
-        <ul class="footer-social-links">
-            <li>
-                <a mat-icon-button (click)="analyticsService.sendAnalyticEvent('click_github', 'footer', 'github')"
-                     href="https://github.com/keshavsingh4522" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                    <fa-icon [icon]="['fab', 'github']" title="GitHub"></fa-icon>
-                </a>
-            </li>
-            <li>
-                <a mat-icon-button (click)="analyticsService.sendAnalyticEvent('click_linkedin', 'footer', 'linkedin')"
-                     href="https://www.linkedin.com/in/keshavsingh4522/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                    <fa-icon [icon]="['fab', 'linkedin-in']" title="LinkedIn"></fa-icon>
-                </a>
-            </li>
-            <li>
-                <a mat-icon-button (click)="analyticsService.sendAnalyticEvent('click_youtube', 'footer', 'youtube')"
-                     href="https://www.youtube.com/channel/UCVP_DbP7xIOc_LFQTqaLbyg" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-                    <fa-icon [icon]="['fab', 'youtube']" title="YouTube"></fa-icon>
-                </a>
-            </li>
-            <li>
-                <a mat-icon-button (click)="analyticsService.sendAnalyticEvent('click_stackoverflow', 'footer', 'stackoverflow')"
-                     href="https://stackoverflow.com/users/11732730/keshav-singh" target="_blank" rel="noopener noreferrer" aria-label="Stack Overflow">
-                    <fa-icon [icon]="['fab', 'stack-overflow']" title="Stack Overflow"></fa-icon>
-                </a>
-            </li>
-            <li>
-                <a mat-icon-button (click)="analyticsService.sendAnalyticEvent('click_send_mail', 'footer', 'email')"
-                     href="mailto:keshavsingh4522@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email">
-                    <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div class="footer-credits">
-        <a mat-button (click)="analyticsService.sendAnalyticEvent('click_github_portfolio_andresjose', 'footer', 'click')"
-             href="https://github.com/open-for-everyone/Omkr.WebApp.Portfolio" target="_blank"
-             rel="nofollow noopener noreferrer">
-            Built & Designed with Angular<br>by<br>Keshav Singh
+  <div class="footer-inner container">
+    <!-- Social links -->
+    <ul class="footer-social-links">
+      <li>
+        <a (click)="analyticsService.sendAnalyticEvent('click_github','footer','github')"
+           href="https://github.com/keshavsingh4522" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <fa-icon [icon]="['fab', 'github']" title="GitHub"></fa-icon>
         </a>
-    </div>
-    <div class="footer-legal">
+      </li>
+      <li>
+        <a (click)="analyticsService.sendAnalyticEvent('click_linkedin','footer','linkedin')"
+           href="https://www.linkedin.com/in/keshavsingh4522/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <fa-icon [icon]="['fab', 'linkedin-in']" title="LinkedIn"></fa-icon>
+        </a>
+      </li>
+      <li>
+        <a (click)="analyticsService.sendAnalyticEvent('click_youtube','footer','youtube')"
+           href="https://www.youtube.com/channel/UCVP_DbP7xIOc_LFQTqaLbyg" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+          <fa-icon [icon]="['fab', 'youtube']" title="YouTube"></fa-icon>
+        </a>
+      </li>
+      <li>
+        <a (click)="analyticsService.sendAnalyticEvent('click_stackoverflow','footer','stackoverflow')"
+           href="https://stackoverflow.com/users/11732730/keshav-singh" target="_blank" rel="noopener noreferrer" aria-label="Stack Overflow">
+          <fa-icon [icon]="['fab', 'stack-overflow']" title="Stack Overflow"></fa-icon>
+        </a>
+      </li>
+      <li>
+        <a (click)="analyticsService.sendAnalyticEvent('click_send_mail','footer','email')"
+           href="mailto:keshavsingh4522@gmail.com" aria-label="Email">
+          <fa-icon [icon]="['fas', 'envelope']" title="Email"></fa-icon>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Credits -->
+    <p class="footer-credits">
+      Designed &amp; Built by
+      <a href="https://github.com/open-for-everyone/Omkr.WebApp.Portfolio"
+         target="_blank" rel="nofollow noopener noreferrer"
+         (click)="analyticsService.sendAnalyticEvent('click_github_portfolio','footer','click')">
+        Keshav Singh
+      </a>
+      · Built with Angular
+    </p>
+
+    <!-- Legal links -->
+    <nav class="footer-legal" aria-label="Legal pages">
       <a routerLink="/privacy-policy">Privacy</a>
-      <span>•</span>
+      <span aria-hidden="true">·</span>
       <a routerLink="/terms">Terms</a>
-      <span>•</span>
+      <span aria-hidden="true">·</span>
       <a routerLink="/cookie-policy">Cookies</a>
-      <span>•</span>
+      <span aria-hidden="true">·</span>
       <a routerLink="/disclaimer">Disclaimer</a>
-    </div>
+    </nav>
+  </div>
 </footer>

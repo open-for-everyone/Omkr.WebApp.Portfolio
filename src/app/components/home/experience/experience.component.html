@@ -1,20 +1,31 @@
-<section aria-label="experience">
+<section class="experience-section section reveal" appReveal aria-label="Work experience">
   <div class="container">
-  <h2 class="navbar-title" style="font-size:2rem;margin:0 0 1rem;">{{ title }}</h2>
-  <div class="experience-list">
-    <mat-card *ngFor="let e of items; let i = index" appearance="outlined" class="experience-card">
-      <mat-card-header>
-        <div mat-card-avatar class="dot">{{ i + 1 }}</div>
-        <mat-card-title>{{ e.company }}</mat-card-title>
-        <mat-card-subtitle>{{ e.role }} · {{ e.period }}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <p class="summary">{{ e.summary }}</p>
-        <mat-chip-set class="chips">
-          <mat-chip *ngFor="let s of e.stack">{{ s }}</mat-chip>
-        </mat-chip-set>
-      </mat-card-content>
-    </mat-card>
-  </div>
+    <h2 class="section-title">{{ title }}</h2>
+    <div class="timeline" role="list">
+      <div class="tl-item" role="listitem" *ngFor="let e of items; let i = index; let last = last">
+        <!-- Dot -->
+        <div class="tl-left" aria-hidden="true">
+          <div class="tl-dot" [class.current]="i === 0">
+            <mat-icon>{{ i === 0 ? 'work' : 'work_history' }}</mat-icon>
+          </div>
+          <div class="tl-connector" *ngIf="!last"></div>
+        </div>
+
+        <!-- Card -->
+        <div class="tl-card glass-card">
+          <div class="tl-header">
+            <div class="tl-info">
+              <h3 class="tl-company">{{ e.company }}</h3>
+              <p class="tl-role">{{ e.role }}</p>
+            </div>
+            <span class="tl-period">{{ e.period }}</span>
+          </div>
+          <p class="tl-summary">{{ e.summary }}</p>
+          <div class="badges">
+            <span class="badge-pill" *ngFor="let s of e.stack">{{ s }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

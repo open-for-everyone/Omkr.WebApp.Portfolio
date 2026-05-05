@@ -1,18 +1,67 @@
-<section class="section banner">
-  <mat-card [@bannerTrigger] class="container">
-    <mat-card-content class="section-box-banner">
-      <div class="content">
-        <div>
-          <h1>{{"Banner.Pretitle" | translate}}</h1>
-        </div>
-        <div class='banner-title'>
-          <h2>Keshav Singh</h2>
-          <h3>Backend Developer</h3>
-        </div>
-        <div class='banner-description'>
-          <p [innerHTML]='"Banner.Description" | translate' class="mt-4"></p>
-        </div>
+<section class="hero-section" aria-label="Introduction">
+  <!-- Animated ambient background -->
+  <div class="hero-bg-mesh" aria-hidden="true"></div>
+
+  <div class="container hero-content" [@bannerTrigger]>
+    <!-- Left: text content -->
+    <div class="hero-text">
+      <p class="eyebrow">{{"Banner.Pretitle" | translate}}</p>
+
+      <h2 class="hero-name">Keshav Singh</h2>
+
+      <h3 class="hero-role" aria-live="polite">
+        <span class="typed-text">{{ currentRole }}</span><span class="cursor" aria-hidden="true">|</span>
+      </h3>
+
+      <p class="hero-desc" [innerHTML]='"Banner.Description" | translate'></p>
+
+      <!-- Social links -->
+      <div class="hero-socials" role="list" aria-label="Social profiles">
+        <a role="listitem" href="https://github.com/keshavsingh4522" target="_blank" rel="noopener noreferrer"
+          aria-label="GitHub profile" class="social-link"
+          (click)="analyticsService.sendAnalyticEvent('click_github','banner','github')">
+          <fa-icon [icon]="['fab', 'github']" title="GitHub"></fa-icon>
+        </a>
+        <a role="listitem" href="https://www.linkedin.com/in/keshavsingh4522/" target="_blank" rel="noopener noreferrer"
+          aria-label="LinkedIn profile" class="social-link"
+          (click)="analyticsService.sendAnalyticEvent('click_linkedin','banner','linkedin')">
+          <fa-icon [icon]="['fab', 'linkedin-in']" title="LinkedIn"></fa-icon>
+        </a>
+        <a role="listitem" href="mailto:keshavsingh4522@gmail.com" aria-label="Send email" class="social-link"
+          (click)="analyticsService.sendAnalyticEvent('click_email','banner','email')">
+          <fa-icon [icon]="['fas', 'envelope']" title="Email"></fa-icon>
+        </a>
       </div>
-    </mat-card-content>
-  </mat-card>
+
+      <!-- Call-to-action buttons -->
+      <div class="hero-ctas">
+        <a href="#contact" class="cta-primary"
+          (click)="analyticsService.sendAnalyticEvent('click_contact','banner','contact')">
+          <mat-icon aria-hidden="true">send</mat-icon> Get in Touch
+        </a>
+        <a routerLink="/resume" class="cta-secondary"
+          (click)="analyticsService.sendAnalyticEvent('click_resume','banner','resume')">
+          <mat-icon aria-hidden="true">description</mat-icon> View Resume
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: avatar -->
+    <div class="hero-avatar" aria-hidden="true">
+      <div class="avatar-ring">
+        <img
+          [src]="avatarUrl"
+          alt="Keshav Singh"
+          width="320" height="320"
+          loading="eager" />
+      </div>
+      <div class="deco deco-1"></div>
+      <div class="deco deco-2"></div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="scroll-indicator" aria-hidden="true">
+    <div class="arrow"></div>
+  </div>
 </section>
