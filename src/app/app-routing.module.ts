@@ -11,6 +11,7 @@ import { SeoService } from './services/general/seo.service';
 import { RobotsComponent } from './components/general/robots/robots.component';
 import { SitemapComponent } from './components/general/sitemap/sitemap.component';
 import { ResumeComponent } from './components/general/resume/resume.component';
+import { EpfoComponent } from './components/general/epfo/epfo.component';
 // import { MsalGuard } from '@azure/msal-angular';
 
 const routes: Routes = [
@@ -62,6 +63,12 @@ const routes: Routes = [
     path: 'resume', component: ResumeComponent, data: {
       title: 'Resume — Keshav Singh',
       description: 'Printable resume highlighting experience, skills, education and key links.'
+    }
+  },
+  {
+    path: 'epfo', component: EpfoComponent, data: {
+      title: 'EPFO - Employee Provident Fund — Keshav Singh',
+      description: 'Access your EPFO account details, balance, contributions, and nominee information.'
     }
   },
   { path: '404', component: NotFoundComponent, data: { title: 'Page Not Found — Keshav Singh', description: 'The page you are looking for could not be found.' } },

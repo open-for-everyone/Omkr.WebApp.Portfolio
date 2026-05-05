@@ -4,48 +4,54 @@
     <loc>https://keshavsingh.net/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <lastmod>2025-09-28</lastmod>
+    <lastmod>2025-10-17</lastmod>
   </url>
   <url>
     <loc>https://keshavsingh.net/cookie-policy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    <lastmod>2025-09-28</lastmod>
+    <lastmod>2025-10-17</lastmod>
   </url>
   <url>
     <loc>https://keshavsingh.net/disclaimer</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    <lastmod>2025-09-28</lastmod>
+    <lastmod>2025-10-17</lastmod>
+  </url>
+  <url>
+    <loc>https://keshavsingh.net/epfo</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <lastmod>2025-10-17</lastmod>
   </url>
   <url>
     <loc>https://keshavsingh.net/privacy-policy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    <lastmod>2025-09-28</lastmod>
+    <lastmod>2025-10-17</lastmod>
   </url>
   <url>
     <loc>https://keshavsingh.net/resume</loc>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
-    <lastmod>2025-09-28</lastmod>
+    <lastmod>2025-10-17</lastmod>
   </url>
   <url>
     <loc>https://keshavsingh.net/robots</loc>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
-    <lastmod>2025-09-28</lastmod>
+    <lastmod>2025-10-17</lastmod>
   </url>
   <url>
     <loc>https://keshavsingh.net/sitemap</loc>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
-    <lastmod>2025-09-28</lastmod>
+    <lastmod>2025-10-17</lastmod>
   </url>
   <url>
     <loc>https://keshavsingh.net/terms</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    <lastmod>2025-09-28</lastmod>
+    <lastmod>2025-10-17</lastmod>
   </url>
 </urlset>

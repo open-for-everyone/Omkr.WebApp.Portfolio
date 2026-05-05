@@ -47,6 +47,7 @@ import { RobotsComponent } from './components/general/robots/robots.component';
 import { SitemapComponent } from './components/general/sitemap/sitemap.component';
 import { ResumeComponent } from './components/general/resume/resume.component';
 import { SessionTimeoutDialogComponent } from './components/general/session-timeout-dialog/session-timeout-dialog.component';
+import { EpfoComponent } from './components/general/epfo/epfo.component';
 
 export function initializeMsal(msalService: MsalService) {
   return () => msalService.initialize();
@@ -86,6 +87,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   SitemapComponent,
   ResumeComponent,
   SessionTimeoutDialogComponent,
+  EpfoComponent,
   ],
   // ...
 
