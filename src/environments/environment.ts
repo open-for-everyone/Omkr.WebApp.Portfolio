@@ -10,8 +10,8 @@ export const environment = {
   awsUserApiBaseUrl: 'https://dev-api-v2.keshavsingh.in',
   // Base URL for contact form submissions (configure backend to send emails)
   contactApiBaseUrl: 'https://dev-api-v2.keshavsingh.in',
-  blogUrl: 'https://www.blogs.keshavsingh.in',
-  adminUrl: 'https://www.admin.keshavsingh.in',
+  blogUrl: 'https://blog.keshavsingh.in',
+  adminUrl: 'https://admin.keshavsingh.in',
   apiVersion: 'v1',
   mapConfig:{
     external:"ext",
@@ -95,7 +95,7 @@ export const environment = {
   github: {
     clientId: '26cb4ea080bd30fe7461',
     redirectUri: 'http://localhost:4200/authentication/github-callback',
-    username: 'keshavsingh4522',
+    username: 'keshavsingh3197',
     apiBase: 'https://api.github.com'
   },
 

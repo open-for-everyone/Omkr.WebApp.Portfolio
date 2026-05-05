@@ -11,10 +11,10 @@ export const environment = {
     countries: '/v3.1/all',
     anotherEndpoint: '/another-endpoint',
   },
-  blogUrl: 'https://www.blogs.keshavsingh.in',
-  adminUrl: 'https://www.admin.keshavsingh.in',
+  blogUrl: 'https://blog.keshavsingh.in',
+  adminUrl: 'https://admin.keshavsingh.in',
   github: {
-    username: 'keshavsingh4522',
+    username: 'keshavsingh3197',
     apiBase: 'https://api.github.com'
   },
   aiChat: {
