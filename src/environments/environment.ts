@@ -10,8 +10,8 @@ export const environment = {
   awsUserApiBaseUrl: 'https://dev-api-v2.keshavsingh.in',
   // Base URL for contact form submissions (configure backend to send emails)
   contactApiBaseUrl: 'https://dev-api-v2.keshavsingh.in',
-  blogUrl: 'https://www.blogs.keshavsingh.in',
-  adminUrl: 'https://www.admin.keshavsingh.in',
+  blogUrl: 'https://blog.keshavsingh.in',
+  adminUrl: 'https://admin.keshavsingh.in',
   apiVersion: 'v1',
   mapConfig:{
     external:"ext",
