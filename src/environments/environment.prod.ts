@@ -13,6 +13,7 @@ export const environment = {
   },
   blogUrl: 'https://blog.keshavsingh.in',
   adminUrl: 'https://admin.keshavsingh.in',
+  idpApiBaseUrl: 'https://id.keshavsingh.in/api',
   github: {
     username: 'keshavsingh3197',
     apiBase: 'https://api.github.com'
