@@ -12,6 +12,7 @@ export const environment = {
   contactApiBaseUrl: 'https://dev-api-v2.keshavsingh.in',
   blogUrl: 'https://blog.keshavsingh.in',
   adminUrl: 'https://admin.keshavsingh.in',
+  idpApiBaseUrl: 'https://id.keshavsingh.in/api',
   apiVersion: 'v1',
   mapConfig:{
     external:"ext",
