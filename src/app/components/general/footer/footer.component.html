@@ -53,6 +53,9 @@
       <span aria-hidden="true">·</span>
       <a routerLink="/cookie-policy">Cookies</a>
       <span aria-hidden="true">·</span>
+      <!-- The only way back to the consent panel once the banner has been answered. -->
+      <button type="button" class="footer-link-btn" (click)="openCookieSettings()">Cookie settings</button>
+      <span aria-hidden="true">·</span>
       <a routerLink="/disclaimer">Disclaimer</a>
     </nav>
   </div>

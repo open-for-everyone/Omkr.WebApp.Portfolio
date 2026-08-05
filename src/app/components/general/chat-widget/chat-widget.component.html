@@ -1,27 +1,33 @@
 <div class="chat-fab-wrapper" *ngIf="!open">
-  <button mat-fab color="accent" (click)="toggle()" aria-label="Open chat support" class="chat-fab">
+  <button mat-fab color="accent" (click)="toggle()" aria-label="Open chat" class="chat-fab">
     <mat-icon>chat</mat-icon>
   </button>
 </div>
 
-<div class="chat-panel" *ngIf="open" role="dialog" aria-label="Chat support" aria-modal="false">
+<div class="chat-panel" *ngIf="open" role="dialog" aria-label="Chat with Keshav" aria-modal="false">
   <header class="chat-header">
-    <div class="title">Assistant</div>
+    <div class="title">Chat with Keshav</div>
     <span class="spacer"></span>
     <button mat-icon-button (click)="toggle()" aria-label="Close chat">
       <mat-icon>close</mat-icon>
     </button>
   </header>
   <div #messagesViewport class="messages" aria-live="polite">
-    <div *ngFor="let m of messages; trackBy: trackMsg" class="msg" [class.user]="m.role==='user'" [class.assistant]="m.role==='assistant'">
+    <div *ngFor="let m of messages; trackBy: trackMsg" class="msg"
+         [class.user]="m.role==='user'" [class.assistant]="m.role==='assistant'" [class.system]="m.role==='system'">
       <div class="bubble">
-        <span class="role-label" *ngIf="m.role!=='user'">AI:</span>
         <span class="text">{{ m.content }}</span>
       </div>
     </div>
+    <!-- Mirrors the admin side: a real person is writing back. -->
+    <div class="msg assistant" *ngIf="replying">
+      <div class="bubble typing"><span class="text">typing…</span></div>
+    </div>
   </div>
   <form class="composer" (submit)="$event.preventDefault(); send();">
-    <textarea id="chat-input" [(ngModel)]="draft" name="draft" rows="2" (keydown)="onKey($event)" placeholder="Type a message..." aria-label="Chat message input"></textarea>
+    <textarea id="chat-input" [(ngModel)]="draft" name="draft" rows="2" (keydown)="onKey($event)"
+              placeholder="Type a message..." aria-label="Chat message input"></textarea>
     <button mat-raised-button color="primary" type="button" (click)="send()" [disabled]="!draft.trim()">Send</button>
   </form>
+  <p class="chat-note">Replies land in my admin inbox — I'll answer when I'm around.</p>
 </div>

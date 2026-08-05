@@ -73,6 +73,16 @@ export class ContactComponent implements OnInit {
     // Removed auto geolocation; will request only on explicit user action with consent
   }
 
+  /** Whether the visitor has allowed location sharing, so the UI can offer the right next step. */
+  get locationAllowed(): boolean {
+    return this.consent.isAllowed('geolocation');
+  }
+
+  /** Opens the consent panel from wherever a location-dependent feature is blocked. */
+  openConsent(): void {
+    this.consent.openPreferences();
+  }
+
   get mapUrl(): string | null {
     if (this.latitude != null && this.longitude != null) {
       const lat = this.latitude.toFixed(6);
@@ -106,7 +116,12 @@ export class ContactComponent implements OnInit {
 
   useMyLocation() {
     if (!this.consent.isAllowed('geolocation')) {
-      this.snackBar.open('Please accept geolocation in cookie banner to use this feature.', 'Close', { duration: 4000 });
+      // Telling someone to use the cookie banner is useless once they have answered it — it never
+      // comes back on its own. Offer the way back instead, and carry on where they left off.
+      this.snackBar
+        .open('Location sharing is off. Turn it on in your cookie settings?', 'Open settings', { duration: 8000 })
+        .onAction()
+        .subscribe(() => this.consent.openPreferences());
       return;
     }
     if (!navigator.geolocation) {
