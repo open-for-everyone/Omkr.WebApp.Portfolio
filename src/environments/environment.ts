@@ -1,3 +1,5 @@
+// The only environment file the build actually reads — angular.json defines no `fileReplacements`, so
+// production uses this too (environment.prod.ts is dead; see the note at the top of it).
 export const environment = {
   /** Public GitHub avatar for Keshav Singh (used in banner and about sections) */
   githubAvatarUrl: 'https://avatars.githubusercontent.com/u/43788985?s=400&u=cf0b65c4fa048d4dbc69e1e575993afaa427cda1&v=4',
@@ -8,8 +10,9 @@ export const environment = {
   },
   production: false,
   awsUserApiBaseUrl: 'https://dev-api-v2.keshavsingh.in',
-  // Base URL for contact form submissions (configure backend to send emails)
-  contactApiBaseUrl: 'https://dev-api-v2.keshavsingh.in',
+  // Contact form submissions go to the admin API's public /api/contact endpoint, which lands them in
+  // the Contact inbox (admin → Manage → Contact inbox). Point this at localhost when running that API.
+  contactApiBaseUrl: 'https://id.keshavsingh.in',
   blogUrl: 'https://blog.keshavsingh.in',
   adminUrl: 'https://admin.keshavsingh.in',
   idpApiBaseUrl: 'https://id.keshavsingh.in/api',
