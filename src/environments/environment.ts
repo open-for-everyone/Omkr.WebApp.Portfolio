@@ -8,8 +8,9 @@ export const environment = {
   },
   production: false,
   awsUserApiBaseUrl: 'https://dev-api-v2.keshavsingh.in',
-  // Base URL for contact form submissions (configure backend to send emails)
-  contactApiBaseUrl: 'https://dev-api-v2.keshavsingh.in',
+  // Contact form submissions go to the admin API's public /api/contact endpoint, which lands them in
+  // the Contact inbox (admin → Manage → Contact inbox). Point this at localhost when running that API.
+  contactApiBaseUrl: 'https://id.keshavsingh.in',
   blogUrl: 'https://blog.keshavsingh.in',
   adminUrl: 'https://admin.keshavsingh.in',
   idpApiBaseUrl: 'https://id.keshavsingh.in/api',
