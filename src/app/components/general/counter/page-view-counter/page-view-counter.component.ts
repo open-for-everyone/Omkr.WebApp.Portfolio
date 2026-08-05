@@ -1,10 +1,14 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { PageViewService } from 'src/app/services/PageView/page-view.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { PageViewDetail } from 'src/app/models/PageView/page-view-detail';
 import { ConsentService } from 'src/app/services/general/consent.service';
 
+/**
+ * Records a view of the page it sits on, if the visitor allowed analytics.
+ *
+ * It no longer shows a count: views are now kept in the admin's central analytics, whose figures are
+ * behind an admin login, and publishing a live traffic number to anyone who visits is not something
+ * this site needs to do. The template renders nothing while there is no count to render.
+ */
 @Component({
   selector: 'app-page-view-counter',
   templateUrl: './page-view-counter.component.html',
@@ -13,16 +17,12 @@ import { ConsentService } from 'src/app/services/general/consent.service';
 })
 export class PageViewCounterComponent implements OnInit {
   @Input() pageId!: string;
-  pageViewCount$!: Observable<number>;
 
   constructor(private pageViewService: PageViewService, private consent: ConsentService) { }
 
   ngOnInit(): void {
     if (this.pageId && this.consent.isAllowed('analytics')) {
       this.pageViewService.incrementPageView(this.pageId).subscribe();
-      this.pageViewCount$ = this.pageViewService.getPageViewCount(this.pageId).pipe(
-        map((detail: PageViewDetail) => detail.viewCount)
-      );
     }
   }
 }
