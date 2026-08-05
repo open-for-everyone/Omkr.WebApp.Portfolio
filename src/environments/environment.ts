@@ -1,3 +1,5 @@
+// The only environment file the build actually reads — angular.json defines no `fileReplacements`, so
+// production uses this too (environment.prod.ts is dead; see the note at the top of it).
 export const environment = {
   /** Public GitHub avatar for Keshav Singh (used in banner and about sections) */
   githubAvatarUrl: 'https://avatars.githubusercontent.com/u/43788985?s=400&u=cf0b65c4fa048d4dbc69e1e575993afaa427cda1&v=4',
