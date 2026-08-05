@@ -7,6 +7,10 @@ import { ChatService } from '../../../services/chat/chat.service';
 import { Subscription } from 'rxjs';
 import { ChatMessage } from '../../../models/chat/chat-message.model';
 
+/**
+ * The chat bubble. Messages go to the admin app's visitor queue and a person answers them, so the panel
+ * is honest about that — it is not an assistant, and it says when nobody is around.
+ */
 @Component({
   selector: 'app-chat-widget',
   standalone: true,
@@ -19,22 +23,39 @@ export class ChatWidgetComponent implements OnInit, OnDestroy {
   open = false;
   draft = '';
   messages: ChatMessage[] = [];
-  private sub?: Subscription;
+  /** True while the person on the other end is writing back. */
+  replying = false;
+
+  private subs = new Subscription();
+  /** Typing pings are throttled — one every few seconds keeps the indicator alive. */
+  private lastTypingPing = 0;
 
   constructor(private chat: ChatService) {}
 
   ngOnInit(): void {
-    this.sub = this.chat.stream.subscribe(list => {
+    this.subs.add(this.chat.stream.subscribe(list => {
       this.messages = list;
       setTimeout(() => this.scrollToBottom(), 0);
-    });
+    }));
+    this.subs.add(this.chat.replyingStream.subscribe(replying => {
+      this.replying = replying;
+      if (replying) setTimeout(() => this.scrollToBottom(), 0);
+    }));
   }
-  ngOnDestroy(): void { this.sub?.unsubscribe(); }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+    this.chat.close();
+  }
 
   toggle(){
     this.open = !this.open;
-    if(this.open){
+    // Only talk to the API while the panel is actually open.
+    if (this.open) {
+      this.chat.open();
       setTimeout(() => this.focusInput(), 10);
+    } else {
+      this.chat.close();
     }
   }
 
@@ -49,7 +70,16 @@ export class ChatWidgetComponent implements OnInit, OnDestroy {
     if(e.key === 'Enter' && !e.shiftKey){
       e.preventDefault();
       this.send();
+      return;
     }
+    this.pingTyping();
+  }
+
+  private pingTyping(): void {
+    const now = Date.now();
+    if (now - this.lastTypingPing < 3000) return;
+    this.lastTypingPing = now;
+    this.chat.notifyTyping();
   }
 
   private focusInput(){
@@ -66,6 +96,7 @@ export class ChatWidgetComponent implements OnInit, OnDestroy {
   handleGlobalKey(ev: KeyboardEvent){
     if(this.open && ev.key === 'Escape'){
       this.open = false;
+      this.chat.close();
     }
   }
 

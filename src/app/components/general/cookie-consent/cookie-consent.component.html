@@ -4,12 +4,28 @@
       This site uses essentials and optional analytics to improve the experience.
       See our <a routerLink="/cookie-policy">Cookie Policy</a> and <a routerLink="/privacy-policy">Privacy Policy</a>.
     </p>
+
+    <!-- Once a choice exists, the panel becomes a place to change it — one switch per purpose. -->
+    <div class="cookie-choices" *ngIf="reviewing">
+      <label class="cookie-choice">
+        <input type="checkbox" [checked]="isAllowed('analytics')"
+               (change)="toggle('analytics', $any($event.target).checked)">
+        <span>Analytics — anonymous page view counts</span>
+      </label>
+      <label class="cookie-choice">
+        <input type="checkbox" [checked]="isAllowed('geolocation')"
+               (change)="toggle('geolocation', $any($event.target).checked)">
+        <span>Location — only when you press “Use my location” on the contact form</span>
+      </label>
+    </div>
   </div>
+
   <div class="cookie-actions">
-    <button mat-stroked-button color="primary" (click)="rejectAll()">Decline</button>
-    <button mat-raised-button color="accent" (click)="acceptAll()">Accept</button>
+    <button mat-stroked-button color="primary" (click)="rejectAll()">Decline all</button>
+    <button mat-raised-button color="accent" (click)="acceptAll()">Accept all</button>
+    <button mat-button *ngIf="reviewing" (click)="close()">Done</button>
   </div>
-  <button class="cookie-close" title="Close" (click)="rejectAll()" aria-label="Close">
+  <button class="cookie-close" title="Close" (click)="close()" aria-label="Close">
     ×
   </button>
 

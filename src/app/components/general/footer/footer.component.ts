@@ -4,6 +4,7 @@ import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faGithub, faLinkedinIn, faTwitter, faInstagram, faYoutube, faFacebookF, faStackOverflow } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
 import { AnalyticService } from 'src/app/services/Analytics/analytic.service';
+import { ConsentService } from 'src/app/services/general/consent.service';
 
 @Component({
   selector: 'app-footer',
@@ -29,7 +30,11 @@ import { AnalyticService } from 'src/app/services/Analytics/analytic.service';
 export class FooterComponent implements OnInit {
   state: unknown;
 
-  constructor(public analyticsService: AnalyticService, private library: FaIconLibrary) {
+  constructor(
+    public analyticsService: AnalyticService,
+    private library: FaIconLibrary,
+    private consent: ConsentService
+  ) {
     this.state = state; // Initialize the state property
     // Add the user icon to the library so it can be used in the template
     library.addIcons(faUser);
@@ -46,5 +51,10 @@ export class FooterComponent implements OnInit {
   ngOnInit(): void {
     // hi
     console.log("Footer initialized.");
+  }
+
+  /** Reopens the consent panel so a visitor can change a choice they already made. */
+  openCookieSettings(): void {
+    this.consent.openPreferences();
   }
 }

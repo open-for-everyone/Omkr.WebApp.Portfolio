@@ -30,7 +30,15 @@
             <ng-template #inWrapperFallback>
               <div class="map-fallback">
                 <mat-icon>map</mat-icon>
-                <p>Location access is disabled. You can still contact me.</p>
+                <p *ngIf="locationAllowed; else locationOff">
+                  Search a place above, or press “Use my location”. Sharing it is optional.
+                </p>
+                <ng-template #locationOff>
+                  <p>
+                    Location sharing is off, so no map is shown. You can still contact me — or
+                    <button type="button" class="link-btn" (click)="openConsent()">turn it on</button>.
+                  </p>
+                </ng-template>
               </div>
             </ng-template>
           </div>
