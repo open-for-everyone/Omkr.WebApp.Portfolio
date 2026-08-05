@@ -48,8 +48,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   blogUrl = environment.blogUrl;
   adminUrl = environment.adminUrl;
   languageFormControl: FormControl = new FormControl();
-  slides =
-    { name: 'Keshav_Singh_Resume', url: environment.awsUserApiBaseUrl + '/'+ environment.mapConfig.analytics +'/' + environment.fileApiEndpoints.generateUrl.replace("{key}","Keshav_Singh_Resume_2024.pdf") };
+  // (A `slides` field built a resume URL against the retired dev-api-v2 host. Nothing read it — the
+  // resume comes from the admin CMS now — so it has been removed rather than left to mislead.)
 
   download$!: Observable<Download>;
   isLight = false;
