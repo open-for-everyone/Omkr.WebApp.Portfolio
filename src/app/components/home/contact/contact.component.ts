@@ -189,7 +189,8 @@ export class ContactComponent implements OnInit {
         accuracy: this.accuracy
       },
       userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : undefined,
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
+      source: 'portfolio'
     };
 
     this.submitting = true;
