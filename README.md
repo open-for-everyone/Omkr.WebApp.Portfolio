@@ -196,11 +196,40 @@ Future a11y enhancements (roadmap candidates):
 
 ## 9. Internationalization (i18n)
 
-Currently English only (`assets/i18n/en.json`). To add another language:
+**Text comes from the API, not from this build.** English and Hindi ship, and a language picker appears
+in the header as soon as more than one language is enabled.
 
-1. Create `assets/i18n/<lang>.json`.
-2. Provide a language switch service & persist choice.
-3. Update `TranslateModule` configuration and dynamically set `<html lang>` attribute.
+The templates still use `| translate` — nothing about them changed. What changed is where ngx-translate
+gets its data:
+[`ApiTranslateLoader`](src/app/services/general/api-translate.loader.ts) fetches from the identity
+provider (`environment.idpApiBaseUrl`) and merges three layers, later winning:
+
+1. **`assets/i18n/<lang>.json`** — kept purely as an *offline base*. If the API is unreachable the site
+   still renders real English text rather than raw key names. It is no longer the source of truth.
+2. **Structured content** — `GET /api/website-content/public/portfolio/{about|experience}?locale=xx`.
+   The about paragraphs and the experience timeline are arrays of objects, which a flat translation
+   bundle cannot express, so they live in `website_content` — which is per-locale by design.
+3. **The flat bundle** — `GET /api/i18n/bundle/<lang>?ns=portfolio,common,brand`. Every scalar string.
+   Untranslated keys are filled in from the language's fallback chain server-side.
+
+Language resolution (stored choice → browser preference → server default), persistence, and polling for
+editor changes are handled by the shared **`@keshavsingh3197/web-config`** package via
+[`I18nService`](src/app/services/general/i18n.service.ts). Branding, icons, cross-site links and feature
+flags come from the same place through
+[`RuntimeConfigService`](src/app/services/general/runtime-config.service.ts).
+
+### To add a language
+
+Nothing in this repo. On the admin app's **Localization** screen: add the language, export the default
+one as Excel, translate, import it back, enable it. Open tabs pick it up on their next poll. Full model
+and endpoints: `admin/docs/LOCALIZATION.md`.
+
+### Installing the shared package
+
+`.npmrc` points `@keshavsingh3197/*` at GitHub Packages and needs `PACKAGES_READ_TOKEN` (`read:packages`) in
+the environment — the same token the private NuGet feed uses. Before the package's first publish,
+`tsconfig.json` falls back to the sibling checkout's `dist/`, so run `npm run build` once in
+`KeshavSingh-Packages-Web`.
 
 ## 10. SEO, Sitemap & Robots
 
