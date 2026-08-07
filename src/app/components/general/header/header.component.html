@@ -27,6 +27,26 @@
       <mat-icon>chat</mat-icon>
     </a>
     <!-- Removed duplicate Resume download button; Resume accessible via nav link -->
+
+    <!--
+      Language picker. Rendered only when more than one language is enabled AND an admin has left the
+      picker on — both are database values, so a single-language deployment shows nothing here.
+    -->
+    <ng-container *ngIf="i18n.showPicker">
+      <button mat-icon-button [matMenuTriggerFor]="languageMenu"
+              [attr.aria-label]="'common.label.language' | translate"
+              [title]="'common.label.language' | translate" aria-haspopup="true">
+        <mat-icon>language</mat-icon>
+      </button>
+      <mat-menu #languageMenu="matMenu" xPosition="before" yPosition="below">
+        <button mat-menu-item *ngFor="let language of i18n.locales" (click)="selectLanguage(language.code)"
+                [attr.aria-current]="language.code === i18n.locale">
+          <span aria-hidden="true" class="lang-icon">{{ language.icon }}</span>
+          {{ language.nativeName }}
+        </button>
+      </mat-menu>
+    </ng-container>
+
     <button mat-icon-button (click)="toggleTheme()" [attr.aria-label]="isLight ? 'Switch to dark theme' : 'Switch to light theme'" [attr.aria-pressed]="isLight" title="Toggle theme">
       <mat-icon>{{ isLight ? 'light_mode' : 'dark_mode' }}</mat-icon>
     </button>

@@ -13,6 +13,7 @@
   },
   "private": true,
   "dependencies": {
+    "@keshavsingh3197/web-config": "^0.1.0",
     "@angular/animations": "^16.2.0",
     "@angular/cdk": "^16.2.12",
     "@angular/common": "^16.2.0",
