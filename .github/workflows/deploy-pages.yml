@@ -10,6 +10,10 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  # Declared for completeness, but it does NOT help here: this repo is owned by `open-for-everyone`
+  # and the package by `keshavsingh3197`, and GITHUB_TOKEN is scoped to this repo only. A classic PAT
+  # in the PACKAGES_READ_TOKEN secret is the only thing that works cross-owner.
+  packages: read
 
 concurrency:
   group: pages
