@@ -10,6 +10,7 @@ import { ConsentService } from 'src/app/services/general/consent.service';
  * this site needs to do. The template renders nothing while there is no count to render.
  */
 @Component({
+  standalone: false,
   selector: 'app-page-view-counter',
   templateUrl: './page-view-counter.component.html',
   styleUrls: ['./page-view-counter.component.css'],

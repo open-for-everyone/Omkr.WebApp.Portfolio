@@ -13,6 +13,7 @@ import { VisitorDetail } from './models/admin/visitor/visitor-detail';
 
 @Component({
   selector: 'app-root',
+  standalone: false,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

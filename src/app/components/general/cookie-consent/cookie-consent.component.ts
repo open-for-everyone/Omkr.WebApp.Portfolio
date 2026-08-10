@@ -7,6 +7,7 @@ import { ConsentKey, ConsentService } from 'src/app/services/general/consent.ser
  * "Decline" would lock features like "Use my location" off forever with no way back.
  */
 @Component({
+  standalone: false,
   selector: 'app-cookie-consent',
   templateUrl: './cookie-consent.component.html',
   styleUrls: ['./cookie-consent.component.css']

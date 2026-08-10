@@ -8,6 +8,7 @@ import { SeoService } from 'src/app/services/general/seo.service';
 interface ConfettiParticle { style: { left: string; backgroundColor: string } }
 
 @Component({
+  standalone: false,
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']

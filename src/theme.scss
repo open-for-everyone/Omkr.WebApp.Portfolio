@@ -4,12 +4,12 @@
 @include mat.core();
 
 // Palettes
-$primary: mat.define-palette(mat.$indigo-palette, 500);
-$accent: mat.define-palette(mat.$teal-palette, 400);
-$warn: mat.define-palette(mat.$red-palette);
+$primary: mat.m2-define-palette(mat.$m2-indigo-palette, 500);
+$accent: mat.m2-define-palette(mat.$m2-teal-palette, 400);
+$warn: mat.m2-define-palette(mat.$m2-red-palette);
 
 // Themes
-$light-theme: mat.define-light-theme((
+$light-theme: mat.m2-define-light-theme((
   color: (
     primary: $primary,
     accent: $accent,
@@ -17,7 +17,7 @@ $light-theme: mat.define-light-theme((
   ),
 ));
 
-$dark-theme: mat.define-dark-theme((
+$dark-theme: mat.m2-define-dark-theme((
   color: (
     primary: $primary,
     accent: $accent,

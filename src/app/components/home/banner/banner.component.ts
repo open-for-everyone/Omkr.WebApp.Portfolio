@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { AnalyticService } from 'src/app/services/Analytics/analytic.service';
 
 @Component({
+  standalone: false,
   selector: 'app-banner',
   templateUrl: './banner.component.html',
   styleUrls: ['./banner.component.css'],

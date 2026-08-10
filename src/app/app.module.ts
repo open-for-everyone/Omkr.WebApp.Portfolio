@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { provideTranslateLoader, provideTranslateService, TranslateLoader, TranslatePipe } from '@ngx-translate/core';
 import { ApiTranslateLoader } from './services/general/api-translate.loader';
 
 import { AppComponent } from './app.component';
@@ -107,13 +107,7 @@ export function ApiTranslateLoaderFactory(http: HttpClient): TranslateLoader {
     HttpClientModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: ApiTranslateLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
+    TranslatePipe,
     MaterialModule,
     // Initiate the MSAL library with the MSAL configuration object
     MsalModule.forRoot(new PublicClientApplication(msalConfig),
@@ -128,6 +122,9 @@ export function ApiTranslateLoaderFactory(http: HttpClient): TranslateLoader {
     )
   ],
   providers: [
+    ...provideTranslateService({
+      loader: provideTranslateLoader(ApiTranslateLoader),
+    }),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MsalInterceptor,

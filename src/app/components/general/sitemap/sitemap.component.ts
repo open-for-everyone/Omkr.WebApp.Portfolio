@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 interface SiteUrl { loc: string; changefreq?: string; priority?: string; }
 
 @Component({
+  standalone: false,
   selector: 'app-sitemap',
   templateUrl: './sitemap.component.html',
   styleUrls: ['./sitemap.component.css']

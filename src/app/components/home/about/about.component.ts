@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { AnalyticService } from 'src/app/services/Analytics/analytic.service';
 
 @Component({
+  standalone: false,
   selector: 'app-about',
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.css']
