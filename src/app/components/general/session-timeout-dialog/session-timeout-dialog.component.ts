@@ -4,6 +4,7 @@ import { SessionService } from '../../../services/auth/session.service';
 import { map } from 'rxjs/operators';
 
 @Component({
+  standalone: false,
   selector: 'app-session-timeout-dialog',
   templateUrl: './session-timeout-dialog.component.html',
   styleUrls: ['./session-timeout-dialog.component.css']

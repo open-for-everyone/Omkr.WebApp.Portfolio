@@ -1,8 +1,6 @@
 import { LogLevel, Configuration, BrowserCacheLocation } from '@azure/msal-browser';
 import { environment } from 'src/environments/environment';
 
-const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1;
-
 export const b2cPolicies = {
      names: {
          signUpSignIn: environment.AzureAdB2C.policies.signupSignIn,
@@ -27,7 +25,6 @@ export const msalConfig: Configuration = {
      },
      cache: {
          cacheLocation: BrowserCacheLocation.LocalStorage,
-         storeAuthStateInCookie: isIE,
      },
      system: {
          loggerOptions: {

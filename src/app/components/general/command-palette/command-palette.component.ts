@@ -8,6 +8,7 @@ export interface CommandItem {
 }
 
 @Component({
+  standalone: false,
   selector: 'app-command-palette',
   templateUrl: './command-palette.component.html',
   styleUrls: ['./command-palette.component.css']

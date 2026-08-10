@@ -14,6 +14,7 @@ import { ConsentService } from 'src/app/services/general/consent.service';
 interface Place { display_name: string; lat: string; lon: string }
 
 @Component({
+  standalone: false,
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.css'],

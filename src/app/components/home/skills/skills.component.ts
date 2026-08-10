@@ -7,6 +7,7 @@ interface SkillCategory {
 }
 
 @Component({
+  standalone: false,
   selector: 'app-skills',
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.css']

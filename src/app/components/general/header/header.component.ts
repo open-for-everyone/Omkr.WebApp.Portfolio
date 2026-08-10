@@ -14,6 +14,7 @@ import { SessionService } from 'src/app/services/auth/session.service';
 import { I18nService } from 'src/app/services/general/i18n.service';
 
 @Component({
+  standalone: false,
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],

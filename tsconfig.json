@@ -10,13 +10,14 @@
       specifier back to a ".ts" file the way esbuild can. Run `npm run build` in that repo once.
     */
     "paths": {
+      "src/*": [
+        "./src/*"
+      ],
       "@keshavsingh3197/web-config": [
         "./node_modules/@keshavsingh3197/web-config",
         "../KeshavSingh-Packages-Web/dist"
       ]
     },
-    "ignoreDeprecations": "5.0",
-    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "rootDir": "./src",
     "forceConsistentCasingInFileNames": true,
@@ -27,9 +28,8 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
-    "downlevelIteration": true,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",

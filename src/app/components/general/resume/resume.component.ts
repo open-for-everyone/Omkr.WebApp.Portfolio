@@ -7,6 +7,7 @@ import { ResumeData } from '../../../models/resume/resume.model';
  * Provides a print & PDF export of the resume.
  */
 @Component({
+  standalone: false,
   selector: 'app-resume',
   templateUrl: './resume.component.html',
   styleUrls: ['./resume.component.css']

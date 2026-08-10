@@ -95,9 +95,9 @@ export class I18nService implements OnDestroy {
   }
 
   private applyToTranslate(locale: string): void {
-    // setDefaultLang first, so a key missing from a partially translated language still resolves.
+    // Set the fallback first, so a key missing from a partially translated language still resolves.
     const fallback = this.config.config?.defaultLocale ?? 'en';
-    if (this.translate.defaultLang !== fallback) this.translate.setDefaultLang(fallback);
+    if (this.translate.getFallbackLang() !== fallback) this.translate.setFallbackLang(fallback);
     // `use` re-invokes the loader, which re-merges the offline base, structured content and bundle.
     this.translate.use(locale);
   }

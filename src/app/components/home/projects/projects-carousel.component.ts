@@ -10,6 +10,7 @@ interface Project {
 }
 
 @Component({
+  standalone: false,
   selector: 'app-projects-carousel',
   templateUrl: './projects-carousel.component.html',
   styleUrls: ['./projects-carousel.component.css']
@@ -47,6 +48,7 @@ export class ProjectsCarouselComponent {
 }
 
 @Component({
+  standalone: false,
   selector: 'app-project-dialog',
   template: `
   <div class="dialog">

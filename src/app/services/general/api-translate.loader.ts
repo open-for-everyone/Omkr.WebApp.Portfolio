@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoader, TranslationObject } from '@ngx-translate/core';
 import { Observable, forkJoin, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { TranslationBundle } from '@keshavsingh3197/web-config';
@@ -51,7 +51,7 @@ export class ApiTranslateLoader implements TranslateLoader {
 
   constructor(private http: HttpClient) {}
 
-  getTranslation(lang: string): Observable<Record<string, unknown>> {
+  getTranslation(lang: string): Observable<TranslationObject> {
     const base = `${environment.idpApiBaseUrl}`;
 
     const offline$ = this.http
@@ -85,7 +85,7 @@ export class ApiTranslateLoader implements TranslateLoader {
     );
 
     return forkJoin({ offline: offline$, structured: structured$, bundle: bundle$ }).pipe(
-      map(({ offline, structured, bundle }) => ({ ...offline, ...structured, ...bundle })),
+      map(({ offline, structured, bundle }) => ({ ...offline, ...structured, ...bundle }) as TranslationObject),
     );
   }
 
