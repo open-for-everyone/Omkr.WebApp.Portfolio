@@ -10,6 +10,10 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  # Declared for completeness, but it does NOT help here: this repo is owned by `open-for-everyone`
+  # and the package by `keshavsingh3197`, and GITHUB_TOKEN is scoped to this repo only. A classic PAT
+  # in the PACKAGES_READ_TOKEN secret is the only thing that works cross-owner.
+  packages: read
 
 concurrency:
   group: pages
@@ -35,7 +39,17 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
 
+      # The private @keshavsingh3197/* packages come from GitHub Packages. The committed .npmrc
+      # references ${PACKAGES_READ_TOKEN}; without it npm sends an empty credential and the registry
+      # answers 401 for every scoped package.
+      #
+      # IMPORTANT: unlike the admin and content-blog repos, this one is owned by `open-for-everyone`
+      # while the package is owned by `keshavsingh3197`. GITHUB_TOKEN is scoped to THIS repo and
+      # cannot read another owner's packages, so a real PAT secret is required here — there is no
+      # fallback that works.
       - name: Install dependencies
+        env:
+          PACKAGES_READ_TOKEN: ${{ secrets.PACKAGES_READ_TOKEN }}
         run: npm ci
 
       - name: Generate sitemap

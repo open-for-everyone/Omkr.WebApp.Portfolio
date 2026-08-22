@@ -4,7 +4,7 @@ import { Directive, ElementRef, OnDestroy, OnInit } from '@angular/core';
  * Adds the `visible` class when the host element enters the viewport.
  * Pair with the `.reveal` global CSS class for scroll-triggered fade-in animations.
  */
-@Directive({ selector: '[appReveal]' })
+@Directive({ selector: '[appReveal]', standalone: false })
 export class RevealDirective implements OnInit, OnDestroy {
   private observer!: IntersectionObserver;
 

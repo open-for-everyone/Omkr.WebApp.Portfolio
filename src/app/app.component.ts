@@ -2,6 +2,8 @@ import { Component, HostListener, OnDestroy, OnInit, ViewChild, ViewContainerRef
 import { Title, Meta } from '@angular/platform-browser';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { RuntimeConfigService } from './services/general/runtime-config.service';
+import { I18nService } from './services/general/i18n.service';
 import { Location } from '@angular/common';
 import { CommandPaletteComponent, CommandItem } from './components/general/command-palette/command-palette.component';
 import { environment } from 'src/environments/environment';
@@ -11,6 +13,7 @@ import { VisitorDetail } from './models/admin/visitor/visitor-detail';
 
 @Component({
   selector: 'app-root',
+  standalone: false,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
@@ -52,10 +55,19 @@ export class AppComponent implements OnInit, OnDestroy {
     private translateService: TranslateService,
     private location: Location,
     private router: Router,
-    private route: ActivatedRoute) {
-    translateService.setDefaultLang('en');
-    // or
-    translateService.use('en');
+    private route: ActivatedRoute,
+    private runtimeConfig: RuntimeConfigService,
+    private i18n: I18nService) {
+    /*
+      No hard-coded language any more. The central runtime config loads first (it carries the
+      language-persistence key and the poll interval), then the localisation client resolves the
+      visitor's language — stored choice → browser preference → the server's default — and tells
+      ngx-translate to load it through ApiTranslateLoader.
+
+      Both steps fail soft: if the API is unreachable, ngx-translate still renders from the bundled
+      assets/i18n base, so the site never shows raw key names.
+    */
+    this.runtimeConfig.load().subscribe(() => this.i18n.init().subscribe());
 
     this.visitorData = this.getVisitorInfo();
   }

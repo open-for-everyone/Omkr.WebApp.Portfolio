@@ -4,8 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { provideTranslateLoader, provideTranslateService, TranslateLoader, TranslatePipe } from '@ngx-translate/core';
+import { ApiTranslateLoader } from './services/general/api-translate.loader';
 
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -53,9 +53,16 @@ export function initializeMsal(msalService: MsalService) {
   return () => msalService.initialize();
 }
 
-// AOT compilation support
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+/**
+ * Feeds ngx-translate from the identity provider's catalogue instead of `assets/i18n/*.json`, so this
+ * site's text is a database edit rather than a redeploy — and so it gets Hindi for free. The bundled
+ * JSON is still merged underneath as an offline base, so an API outage renders real English rather than
+ * raw key names. See {@link ApiTranslateLoader}.
+ *
+ * AOT needs an exported factory function, hence this rather than a `useClass`.
+ */
+export function ApiTranslateLoaderFactory(http: HttpClient): TranslateLoader {
+  return new ApiTranslateLoader(http);
 }
 
 @NgModule({
@@ -100,13 +107,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
+    TranslatePipe,
     MaterialModule,
     // Initiate the MSAL library with the MSAL configuration object
     MsalModule.forRoot(new PublicClientApplication(msalConfig),
@@ -121,6 +122,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     )
   ],
   providers: [
+    ...provideTranslateService({
+      loader: provideTranslateLoader(ApiTranslateLoader),
+    }),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MsalInterceptor,

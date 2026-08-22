@@ -9,6 +9,7 @@ interface ExperienceItem {
 }
 
 @Component({
+  standalone: false,
   selector: 'app-experience',
   templateUrl: './experience.component.html',
   styleUrls: ['./experience.component.css']

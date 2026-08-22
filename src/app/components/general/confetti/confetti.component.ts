@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
+  standalone: false,
   selector: 'app-confetti',
   templateUrl: './confetti.component.html',
   styleUrls: ['./confetti.component.css']

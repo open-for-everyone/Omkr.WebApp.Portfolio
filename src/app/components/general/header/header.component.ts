@@ -11,8 +11,10 @@ import { FileService } from 'src/app/services/file/file.service';
 import { DOCUMENT } from '@angular/common';
 import { Download } from 'src/app/services/file/Download';
 import { SessionService } from 'src/app/services/auth/session.service';
+import { I18nService } from 'src/app/services/general/i18n.service';
 
 @Component({
+  standalone: false,
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
@@ -37,8 +39,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   loginDisplay = false;
   private readonly _destroying$ = new Subject<void>();
   // End Auth
-  languages: { code: string; name: string }[] = [];
-  selectedLanguage = 'en'; // Default language
+  /*
+    The language list is no longer a field here: it comes from the localisation service, which gets it
+    from the API. `i18n.locales` / `i18n.locale` / `i18n.showPicker` are what the template reads.
+  */
 
   // Declare a variable to hold the authentication status
   responsiveMenuVisible = false;
@@ -48,8 +52,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   blogUrl = environment.blogUrl;
   adminUrl = environment.adminUrl;
   languageFormControl: FormControl = new FormControl();
-  slides =
-    { name: 'Keshav_Singh_Resume', url: environment.awsUserApiBaseUrl + '/'+ environment.mapConfig.analytics +'/' + environment.fileApiEndpoints.generateUrl.replace("{key}","Keshav_Singh_Resume_2024.pdf") };
+  // (A `slides` field built a resume URL against the retired dev-api-v2 host. Nothing read it — the
+  // resume comes from the admin CMS now — so it has been removed rather than left to mislead.)
 
   download$!: Observable<Download>;
   isLight = false;
@@ -65,8 +69,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private msalBroadcastService: MsalBroadcastService,
     private downloads: FileService,
     @Inject(DOCUMENT) private document: Document,
-    public session: SessionService
+    public session: SessionService,
+    public i18n: I18nService
   ) {}
+
+  /** Switches language. The service persists the choice and reloads the catalogue. */
+  selectLanguage(code: string): void {
+    this.i18n.use(code);
+  }
   ngOnInit(): void {
     this.session.isLoggedIn$.subscribe(v => this.loginDisplay = v);
     // Subscribe to sessionState$ for countdown

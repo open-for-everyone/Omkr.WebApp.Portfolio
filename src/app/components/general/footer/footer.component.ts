@@ -7,6 +7,7 @@ import { AnalyticService } from 'src/app/services/Analytics/analytic.service';
 import { ConsentService } from 'src/app/services/general/consent.service';
 
 @Component({
+  standalone: false,
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css'],
