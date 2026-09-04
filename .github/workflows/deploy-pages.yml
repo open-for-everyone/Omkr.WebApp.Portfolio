@@ -20,7 +20,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  OUTPUT_DIR: dist/omkr.web-app.portfolio
+  OUTPUT_DIR: dist/omkr.web-app.portfolio/browser
 
 jobs:
   build:
