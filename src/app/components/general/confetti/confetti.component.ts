@@ -1,5 +1,10 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
+/** One falling particle. `style` is bound straight to `[ngStyle]`. */
+interface ConfettiParticle {
+  style: Record<string, string>;
+}
+
 @Component({
   standalone: false,
   selector: 'app-confetti',
@@ -8,8 +13,9 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 })
 export class ConfettiComponent implements OnChanges {
   @Input() show = false;
-  confetti: any[] = [];
-  private intervalId: any;
+  confetti: ConfettiParticle[] = [];
+  /** `window.setInterval` returns a number in the browser, not a NodeJS.Timeout. */
+  private intervalId?: number;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['show'] && this.show) {
@@ -20,14 +26,14 @@ export class ConfettiComponent implements OnChanges {
   }
 
   startContinuousConfetti() {
-    this.intervalId = setInterval(() => {
+    this.intervalId = window.setInterval(() => {
       this.createConfettiParticle();
     }, 500); // Adjust time interval as needed
   }
 
   stopContinuousConfetti() {
     if (this.intervalId) {
-      clearInterval(this.intervalId);
+      window.clearInterval(this.intervalId);
     }
     this.confetti = [];
   }

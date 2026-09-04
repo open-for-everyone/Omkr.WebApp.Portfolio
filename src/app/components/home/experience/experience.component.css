@@ -1,7 +1,11 @@
-.experience-section { padding: 5rem 0; }
-
-/* Timeline layout */
-.timeline { display: flex; flex-direction: column; margin-top: 1rem; }
+/* An <ol>: the timeline is an ordered sequence, and screen readers announce its length. */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
 
 .tl-item {
   display: grid;
@@ -60,7 +64,7 @@
 .tl-card:hover {
   transform: translateX(5px);
   border-color: color-mix(in oklab, var(--accent) 25%, transparent);
-  box-shadow: 0 10px 30px rgba(2,6,23,.4);
+  box-shadow: var(--shadow-lg);
 }
 
 .tl-header {
@@ -90,15 +94,51 @@
   flex-shrink: 0;
   padding-top: .1rem;
 }
-.tl-summary {
-  color: var(--muted);
-  font-size: .92rem;
-  line-height: 1.75;
-  margin: 0 0 .9rem;
+.tl-company a {
+  color: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
 }
-.badges { display: flex; flex-wrap: wrap; gap: .4rem; }
+.tl-company a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+/* Sized down to sit on the text baseline rather than Material's default 24px box. */
+.tl-ext {
+  font-size: .85rem;
+  width: .85rem;
+  height: .85rem;
+  opacity: .6;
+}
+
+.tl-points {
+  color: var(--text-soft);
+  font-size: .92rem;
+  line-height: 1.7;
+  margin: 0 0 .9rem;
+  padding-left: 1.1rem;
+}
+.tl-points li { margin-bottom: .3rem; }
+.tl-points li::marker { color: var(--accent); }
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 
 @media (max-width: 600px) {
   .tl-item { grid-template-columns: 36px 1fr; gap: .75rem; }
   .tl-dot { width: 36px; height: 36px; }
+  .tl-card { padding: 1.1rem 1.15rem; }
+  /* Stacked, so a long date no longer squeezes the job title into a column of single words. */
+  .tl-header { flex-direction: column; gap: .35rem; }
+  .tl-period { padding-top: 0; }
+  /* The hover nudge is a pointer affordance; on touch it just clips the card. */
+  .tl-card:hover { transform: none; }
 }

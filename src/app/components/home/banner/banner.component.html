@@ -5,43 +5,55 @@
   <div class="container hero-content" [@bannerTrigger]>
     <!-- Left: text content -->
     <div class="hero-text">
-      <p class="eyebrow">{{"Banner.Pretitle" | translate}}</p>
+      <p class="eyebrow">{{ 'Banner.Pretitle' | translate }}</p>
 
-      <h2 class="hero-name">Keshav Singh</h2>
+      <h2 class="hero-name">{{ profile.name }}</h2>
 
-      <h3 class="hero-role" aria-live="polite">
-        <span class="typed-text">{{ currentRole }}</span><span class="cursor" aria-hidden="true">|</span>
+      <!--
+        aria-live is deliberately absent: the role cycles every few seconds, and announcing each
+        keystroke would make the page unusable with a screen reader. The full list is exposed once,
+        statically, to assistive technology instead.
+      -->
+      <h3 class="hero-role">
+        <span class="visually-hidden">{{ profile.roles.join(', ') }}</span>
+        <span class="typed-text" aria-hidden="true">{{ currentRole }}</span>
+        <span class="cursor" *ngIf="isAnimating" aria-hidden="true">|</span>
       </h3>
 
-      <p class="hero-desc" [innerHTML]='"Banner.Description" | translate'></p>
+      <p class="hero-desc" [innerHTML]="'Banner.Description' | translate"></p>
 
       <!-- Social links -->
       <div class="hero-socials" role="list" aria-label="Social profiles">
-        <a role="listitem" href="https://github.com/keshavsingh3197" target="_blank" rel="noopener noreferrer"
-          aria-label="GitHub profile" class="social-link"
-          (click)="analyticsService.sendAnalyticEvent('click_github','banner','github')">
-          <fa-icon [icon]="['fab', 'github']" title="GitHub"></fa-icon>
-        </a>
-        <a role="listitem" href="https://www.linkedin.com/in/keshavsingh3197/" target="_blank" rel="noopener noreferrer"
-          aria-label="LinkedIn profile" class="social-link"
-          (click)="analyticsService.sendAnalyticEvent('click_linkedin','banner','linkedin')">
-          <fa-icon [icon]="['fab', 'linkedin-in']" title="LinkedIn"></fa-icon>
-        </a>
-        <a role="listitem" href="mailto:keshavsingh4522@gmail.com" aria-label="Send email" class="social-link"
-          (click)="analyticsService.sendAnalyticEvent('click_email','banner','email')">
-          <fa-icon [icon]="['fas', 'envelope']" title="Email"></fa-icon>
+        <a
+          *ngFor="let social of socials; trackBy: trackSocial"
+          role="listitem"
+          class="social-link"
+          [href]="social.url"
+          [attr.target]="social.url.startsWith('mailto:') ? null : '_blank'"
+          [attr.rel]="social.url.startsWith('mailto:') ? null : 'noopener noreferrer'"
+          [attr.aria-label]="social.label"
+          [title]="social.label"
+          (click)="analyticsService.sendAnalyticEvent('click_' + social.id, 'banner', social.id)">
+          <fa-icon [icon]="iconFor(social)"></fa-icon>
         </a>
       </div>
 
       <!-- Call-to-action buttons -->
       <div class="hero-ctas">
-        <a href="#contact" class="cta-primary"
-          (click)="analyticsService.sendAnalyticEvent('click_contact','banner','contact')">
-          <mat-icon aria-hidden="true">send</mat-icon> Get in Touch
+        <a
+          [routerLink]="['/']"
+          fragment="contact"
+          class="cta-primary"
+          (click)="analyticsService.sendAnalyticEvent('click_contact', 'banner', 'contact')">
+          <mat-icon aria-hidden="true">send</mat-icon>
+          {{ 'Banner.ActionBtn' | translate }}
         </a>
-        <a routerLink="/resume" class="cta-secondary"
-          (click)="analyticsService.sendAnalyticEvent('click_resume','banner','resume')">
-          <mat-icon aria-hidden="true">description</mat-icon> View Resume
+        <a
+          routerLink="/resume"
+          class="cta-secondary"
+          (click)="analyticsService.sendAnalyticEvent('click_resume', 'banner', 'resume')">
+          <mat-icon aria-hidden="true">description</mat-icon>
+          {{ 'Header.cvBtn' | translate }}
         </a>
       </div>
     </div>
@@ -49,11 +61,7 @@
     <!-- Right: avatar -->
     <div class="hero-avatar" aria-hidden="true">
       <div class="avatar-ring">
-        <img
-          [src]="avatarUrl"
-          alt="Keshav Singh"
-          width="320" height="320"
-          loading="eager" />
+        <img [src]="profile.avatarUrl" [alt]="profile.name" width="320" height="320" loading="eager" />
       </div>
       <div class="deco deco-1"></div>
       <div class="deco deco-2"></div>

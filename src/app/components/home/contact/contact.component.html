@@ -103,7 +103,7 @@
                 <mat-icon>send</mat-icon>
                 <span>{{ submitting ? 'Sending…' : 'Send Message' }}</span>
               </button>
-              <a mat-button color="accent" href="mailto:keshavsingh4522@gmail.com" target="_blank" rel="noopener"
+              <a mat-button color="accent" [href]="mailtoHref"
                 (click)="analyticsService.sendAnalyticEvent('click_send_mail','contact','email')">
                 <mat-icon>alternate_email</mat-icon>
                 <span>Email directly</span>

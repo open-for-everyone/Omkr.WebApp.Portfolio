@@ -36,6 +36,8 @@ export class AppComponent implements OnInit, OnDestroy {
   confetti = false;
   private konamiIndex = 0;
   private readonly konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  /** Set in ngOnDestroy, so async work that resolves later can bail out. */
+  private destroyed = false;
   private beforePrintHandler?: () => void;
   private afterPrintHandler?: () => void;
   visitorData: VisitorDetail={
@@ -145,6 +147,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.destroyed = true;
     window.removeEventListener('scroll', this.onWindowScroll);
     if(this.beforePrintHandler){
       window.removeEventListener('beforeprint', this.beforePrintHandler);
@@ -181,9 +184,13 @@ export class AppComponent implements OnInit, OnDestroy {
     if(!this.chatHost) return;
     try {
       const { ChatWidgetComponent } = await import('./components/general/chat-widget/chat-widget.component');
+      // The import is async, so the component may be gone by the time it resolves — on a fast
+      // navigation, or between tests. Creating into a destroyed injector throws NG0205, which used
+      // to surface as a console error about a failure that had not actually happened.
+      if(this.destroyed) return;
       this.chatHost.createComponent(ChatWidgetComponent);
     } catch (e){
-      console.error('Failed to load chat widget', e);
+      if(!this.destroyed) console.error('Failed to load chat widget', e);
     }
   }
 

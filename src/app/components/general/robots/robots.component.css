@@ -1,3 +1,3 @@
 .robots { padding: 1rem; }
-pre { background:#0d1117; color:#c9d1d9; padding:1rem; border-radius:4px; overflow:auto; }
+pre { background: var(--card); color: var(--text-soft); border: 1px solid var(--border); padding: 1rem; border-radius: var(--radius-md); overflow: auto; }
 .note { font-size:0.85rem; opacity:0.75; }

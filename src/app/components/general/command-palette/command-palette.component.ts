@@ -41,6 +41,11 @@ export class CommandPaletteComponent implements OnChanges {
     return this.items.filter(i => i.label.toLowerCase().includes(q) || (i.hint||'').toLowerCase().includes(q));
   }
 
+  /** Closes only when the backdrop itself was clicked, not a descendant of the panel. */
+  onBackdropClick(event: MouseEvent): void {
+    if (event.target === event.currentTarget) this.close();
+  }
+
   close(){
     this.open = false;
     this.openChange.emit(this.open);

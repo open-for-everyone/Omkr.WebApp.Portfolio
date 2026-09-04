@@ -1,9 +1,12 @@
-<section class="experience-section section reveal" appReveal aria-label="Work experience">
+<section class="experience-section section reveal" appReveal aria-labelledby="experience-heading">
   <div class="container">
-    <h2 class="section-title">{{ title }}</h2>
-    <div class="timeline" role="list">
-      <div class="tl-item" role="listitem" *ngFor="let e of items; let i = index; let last = last">
-        <!-- Dot -->
+    <h2 id="experience-heading" class="section-title">{{ title }}</h2>
+
+    <ol class="timeline">
+      <li
+        class="tl-item"
+        *ngFor="let e of items; let i = index; let last = last; trackBy: trackItem">
+        <!-- Rail -->
         <div class="tl-left" aria-hidden="true">
           <div class="tl-dot" [class.current]="i === 0">
             <mat-icon>{{ i === 0 ? 'work' : 'work_history' }}</mat-icon>
@@ -15,17 +18,32 @@
         <div class="tl-card glass-card">
           <div class="tl-header">
             <div class="tl-info">
-              <h3 class="tl-company">{{ e.company }}</h3>
-              <p class="tl-role">{{ e.role }}</p>
+              <h3 class="tl-company">
+                <a
+                  *ngIf="e.Company.CompanyLink; else plainCompany"
+                  [href]="e.Company.CompanyLink"
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  {{ e.Company.Name }}
+                  <mat-icon class="tl-ext" aria-hidden="true">open_in_new</mat-icon>
+                </a>
+                <ng-template #plainCompany>{{ e.Company.Name }}</ng-template>
+              </h3>
+              <p class="tl-role">{{ e.Title }}</p>
             </div>
-            <span class="tl-period">{{ e.period }}</span>
+            <span class="tl-period" *ngIf="e.Date">{{ e.Date }}</span>
           </div>
-          <p class="tl-summary">{{ e.summary }}</p>
-          <div class="badges">
-            <span class="badge-pill" *ngFor="let s of e.stack">{{ s }}</span>
-          </div>
+
+          <!-- Bullet points. The old markup collapsed these into one paragraph. -->
+          <ul class="tl-points" *ngIf="e.Description.length">
+            <li *ngFor="let point of e.Description">{{ point }}</li>
+          </ul>
+
+          <ul class="badges" *ngIf="e.Stack?.length" [attr.aria-label]="e.Company.Name + ' technologies'">
+            <li class="badge-pill" *ngFor="let s of e.Stack">{{ s }}</li>
+          </ul>
         </div>
-      </div>
-    </div>
+      </li>
+    </ol>
   </div>
 </section>
