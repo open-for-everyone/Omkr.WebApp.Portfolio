@@ -69,7 +69,21 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, {
+      /*
+        The primary navigation points at `/` with a fragment (`/#about`), so the router — not the
+        components — owns scrolling to a section. This is what makes those links work from any
+        route: landing on `/resume` and clicking "About" navigates home and then scrolls, where the
+        old `href="#about"` markup simply changed the hash of a page that had no such element.
+
+        `scrollOffset` clears the fixed toolbar; without it a section title lands underneath it.
+      */
+      anchorScrolling: 'enabled',
+      scrollPositionRestoration: 'enabled',
+      scrollOffset: [0, 80],
+    }),
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

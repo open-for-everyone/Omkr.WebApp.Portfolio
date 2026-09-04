@@ -1,4 +1,5 @@
 import { LogLevel, Configuration, BrowserCacheLocation } from '@azure/msal-browser';
+import { isDevMode } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 export const b2cPolicies = {
@@ -27,11 +28,20 @@ export const msalConfig: Configuration = {
          cacheLocation: BrowserCacheLocation.LocalStorage,
      },
      system: {
+         /*
+           MSAL used to log at Verbose through `console.log`, which meant the deployed site printed a
+           running commentary of every token operation into the visitor's console. Errors are worth
+           surfacing; the rest is only useful while developing.
+         */
          loggerOptions: {
-            loggerCallback: (logLevel, message, containsPii) => {
-                console.log(message);
+             loggerCallback: (logLevel, message) => {
+                 if (logLevel === LogLevel.Error) {
+                     console.error(message);
+                 } else if (isDevMode()) {
+                     console.debug(message);
+                 }
              },
-             logLevel: LogLevel.Verbose,
+             logLevel: isDevMode() ? LogLevel.Info : LogLevel.Error,
              piiLoggingEnabled: false
          }
      }

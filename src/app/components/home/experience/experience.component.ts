@@ -1,49 +1,56 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
+import { DEFAULT_EXPERIENCE } from 'src/app/models/content/site-content.defaults';
+import { ExperienceItem } from 'src/app/models/content/site-content.model';
+import { PortfolioContentService } from 'src/app/services/content/portfolio-content.service';
+import { StructuredContentService } from 'src/app/services/content/structured-content.service';
 
-interface ExperienceItem {
-  company: string;
-  role: string;
-  period: string;
-  summary: string;
-  stack: string[];
-}
-
+/**
+ * The experience timeline.
+ *
+ * This section had a dead data path worth describing, because it is the clearest example of what
+ * "make it dynamic" was actually about here. {@link ApiTranslateLoader} already fetched the
+ * `experience` content block from the admin, per locale, and merged it into the translate store
+ * under `Experience.*`. The seeded payload was richer than the UI — company links and per-role
+ * bullet points. And the component ignored all of it, rendering a hardcoded TypeScript array
+ * instead. The data was fetched on every page load and thrown away.
+ *
+ * It now renders what was already being downloaded, bullets and links included.
+ */
 @Component({
   standalone: false,
   selector: 'app-experience',
   templateUrl: './experience.component.html',
-  styleUrls: ['./experience.component.css']
+  styleUrls: ['./experience.component.css'],
 })
-export class ExperienceComponent {
-  @Input() title = 'Experience';
-  @Input() items: ExperienceItem[] =[
-  {
-    company: "Publicis Sapient",
-    role: "Senior Associate Technology L1",
-    period: "July 2025 — Present",
-    summary: "Created landing page using Angular based on Figma design for UPS Prism project.",
-    stack: [ ".Net core", "JFROG","Azure DevOps", "Angular", "Figma", "TypeScript", "HTML", "CSS", "JavaScript", "Bootstrap", "Material UI", "Git" , "Slingshot", "SonarQube", "OpenAPI" , "Swagger" , "Postman", "RESTful APIs", "Entity Framework" , "SQL Server", "LINQ" , "Asynchronous Programming" , "Dependency Injection" , "AutoMapper" , "Moq" , "xUnit" , "NUnit" , "TDD", "Agile", "Scrum", "Kanban", "CI/CD", "Docker", "Kubernetes"," Microservices", "gRPC", "RabbitMQ", "OAuth2", "OpenID Connect", "Azure AD B2C", "SignalR", "Datadog", "MassTransit"]
-  },
-  {
-    company: "R Systems",
-    role: "Senior Software Engineer",
-    period: "Feb 2024 — July 2025",
-    summary: "Delivered multiple POCs and solutions including ARM deployments, OAuth integration with Azure AD B2C, push notifications with SignalR, Kubernetes deployments, Datadog integration, microservices migration using gRPC, and event-driven architecture with AWS services. Assisted team with Angular, Blazor, .NET Core, Azure, and Power Platform tasks.",
-    stack: [".NET Core", "Angular", "Blazor", "Azure", "Kubernetes", "AWS", "gRPC", "Datadog", "SignalR", "MassTransit"]
-  },
-  {
-    company: "Marlabs",
-    role: "Backend Developer",
-    period: "July 2023 — Oct 2023",
-    summary: "Developed APIs with Entity Framework and optimized code. Integrated AWS KMS for encryption/decryption at model binder level.",
-    stack: [".NET Core", "Entity Framework", "AWS KMS", "SQL"]
-  },
-  {
-    company: "Unthinkable Solutions LLP",
-    role: "Backend .NET Developer",
-    period: "Jan 2021 — July 2023",
-    summary: "Implemented gRPC microservices with .NET Core, improved API performance by 40% using AWS SQS and MassTransit, created reusable NuGet packages, prepared RCA reports, practiced TDD with NUnit & MOQ, worked on POCs and agile methodologies. Delivered RESTful APIs using AWS Serverless stack for Push Doctor project with MFA and OAuth flows, and built event-driven Customer Support APIs using Event Bus, AppFlow, Lambda, and Salesforce.",
-    stack: [".NET Core", "gRPC", "AWS", "SQS", "MassTransit", "NuGet", "NUnit", "MOQ", "API Gateway", "Lambda", "Salesforce"]
+export class ExperienceComponent implements OnInit, OnDestroy {
+  title = 'Experience';
+  items: ExperienceItem[] = DEFAULT_EXPERIENCE;
+
+  private readonly destroyed$ = new Subject<void>();
+
+  constructor(
+    private content: PortfolioContentService,
+    private structured: StructuredContentService,
+  ) {}
+
+  ngOnInit(): void {
+    this.content.experience$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((items) => (this.items = items));
+
+    this.structured
+      .text('Experience.Title', 'Experience')
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((title) => (this.title = title));
   }
-];
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+  }
+
+  trackItem(_index: number, item: ExperienceItem): string {
+    return `${item.Company.Name}-${item.Title}-${item.Date}`;
+  }
 }

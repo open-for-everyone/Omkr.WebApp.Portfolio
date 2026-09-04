@@ -47,6 +47,9 @@ export class ApiTranslateLoader implements TranslateLoader {
   private static readonly STRUCTURED: ReadonlyArray<{ contentKey: string; prefix: string }> = [
     { contentKey: 'about', prefix: 'AboutMe' },
     { contentKey: 'experience', prefix: 'Experience' },
+    { contentKey: 'skills', prefix: 'Skills' },
+    { contentKey: 'projects', prefix: 'Projects' },
+    { contentKey: 'navigation', prefix: 'Navigation' },
   ];
 
   constructor(private http: HttpClient) {}

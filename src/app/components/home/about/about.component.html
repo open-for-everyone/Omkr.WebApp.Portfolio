@@ -1,23 +1,34 @@
-<section class="about-section section reveal" appReveal id="about">
+<section class="about-section section reveal" appReveal aria-labelledby="about-heading">
   <div class="container">
-    <h2 class="section-title">{{ 'AboutMe.Title' | translate }}</h2>
+    <h2 id="about-heading" class="section-title">{{ 'AboutMe.Title' | translate }}</h2>
+
     <div class="about-grid">
       <!-- Text column -->
       <div class="about-text">
         <div class="about-content glass-card">
-          <p *ngFor="let text of 'AboutMe.Paragraphs' | translate" [innerHTML]="text"></p>
+          <p *ngFor="let text of paragraphs" [innerHTML]="text"></p>
+
           <!-- Key skills chips -->
           <div class="key-skills" aria-label="Key skills">
             <span class="badge-pill" *ngFor="let chip of keySkills">{{ chip }}</span>
           </div>
+
           <div class="about-actions">
-            <a mat-raised-button color="primary" href="mailto:keshavsingh4522@gmail.com"
-              (click)="analyticsService.sendAnalyticEvent('click_contact','about','email')">
-              <mat-icon>email</mat-icon> Contact
+            <a
+              mat-raised-button
+              color="primary"
+              [href]="mailtoHref"
+              (click)="analyticsService.sendAnalyticEvent('click_contact', 'about', 'email')">
+              <mat-icon>email</mat-icon> {{ 'Contact.Btn' | translate }}
             </a>
-            <a mat-stroked-button class="btn-outline-accent" href="https://www.linkedin.com/in/keshavsingh3197/"
-              target="_blank" rel="noopener"
-              (click)="analyticsService.sendAnalyticEvent('click_resume','about','linkedin')">
+            <a
+              *ngIf="linkedInUrl as linkedin"
+              mat-stroked-button
+              class="btn-outline-accent"
+              [href]="linkedin"
+              target="_blank"
+              rel="noopener noreferrer"
+              (click)="analyticsService.sendAnalyticEvent('click_linkedin', 'about', 'linkedin')">
               <mat-icon>open_in_new</mat-icon> LinkedIn
             </a>
           </div>
@@ -29,13 +40,11 @@
         <div class="avatar-glow-wrap">
           <img
             class="about-profile"
-            width="340" height="340"
-            [src]="avatarUrl"
-            alt="Keshav Singh"
-            loading="lazy"
-            tabindex="0"
-            (click)="analyticsService.sendAnalyticEvent('click_image','about','image')"
-            (keyup.enter)="analyticsService.sendAnalyticEvent('click_image','about','image')" />
+            width="340"
+            height="340"
+            [src]="profile.avatarUrl"
+            [alt]="profile.name"
+            loading="lazy" />
           <div class="avatar-glow" aria-hidden="true"></div>
         </div>
       </div>

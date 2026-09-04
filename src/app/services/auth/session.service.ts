@@ -111,7 +111,7 @@ export class SessionService {
   }
 
   private startSession(restoredExpiry?: number){
-    let absoluteExpiry = restoredExpiry ?? (Date.now() + ABSOLUTE_SESSION_MINUTES * 60 * 1000);
+    const absoluteExpiry = restoredExpiry ?? (Date.now() + ABSOLUTE_SESSION_MINUTES * 60 * 1000);
     localStorage.setItem(SESSION_EXPIRY_KEY, absoluteExpiry.toString());
     this.clearTimers();
     this.state$.next({

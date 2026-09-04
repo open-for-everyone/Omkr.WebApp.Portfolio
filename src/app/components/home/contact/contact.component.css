@@ -79,9 +79,9 @@
 
 .map-status.pulse .status-pin { animation: pinPulse 0.7s ease-out; }
 @keyframes pinPulse {
-  0% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(100,255,218,.0)); }
-  50% { transform: scale(1.25); filter: drop-shadow(0 0 8px rgba(100,255,218,.25)); }
-  100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(100,255,218,.0)); }
+  0% { transform: scale(1); filter: drop-shadow(0 0 0 transparent); }
+  50% { transform: scale(1.25); filter: drop-shadow(0 0 8px color-mix(in oklab, var(--accent) 25%, transparent)); }
+  100% { transform: scale(1); filter: drop-shadow(0 0 0 transparent); }
 }
 
 .sr-only {
@@ -102,7 +102,7 @@
   border: none;
   padding: 0;
   font: inherit;
-  color: var(--accent, #26a69a);
+  color: var(--accent);
   text-decoration: underline;
   cursor: pointer;
 }

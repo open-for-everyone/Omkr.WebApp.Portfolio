@@ -45,7 +45,7 @@
   height: 100%;
   object-fit: cover;
   border-radius: 20px;
-  box-shadow: 0 20px 50px rgba(2,6,23,.55);
+  box-shadow: var(--shadow-lg);
   border: 1px solid var(--border);
   position: relative;
   z-index: 1;
@@ -54,7 +54,7 @@
 }
 .about-profile:hover {
   transform: scale(1.02);
-  box-shadow: 0 28px 60px rgba(2,6,23,.65);
+  box-shadow: var(--shadow-lg);
 }
 .avatar-glow {
   position: absolute;
