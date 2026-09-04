@@ -1,18 +1,22 @@
-<section class="skills-section section reveal" appReveal aria-label="Tech Stack">
+<section class="skills-section section reveal" appReveal aria-labelledby="skills-heading">
   <div class="container">
-    <h2 class="section-title">{{ title }}</h2>
+    <h2 id="skills-heading" class="section-title">{{ title }}</h2>
+
     <div class="categories-grid">
-      <div class="category-card glass-card reveal reveal-delay-1" appReveal *ngFor="let cat of categories; let i = index"
-        [style.--delay]="(i * 80) + 'ms'">
+      <div
+        class="category-card glass-card reveal reveal-delay-1"
+        appReveal
+        *ngFor="let cat of categories; let i = index; trackBy: trackCategory"
+        [style.--delay]="i * 80 + 'ms'">
         <div class="cat-header">
           <span class="cat-icon-wrap">
             <mat-icon aria-hidden="true">{{ cat.icon }}</mat-icon>
           </span>
           <h3>{{ cat.label }}</h3>
         </div>
-        <div class="badges">
-          <span class="badge-pill" *ngFor="let s of cat.skills">{{ s }}</span>
-        </div>
+        <ul class="badges" [attr.aria-label]="cat.label + ' technologies'">
+          <li class="badge-pill" *ngFor="let s of cat.skills">{{ s }}</li>
+        </ul>
       </div>
     </div>
   </div>

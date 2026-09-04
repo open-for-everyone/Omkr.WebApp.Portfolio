@@ -1,62 +1,84 @@
-<footer [@animateFooter]="state" id="footer">
+<footer [@animateFooter] id="footer">
   <div class="footer-inner container">
-    <!-- Social links -->
-    <ul class="footer-social-links">
-      <li>
-        <a (click)="analyticsService.sendAnalyticEvent('click_github','footer','github')"
-           href="https://github.com/keshavsingh3197" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-          <fa-icon [icon]="['fab', 'github']" title="GitHub"></fa-icon>
-        </a>
-      </li>
-      <li>
-        <a (click)="analyticsService.sendAnalyticEvent('click_linkedin','footer','linkedin')"
-           href="https://www.linkedin.com/in/keshavsingh3197/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-          <fa-icon [icon]="['fab', 'linkedin-in']" title="LinkedIn"></fa-icon>
-        </a>
-      </li>
-      <li>
-        <a (click)="analyticsService.sendAnalyticEvent('click_youtube','footer','youtube')"
-           href="https://www.youtube.com/channel/UCVP_DbP7xIOc_LFQTqaLbyg" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-          <fa-icon [icon]="['fab', 'youtube']" title="YouTube"></fa-icon>
-        </a>
-      </li>
-      <li>
-        <a (click)="analyticsService.sendAnalyticEvent('click_stackoverflow','footer','stackoverflow')"
-           href="https://stackoverflow.com/users/11732730/keshav-singh" target="_blank" rel="noopener noreferrer" aria-label="Stack Overflow">
-          <fa-icon [icon]="['fab', 'stack-overflow']" title="Stack Overflow"></fa-icon>
-        </a>
-      </li>
-      <li>
-        <a (click)="analyticsService.sendAnalyticEvent('click_send_mail','footer','email')"
-           href="mailto:keshavsingh4522@gmail.com" aria-label="Email">
-          <fa-icon [icon]="['fas', 'envelope']" title="Email"></fa-icon>
-        </a>
-      </li>
-    </ul>
+    <!-- Top: identity, navigation, elsewhere -->
+    <div class="footer-cols">
+      <div class="footer-col footer-brand">
+        <p class="footer-name">{{ profile.name }}</p>
+        <p class="footer-tagline">{{ profile.roles[0] }}</p>
 
-    <!-- Credits -->
-    <p class="footer-credits">
-      Designed &amp; Built by
-      <a href="https://github.com/open-for-everyone/Omkr.WebApp.Portfolio"
-         target="_blank" rel="nofollow noopener noreferrer"
-         (click)="analyticsService.sendAnalyticEvent('click_github_portfolio','footer','click')">
-        Keshav Singh
-      </a>
-      · Built with Angular
-    </p>
+        <ul class="footer-social-links" aria-label="Social profiles">
+          <li *ngFor="let social of socials; trackBy: trackSocial">
+            <a
+              [href]="social.url"
+              [attr.target]="social.url.startsWith('mailto:') ? null : '_blank'"
+              [attr.rel]="social.url.startsWith('mailto:') ? null : 'noopener noreferrer'"
+              [attr.aria-label]="social.label"
+              [title]="social.label"
+              (click)="analyticsService.sendAnalyticEvent('click_' + social.id, 'footer', social.id)">
+              <fa-icon [icon]="iconFor(social)"></fa-icon>
+            </a>
+          </li>
+        </ul>
+      </div>
 
-    <!-- Legal links -->
-    <nav class="footer-legal" aria-label="Legal pages">
-      <a routerLink="/privacy-policy">Privacy</a>
-      <span aria-hidden="true">·</span>
-      <a routerLink="/terms">Terms</a>
-      <span aria-hidden="true">·</span>
-      <a routerLink="/cookie-policy">Cookies</a>
-      <span aria-hidden="true">·</span>
-      <!-- The only way back to the consent panel once the banner has been answered. -->
-      <button type="button" class="footer-link-btn" (click)="openCookieSettings()">Cookie settings</button>
-      <span aria-hidden="true">·</span>
-      <a routerLink="/disclaimer">Disclaimer</a>
-    </nav>
+      <!--
+        Section shortcuts. These matter most on the legal pages and the CV, which render no other
+        navigation — before the footer was global, those routes were dead ends.
+      -->
+      <nav class="footer-col" aria-label="Sections">
+        <h2 class="footer-col-title">Explore</h2>
+        <ul class="footer-list">
+          <li *ngFor="let link of navLinks; trackBy: trackNav">
+            <a
+              *ngIf="link.type === 'external'; else internalFooterLink"
+              [href]="link.target"
+              target="_blank"
+              rel="noopener noreferrer">
+              {{ link.label }}
+            </a>
+            <ng-template #internalFooterLink>
+              <a [routerLink]="routerTarget(link)" [fragment]="fragmentFor(link)">{{ link.label }}</a>
+            </ng-template>
+          </li>
+        </ul>
+      </nav>
+
+      <nav class="footer-col" aria-label="Elsewhere">
+        <h2 class="footer-col-title">Elsewhere</h2>
+        <ul class="footer-list">
+          <li>
+            <a [href]="blogUrl" target="_blank" rel="noopener noreferrer">Blog</a>
+          </li>
+          <li>
+            <a [href]="adminUrl" target="_blank" rel="noopener noreferrer">Admin</a>
+          </li>
+          <li>
+            <a [href]="sourceUrl" target="_blank" rel="nofollow noopener noreferrer">Source code</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Bottom: credits and legal -->
+    <div class="footer-bottom">
+      <p class="footer-credits">
+        © {{ currentYear }} {{ profile.name }} · Built with Angular
+      </p>
+
+      <nav class="footer-legal" aria-label="Legal pages">
+        <a routerLink="/privacy-policy">Privacy</a>
+        <span aria-hidden="true">·</span>
+        <a routerLink="/terms">Terms</a>
+        <span aria-hidden="true">·</span>
+        <a routerLink="/cookie-policy">Cookies</a>
+        <span aria-hidden="true">·</span>
+        <a routerLink="/disclaimer">Disclaimer</a>
+        <span aria-hidden="true">·</span>
+        <!-- The only way back to the consent panel once the banner has been answered. -->
+        <button type="button" class="footer-link-btn" (click)="openCookieSettings()">
+          Cookie settings
+        </button>
+      </nav>
+    </div>
   </div>
 </footer>

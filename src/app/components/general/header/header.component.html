@@ -1,62 +1,150 @@
-<mat-toolbar color="primary" class="navbar-glass" [@animateMenu]>
-  <h1 class="visually-hidden">Keshav Singh Portfolio</h1>
-  <a mat-icon-button aria-label="Home" (click)="scrollTop()" href="#top">
-    <img src="../../assets/images/k.png" alt="Keshav Singh logo" class="brandImg" loading="lazy" />
+<mat-toolbar class="navbar-glass" [class.scrolled]="scrolled" [@animateMenu]>
+  <h1 class="visually-hidden">{{ brandName }}</h1>
+
+  <!-- Brand. routerLink rather than a bare href so the base-href the Pages build applies is honoured. -->
+  <a
+    class="brand"
+    [routerLink]="['/']"
+    fragment="homeHeader"
+    [attr.aria-label]="brandName + ' — home'"
+    (click)="analyticsService.sendAnalyticEvent('click_brand', 'header', 'home')">
+    <img [src]="profile.logoUrl" [alt]="brandName + ' logo'" class="brandImg" width="36" height="36" />
   </a>
 
   <span class="spacer"></span>
 
-  <nav class="nav-links" [class.open]="!isNavbarCollapsed" aria-label="Primary" id="primary-navigation">
-    <a mat-button href="#homeHeader" (click)="scrollTop(); toggleNavbar()" [attr.aria-current]="activeSection==='home' ? 'page' : null" [class.active]="activeSection==='home'">Home</a>
-    <a mat-button href="#about" (click)="scroll('about'); toggleNavbar()" [attr.aria-current]="activeSection==='about' ? 'location' : null" [class.active]="activeSection==='about'">About me</a>
-    <a mat-button href="#skills" (click)="scroll('skills'); toggleNavbar()" [attr.aria-current]="activeSection==='skills' ? 'location' : null" [class.active]="activeSection==='skills'">Skills</a>
-    <a mat-button href="#experience" (click)="scroll('experience'); toggleNavbar()" [attr.aria-current]="activeSection==='experience' ? 'location' : null" [class.active]="activeSection==='experience'">Experience</a>
-    <a mat-button href="#projects" (click)="scroll('projects'); toggleNavbar()" [attr.aria-current]="activeSection==='projects' ? 'location' : null" [class.active]="activeSection==='projects'">Projects</a>
-    <a mat-button href="#contact" (click)="scroll('contact'); toggleNavbar()" [attr.aria-current]="activeSection==='contact' ? 'location' : null" [class.active]="activeSection==='contact'">Contact me</a>
-  <a mat-button routerLink="/resume" (click)="toggleNavbar()" routerLinkActive="active" aria-label="Resume page">Resume</a>
-    <!-- Blog & Admin moved into profile menu -->
+  <nav
+    class="nav-links"
+    [class.open]="!isNavbarCollapsed"
+    aria-label="Primary"
+    id="primary-navigation">
+    <ng-container *ngFor="let link of navLinks; trackBy: trackNav">
+      <!-- An external entry is a real anchor; routing it would send the visitor to the home page. -->
+      <a
+        *ngIf="link.type === 'external'; else internalLink"
+        mat-button
+        class="nav-link"
+        [href]="link.target"
+        target="_blank"
+        rel="noopener noreferrer"
+        (click)="onNavClick(link)">
+        {{ link.label }}
+      </a>
+
+      <ng-template #internalLink>
+        <a
+          mat-button
+          class="nav-link"
+          [routerLink]="routerTarget(link)"
+          [fragment]="fragmentFor(link)"
+          [class.active]="activeSection === link.id"
+          [attr.aria-current]="activeSection === link.id ? 'true' : null"
+          (click)="onNavClick(link)">
+          {{ link.label }}
+        </a>
+      </ng-template>
+    </ng-container>
   </nav>
 
   <span class="spacer"></span>
 
   <div class="actions">
-    <a mat-icon-button href="tel:+919982761929" title="Call us" aria-label="Call">
+    <a
+      mat-icon-button
+      class="hide-sm"
+      [href]="telHref"
+      [title]="'Call ' + profile.name"
+      [attr.aria-label]="'Call ' + profile.name">
       <mat-icon>phone</mat-icon>
     </a>
-    <a mat-icon-button href="https://wa.me/9982761929" target="_blank" rel="noopener" title="WhatsApp" aria-label="WhatsApp">
+
+    <!-- Country code included, so this actually resolves to an account. -->
+    <a
+      mat-icon-button
+      class="hide-sm"
+      [href]="whatsAppHref"
+      target="_blank"
+      rel="noopener noreferrer"
+      title="WhatsApp"
+      aria-label="Message on WhatsApp">
       <mat-icon>chat</mat-icon>
     </a>
-    <!-- Removed duplicate Resume download button; Resume accessible via nav link -->
 
     <!--
-      Language picker. Rendered only when more than one language is enabled AND an admin has left the
+      Language picker. Shown only when more than one language is enabled AND an admin has left the
       picker on — both are database values, so a single-language deployment shows nothing here.
     -->
     <ng-container *ngIf="i18n.showPicker">
-      <button mat-icon-button [matMenuTriggerFor]="languageMenu"
-              [attr.aria-label]="'common.label.language' | translate"
-              [title]="'common.label.language' | translate" aria-haspopup="true">
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="languageMenu"
+        [attr.aria-label]="'common.label.language' | translate"
+        [title]="'common.label.language' | translate"
+        aria-haspopup="true">
         <mat-icon>language</mat-icon>
       </button>
       <mat-menu #languageMenu="matMenu" xPosition="before" yPosition="below">
-        <button mat-menu-item *ngFor="let language of i18n.locales" (click)="selectLanguage(language.code)"
-                [attr.aria-current]="language.code === i18n.locale">
+        <button
+          mat-menu-item
+          *ngFor="let language of i18n.locales"
+          (click)="selectLanguage(language.code)"
+          [attr.aria-current]="language.code === i18n.locale ? 'true' : null">
           <span aria-hidden="true" class="lang-icon">{{ language.icon }}</span>
           {{ language.nativeName }}
         </button>
       </mat-menu>
     </ng-container>
 
-    <button mat-icon-button (click)="toggleTheme()" [attr.aria-label]="isLight ? 'Switch to dark theme' : 'Switch to light theme'" [attr.aria-pressed]="isLight" title="Toggle theme">
-      <mat-icon>{{ isLight ? 'light_mode' : 'dark_mode' }}</mat-icon>
+    <!--
+      Display settings. High contrast lives here again: the toggle had been removed from the header
+      while its stylesheet and storage key stayed behind, leaving the mode unreachable.
+    -->
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="displayMenu"
+      aria-label="Display settings"
+      title="Display settings"
+      aria-haspopup="true">
+      <mat-icon>{{ display.isLight ? 'light_mode' : 'dark_mode' }}</mat-icon>
     </button>
-    <!-- Removed high contrast toggle per duplication request -->
 
-    <button mat-icon-button [matMenuTriggerFor]="profileMenu" aria-label="Profile menu" aria-haspopup="true" [matTooltip]="sessionCountdown" matTooltipPosition="below">
-      <img src="https://avatars3.githubusercontent.com/keshavsingh4522?size=400" alt="Profile image" class="profileImg" loading="lazy" />
+    <mat-menu #displayMenu="matMenu" xPosition="before" yPosition="below" class="display-menu">
+      <button mat-menu-item (click)="toggleTheme()" [attr.aria-pressed]="display.isLight">
+        <mat-icon>{{ display.isLight ? 'dark_mode' : 'light_mode' }}</mat-icon>
+        <span>{{ display.isLight ? 'Dark theme' : 'Light theme' }}</span>
+      </button>
+
+      <button
+        mat-menu-item
+        (click)="toggleHighContrast()"
+        [attr.aria-pressed]="display.isHighContrast">
+        <mat-icon>{{ display.isHighContrast ? 'invert_colors' : 'invert_colors_off' }}</mat-icon>
+        <span>High contrast: {{ display.isHighContrast ? 'on' : 'off' }}</span>
+      </button>
+
+      <button
+        mat-menu-item
+        (click)="toggleReduceMotion()"
+        [attr.aria-pressed]="display.isReducedMotion">
+        <mat-icon>{{ display.isReducedMotion ? 'slow_motion_video' : 'animation' }}</mat-icon>
+        <span>Reduce motion: {{ display.isReducedMotion ? 'on' : 'off' }}</span>
+      </button>
+    </mat-menu>
+
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="profileMenu"
+      aria-label="Profile menu"
+      aria-haspopup="true"
+      [matTooltip]="sessionCountdown"
+      matTooltipPosition="below">
+      <img [src]="profile.avatarUrl" [alt]="profile.name" class="profileImg" width="32" height="32" />
     </button>
 
     <mat-menu #profileMenu="matMenu" xPosition="before" yPosition="below" class="profile-dropdown">
+      <a mat-menu-item [routerLink]="['/resume']">
+        <mat-icon>description</mat-icon><span>Resume</span>
+      </a>
       <button mat-menu-item (click)="openExternal(blogUrl)" aria-label="Open Blog">
         <mat-icon>article</mat-icon><span>Blog</span>
       </button>
@@ -64,17 +152,22 @@
         <mat-icon>admin_panel_settings</mat-icon><span>Admin</span>
       </button>
       <button mat-menu-item *ngIf="!loginDisplay" (click)="login('en')" aria-label="Login">
-        <mat-icon>login</mat-icon>
-        <span>Login</span>
+        <mat-icon>login</mat-icon><span>Login</span>
       </button>
       <button mat-menu-item *ngIf="loginDisplay" (click)="logout()" aria-label="Logout">
-        <mat-icon>logout</mat-icon>
-        <span>Logout</span>
+        <mat-icon>logout</mat-icon><span>Logout</span>
       </button>
     </mat-menu>
   </div>
 
-  <button mat-icon-button class="menu-toggle" (click)="toggleNavbar()" aria-label="Menu" aria-haspopup="true" [attr.aria-expanded]="!isNavbarCollapsed" aria-controls="primary-navigation">
-    <mat-icon>menu</mat-icon>
+  <button
+    mat-icon-button
+    class="menu-toggle"
+    (click)="toggleNavbar()"
+    aria-label="Menu"
+    aria-haspopup="true"
+    [attr.aria-expanded]="!isNavbarCollapsed"
+    aria-controls="primary-navigation">
+    <mat-icon>{{ isNavbarCollapsed ? 'menu' : 'close' }}</mat-icon>
   </button>
 </mat-toolbar>

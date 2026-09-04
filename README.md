@@ -1,338 +1,214 @@
 # Omkr Web App Portfolio
 
-An Angular 16 portfolio & showcase application featuring accessible UI components, theming (light/dark/high-contrast), internationalization scaffolding, sitemap generation, analytics integration hooks, and modular architecture for future expansion (blog, admin, visitor analytics, messaging, Spotify/GitHub integrations, Azure AD B2C auth skeleton).
-
----
+The personal portfolio at **[keshavsingh.in](https://keshavsingh.in)** — an Angular front end whose
+content is served from a database rather than compiled into the bundle.
 
 ![Preview](./src/assets/images/keshav-singh-portfolio-preview.png)
 
-## Table of Contents
+---
 
-1. Overview
-2. Key Features
-3. Tech Stack
-4. Architecture & Project Structure
-5. Getting Started
-6. Available NPM Scripts
-7. Configuration & Environment
-8. Theming & Accessibility
-9. Internationalization (i18n)
-10. SEO, Sitemap & Robots
-11. Analytics & Telemetry
-12. Development Guidelines (Scaffolding Reference)
-13. Future Roadmap
-14. Contributing
-15. License
+## Contents
+
+1. [What makes this different](#1-what-makes-this-different)
+2. [Tech stack](#2-tech-stack)
+3. [Getting started](#3-getting-started)
+4. [Scripts](#4-scripts)
+5. [Architecture](#5-architecture)
+6. [Theming](#6-theming)
+7. [Accessibility](#7-accessibility)
+8. [Features](#8-features)
+9. [SEO, sitemap and robots](#9-seo-sitemap-and-robots)
+10. [Deployment](#10-deployment)
+11. [Contributing](#11-contributing)
+12. [License](#12-license)
 
 ---
 
-## 1. Overview
+## 1. What makes this different
 
-This repository contains a personal / professional portfolio web application built with Angular 16 and Material Design principles. It emphasizes progressive enhancement, accessibility (WCAG-aligned improvements), content structure, and readiness for future service integrations (authentication, analytics, file handling, visitor tracking, messaging, Spotify, GitHub data, etc.).
+Almost nothing a visitor reads is in this repository. Section headings, the about copy, the
+experience timeline, the skill groups, the navigation labels, the social links, the contact details
+and the CV are all published from the sibling **admin** app and fetched at runtime — per language.
+Changing a job title is a database edit, not a deploy.
 
-## 2. Key Features
+The project list goes further: it reads public repositories straight from the GitHub API and merges
+them behind whatever projects an admin has curated.
 
-- Angular 16 + Standalone-friendly module structure (classic NgModules retained for organization)
-- Responsive layout with Bootstrap 5 & custom SCSS theme variables
-- Light / Dark theme toggle with persistent preference
-- High Contrast mode for accessibility (stored in `localStorage`)
-- Accessible command palette (dialog + combobox ARIA pattern)
-- Enhanced navigation semantics (`aria-current`, skip link, structured landmarks)
-- Contact form with validation, live status + assertive error summary region
-- SEO assets: `sitemap.xml`, `robots.txt`, dynamic sitemap generator script
-- i18n foundation (`assets/i18n/en.json`, `@ngx-translate/*`)
-- Modular service layers (files, messages, page views, visitors, analytics placeholders)
-- Environment-based API endpoint mapping (dev vs prod)
-- Image & static asset organization
-- Future-ready integration endpoints (GitHub, Spotify, Azure AD B2C, AWS-like user APIs)
+Every one of those reads has a compiled-in fallback, so the site renders correctly before the API
+answers and keeps working if it never does.
 
-## 3. Tech Stack
+**→ [`docs/content-keys.md`](docs/content-keys.md) is the reference: what is editable, where, and the
+exact JSON to paste in.**
 
-| Layer | Technology |
-|-------|------------|
-| Framework | Angular 16.x |
-| UI Toolkit | Angular Material, Bootstrap 5, Font Awesome |
-| Styling | SCSS (`theme.scss`) + CSS custom properties |
-| Routing | Angular Router |
-| i18n | `@ngx-translate/core` |
-| Auth (planned) | Azure AD B2C (`@azure/msal-angular`) skeleton config |
-| Analytics (optional) | `ngx-google-analytics` (present) + custom services |
-| Build | Angular CLI |
-| Deployment (example) | Static hosting (Firebase config present) |
-| Tooling | ESLint, Karma/Jasmine tests |
+## 2. Tech stack
 
-## 4. Architecture & Project Structure
+| Layer | Choice |
+|---|---|
+| Framework | Angular 22 (NgModule, not standalone) |
+| UI | Angular Material + Bootstrap 5 grid + Font Awesome |
+| Styling | Plain CSS with a design-token layer in `src/styles.css`; `theme.scss` for Material |
+| i18n | `@ngx-translate/core` 18, fed from the admin API |
+| Shared config | `@keshavsingh3197/web-config` (private package) |
+| Auth | Azure AD B2C via MSAL — wired but no route is guarded yet |
+| PDF | `pdfmake`, dynamically imported |
+| Tests | Karma + Jasmine |
+| Hosting | GitHub Pages, custom domain via `CNAME` |
 
-High-level directories:
+Part of a family of sibling apps — see `/mnt/d/GITHUB/AGENTS.md` for the wider layout. The admin app
+is the identity provider and the content store for all of them.
+
+## 3. Getting started
+
+Prerequisites: Node 20+, and a `PACKAGES_READ_TOKEN` with `read:packages` in your environment (the
+`@keshavsingh3197/*` packages come from GitHub Packages).
+
+```bash
+npm ci
+npm start          # http://localhost:4200
+```
+
+The site talks to `https://id.keshavsingh.in/api` by default, so it has real content in local
+development. Point `idpApiBaseUrl` and `contactApiBaseUrl` in `src/environments/environment.ts` at
+`http://localhost:5000` to run against a local admin API.
+
+> `src/environments/environment.ts` is the **only** environment file. `angular.json` declares no
+> `fileReplacements`, so every configuration reads it — there is no separate production file, and
+> its `production` flag is therefore meaningless. Use `isDevMode()` from `@angular/core` for
+> build-dependent behaviour.
+
+## 4. Scripts
+
+| Script | What it does |
+|---|---|
+| `npm start` | Dev server with live reload |
+| `npm run build` | Regenerates the sitemap, then builds for production |
+| `npm run sitemap` | Regenerates `src/sitemap.xml` from the route table |
+| `npm test` | Karma + Jasmine |
+| `npm run lint` | ESLint, including template accessibility rules |
+| `npm run watch` | Development build in watch mode |
+
+Run a single spec:
+
+```bash
+npx ng test --include src/app/services/content/profile.service.spec.ts
+```
+
+Do not skip the sitemap step in automation — `src/sitemap.xml` is a build artifact, and CI runs
+`npm run sitemap` before `ng build`.
+
+## 5. Architecture
 
 ```text
-src/
-   app/
-      components/        # Feature + UI components (home, general, etc.)
-      models/            # Data models & interfaces
-      services/          # Layered service APIs (analytics, files, messages, etc.)
-      pipes/             # Custom pipes (e.g., SafeUrl)
-      animations/        # Reusable animation definitions
-   assets/
-      i18n/              # Translation JSON files
-      images/            # Static images / previews
-      files/             # PWA manifest and related
-   environments/        # environment.ts & environment.prod.ts
-tools/
-   generate-sitemap.mjs # Route-based sitemap generator
+src/app/
+  components/
+    general/            # header, footer, legal, resume, 404, chat, palette, consent
+    home/               # banner, about, skills, experience, projects, blog, contact
+  models/content/       # content shapes + the compiled-in defaults
+  services/
+    content/            # the content layer (see below)
+    general/            # SEO, i18n, runtime config, display preferences, icons
+    auth/ chat/ message/ resume/ Analytics/ PageView/
+  directives/ pipes/
+tools/generate-sitemap.mjs
+docs/content-keys.md
 ```
 
-Key design notes:
+### The content layer
 
-- Services isolate endpoint templates (`{orgId}`, `{userName}`, `{pageId}`) for dynamic substitution.
-- Accessibility-first component updates (header, command palette, contact form) focus on keyboard navigation & screen reader clarity.
-- Theming handled via CSS variables toggled at the `body` level.
+Three sources, chosen by what kind of thing the content is:
 
-## 5. Getting Started
+| Kind | Read by | Edited in |
+|---|---|---|
+| Structured text — lists, objects | `StructuredContentService` (via the ngx-translate store) | admin → Website content |
+| Site data — URLs, handles, numbers | `SiteContentService` | admin → Website content |
+| Single strings | `| translate` | admin → Localization |
+| Cross-app config, feature flags | `RuntimeConfigService` | admin → Configuration |
 
-Prerequisites:
+`ApiTranslateLoader` merges three layers into the translate store, later winning: the bundled
+`assets/i18n/<lang>.json` as an offline base, then per-locale structured blocks, then the flat
+translation bundle. `PortfolioContentService` exposes the result as typed, validated streams.
 
-- Node 18+ (recommended) & npm
-- Angular CLI (`npm install -g @angular/cli`)
+Content arrives from a database that several people can edit, so it is treated as untrusted input:
+every entry is validated, invalid entries are dropped, icon names and URL schemes are allowlisted,
+and a block that is entirely unusable falls back to its default rather than rendering broken.
 
-Install dependencies:
+### Offline defaults
 
-```bash
-npm install
-```
+`src/assets/i18n/en.json` holds **scalars**; `src/app/models/content/site-content.defaults.ts` holds
+**structured content**. Each piece of offline content lives in exactly one of the two — they used to
+overlap and disagree.
 
-Run dev server:
+## 6. Theming
 
-```bash
-npm start
-# Visit http://localhost:4200/
-```
+Three themes, all driven from the token block at the top of `src/styles.css` and nothing else:
 
-Generate sitemap before a production build (automatically chained in build script):
+| Theme | Selector |
+|---|---|
+| Dark (default) | `:root` |
+| Light | `body.light` |
+| High contrast | `body.high-contrast` — composes on top of either |
 
-```bash
-npm run build
-```
+Plus `body.reduce-motion` for the in-app reduced-motion toggle. All four are owned by
+`DisplayPreferencesService`, persisted in `localStorage`, and default to the operating system's
+preference when unset.
 
-Serve production build (example using `http-server`):
+The tokens are a spacing scale, a radius scale, elevation, semantic colours and typography, shaped to
+match the admin app's system so the two read as one family.
 
-```bash
-npm i -g http-server
-http-server dist/omkr.web-app.portfolio
-```
+**Never hard-code a colour in a component.** Doing so breaks at least one of the three themes — which
+is exactly how the hero headline ended up invisible in light mode and the project dialog unreadable.
+Use `var(--accent)`, `var(--text-strong)`, `var(--on-accent)` and friends.
 
-## 6. Available NPM Scripts
+## 7. Accessibility
 
-| Script | Purpose |
-|--------|---------|
-| `start` | Run dev server (Angular live reload) |
-| `build` | Generate sitemap then build production bundle |
-| `sitemap` | Manually regenerate `src/sitemap.xml` |
-| `test` | Run unit tests (Karma/Jasmine) |
-| `lint` | Run ESLint over application source |
-| `watch` | Build in watch mode (development) |
+- Skip link as the first tab stop; exactly one `<main>` and one `<h1>` per view
+- Semantic lists for card grids and the timeline, so counts are announced
+- `aria-current` on the active nav item; `aria-pressed` on every toggle
+- Focus-visible outlines from a single `--focus-ring` token; focus trap and restore in the command palette
+- Live regions: `polite` for status, `assertive` only for form error summaries
+- Reduced motion respected both from the OS and from the in-app toggle — including the hero's typing
+  animation, which stops rather than looping
+- Template accessibility rules enforced by `npm run lint`
 
-## 7. Configuration & Environment
+## 8. Features
 
-Environment files: `src/environments/environment.ts` & `.prod.ts`.
+- **Live GitHub projects** — public repos, filtered and pinned from the admin, cached for 30 minutes
+  in session storage because the unauthenticated GitHub API allows 60 requests per hour per visitor
+- **Blog feed** — posts from the sibling `content-blog` site; hides itself if that origin is unreachable
+- **CV download** — a real PDF built with `pdfmake`, from the same data the `/resume` page renders
+- **Printable resume** at `/resume`, with print styles that drop all site chrome
+- **Command palette** (`Ctrl`/`Cmd` + `K`) with full keyboard semantics
+- **Visitor chat** — a real conversation landing in the admin's inbox, not a bot
+- **Cookie consent** gating analytics and geolocation, reopenable from the footer
+- **Language picker**, shown only when more than one language is enabled
+- **Contact form** posting to the admin's Contact inbox
 
-Notable dev settings (non-sensitive examples shown):
+## 9. SEO, sitemap and robots
 
-```ts
-awsUserApiBaseUrl: 'https://dev-api-v2.keshavsingh.net'
-contactApiBaseUrl: 'https://dev-api-v2.keshavsingh.net'
-blogUrl / adminUrl
-github: { clientId, redirectUri, username }
-AzureAdB2C: { tenantName, clientId, policies, logoutRedirectUri }
-scopes: { weather: [...], user: [...] }
-```
+Titles, descriptions and canonical URLs come from route `data` and are applied centrally by
+`AppRoutingModule` through `SeoService`. Do not touch `<head>` anywhere else, and do not add a route
+without `data` — the meta tags and the sitemap both depend on it.
 
-Sensitive values (API keys like `x-api-key`) should be externalized for production via build-time injection or server-driven proxies. Do NOT commit real secrets to version control.
+`tools/generate-sitemap.mjs` scrapes `path: '...'` literals out of `app-routing.module.ts`, so a route
+declared any other way will silently be missing from `sitemap.xml`.
 
-### Endpoint Token Replacement
+## 10. Deployment
 
-Placeholder segments like `{orgId}`, `{userName}`, `{pageId}`, `{key}` are replaced at runtime by services before HTTP calls.
+Push to `main` runs `.github/workflows/deploy-pages.yml`: install → sitemap → build with the Pages
+base href → write `CNAME` → copy `index.html` to `404.html` for SPA routing → `.nojekyll` → deploy.
 
-## 8. Theming & Accessibility
+This repository is owned by `open-for-everyone` while the packages are owned by `keshavsingh3197`,
+and `GITHUB_TOKEN` cannot read another owner's packages — so the **`PACKAGES_READ_TOKEN` secret is
+required**, with no fallback. `firebase.json` is an alternate static-hosting config, not what deploys.
 
-Implemented accessibility features:
+## 11. Contributing
 
-- Skip link for keyboard users
-- Single `<main>` landmark enforcement
-- Hidden structural `<h1>` for consistent document outline
-- High contrast mode (`body.high-contrast` class; persisted)
-- Theme toggle with `aria-pressed` state
-- Command palette: dialog + combobox semantics (`role="dialog"`, `aria-activedescendant`, listbox/options)
-- Live regions: polite status + assertive error summary for forms
-- Improved focus styling and respect for `prefers-reduced-motion`
-- Back-to-top button hidden from AT when not visible
+Branches `feat/`, `fix/`, `chore/`, `docs/`; conventional commits (`feat(resume): …`). Run
+`npm run lint` and `npm test` before opening a PR against `main`.
 
-High Contrast Mode: stored in `localStorage` key `highContrast` (`'1' | '0'`).
+Conventions for theming, accessibility, print and component structure are in
+[`docs/development-guidelines.md`](docs/development-guidelines.md).
 
-See `docs/development-guidelines.md` for detailed theming + accessibility conventions (focus states, variable usage, high contrast policy, and checklist for new components).
- 
-### Printable Resume (/resume)
+## 12. License
 
-The application now includes a dedicated `/resume` route providing a print‑optimized résumé view:
-
-- Minimal layout (no navigation, theme toggles, or interactive UI in print)
-- Semantic sections: Summary, Experience, Skills, Education, Links
-- Screen-only Print button triggers `window.print()`
-- Global `@media print` stylesheet hides non-essential elements and adds link URL suffixes
-
-To customize:
-
-- Edit `resume.component.html` content blocks
-- Adjust print tweaks in `resume.component.css` and global `styles.css` `@media print` rules
-- Replace placeholder email / experience entries with real data
-
-
-Future a11y enhancements (roadmap candidates):
-
-- Automated axe-core audits in CI
-- Focus trap utility for dialogs/modals
-- Language switcher controlling `<html lang>`
-- More robust error message association using `aria-describedby`
-
-## 9. Internationalization (i18n)
-
-**Text comes from the API, not from this build.** English and Hindi ship, and a language picker appears
-in the header as soon as more than one language is enabled.
-
-The templates still use `| translate` — nothing about them changed. What changed is where ngx-translate
-gets its data:
-[`ApiTranslateLoader`](src/app/services/general/api-translate.loader.ts) fetches from the identity
-provider (`environment.idpApiBaseUrl`) and merges three layers, later winning:
-
-1. **`assets/i18n/<lang>.json`** — kept purely as an *offline base*. If the API is unreachable the site
-   still renders real English text rather than raw key names. It is no longer the source of truth.
-2. **Structured content** — `GET /api/website-content/public/portfolio/{about|experience}?locale=xx`.
-   The about paragraphs and the experience timeline are arrays of objects, which a flat translation
-   bundle cannot express, so they live in `website_content` — which is per-locale by design.
-3. **The flat bundle** — `GET /api/i18n/bundle/<lang>?ns=portfolio,common,brand`. Every scalar string.
-   Untranslated keys are filled in from the language's fallback chain server-side.
-
-Language resolution (stored choice → browser preference → server default), persistence, and polling for
-editor changes are handled by the shared **`@keshavsingh3197/web-config`** package via
-[`I18nService`](src/app/services/general/i18n.service.ts). Branding, icons, cross-site links and feature
-flags come from the same place through
-[`RuntimeConfigService`](src/app/services/general/runtime-config.service.ts).
-
-### To add a language
-
-Nothing in this repo. On the admin app's **Localization** screen: add the language, export the default
-one as Excel, translate, import it back, enable it. Open tabs pick it up on their next poll. Full model
-and endpoints: `admin/docs/LOCALIZATION.md`.
-
-### Installing the shared package
-
-`.npmrc` points `@keshavsingh3197/*` at GitHub Packages and needs `PACKAGES_READ_TOKEN` (`read:packages`) in
-the environment — the same token the private NuGet feed uses. Before the package's first publish,
-`tsconfig.json` falls back to the sibling checkout's `dist/`, so run `npm run build` once in
-`KeshavSingh-Packages-Web`.
-
-## 10. SEO, Sitemap & Robots
-
-- `tools/generate-sitemap.mjs` parses `app-routing.module.ts` and emits `src/sitemap.xml`.
-- Output includes priority heuristic & last modified date.
-- `robots.txt` and duplicate `sitemap.xml` also mirrored under `src/assets/` for hosting flexibility.
-- Add meta tags / structured data via a future SEO service (`SeoService` already present for titles/descriptions).
-
-## 11. Analytics & Telemetry
-
-`Analytics`, `PageView`, and `Visitor` services provide an abstraction layer for tracking. Integrations can push events to:
-
-- Google Analytics (via `ngx-google-analytics`)
-- Custom backend endpoints (defined in environment endpoint maps)
-
-Add error monitoring (Sentry/App Insights) by wrapping a provider at `AppModule` level.
-
-## 12. Development Guidelines (Scaffolding Reference)
-
-Common Angular generation commands:
-
-```bash
-ng g component path/to/feature/your-component
-ng g service path/to/feature/your-service
-ng g guard auth/auth-guard
-ng g interface models/thing --type=model
-ng g enum models/status
-ng g module feature/feature-name --routing
-ng g directive shared/directives/your-directive
-ng g pipe shared/pipes/your-pipe
-```
-
-Run linter:
-
-```bash
-ng lint
-```
-
-Add 3rd party feature schematics:
-
-```bash
-ng add <package-name>
-```
-
-## 13. Future Roadmap
-
-- Re-introduce automated accessibility tests (axe-core) via Playwright or Jest + jsdom
-- Add lazy loading boundaries for feature areas (home subsections / admin)
-- Implement PWA enhancements (service worker, offline caching, manifest pruning)
-- Dark mode contrast tuning & custom theme editor
-- Performance budgets & bundle analysis (e.g. `source-map-explorer`)
-- Image optimization pipeline (WebP/AVIF + responsive sources)
-- Integrate GitHub API (recent repos/activity) & Spotify now-playing widget
-- Enhanced security: strict CSP headers, SRI hashes for external CDNs
-- CI pipeline (GitHub Actions) for lint + test + build + deploy
-- Error monitoring integration (Sentry / Azure App Insights)
-- Internationalization expansion (hi, es, fr, etc.)
-
-## 14. Contributing
-
-Contributions, issues, and suggestions are welcome.
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feat/awesome-thing`
-3. Commit changes: `git commit -m "feat: add awesome thing"`
-4. Push branch: `git push origin feat/awesome-thing`
-5. Open a Pull Request describing motivation & changes
-
-Coding style:
- 
-- Follow Angular & ESLint rules (`npm run lint`)
-- Prefer accessible HTML first; only add ARIA when needed
-- Keep service method names verb-based and model interfaces noun-based
-
-Extended practices (architecture, a11y checklist, print rules, theming tokens) are documented in `docs/development-guidelines.md`.
-
-## 15. License
-
-If no LICENSE file is present this project currently defaults to “All rights reserved” by the author. To make it open source under MIT, add a `LICENSE` file (see suggestion section in repository issues or ask the maintainer).
-
----
-
-### Accessibility (Detailed Summary Reference)
-
-For quick auditing, notable implemented patterns:
-
-- `.visually-hidden` utility for screen-reader-only text
-- Skip link jumps to main content region
-- Single `<main>` landmark maintained
-- Header nav uses semantic anchors w/ `aria-current`
-- Hidden `<h1>` preserves logical heading outline
-- Command palette: dialog, focus restore, active descendant for list keyboard navigation
-- Contact form: autocomplete hints, assertive error summary, polite status region
-- High contrast & theme toggles with persisted state
-- Back-to-top hidden from AT when off-screen
-
-
-### Security Note
-
-Do not expose real API keys or secrets in committed `environment.ts` files for production. Use environment variable replacement or remote configuration.
-
-### Support
-
-For questions open an issue or reach out via the contact form implemented in the app.
-
-Enjoy building & iterating! 🔧
+MIT — see [LICENSE](LICENSE).

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { fadeInOut } from 'src/app/models/animations/animations';
 import { AnalyticService } from 'src/app/services/Analytics/analytic.service';
@@ -7,9 +7,12 @@ import { ContactService } from 'src/app/services/message/contact.service';
 import { ContactMessage } from 'src/app/models/general/contact-message';
 import { HttpClient } from '@angular/common/http';
 import { catchError, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { Observable, Subject, of, takeUntil } from 'rxjs';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { ConsentService } from 'src/app/services/general/consent.service';
+import { ProfileService } from 'src/app/services/content/profile.service';
+import { DEFAULT_PROFILE } from 'src/app/models/content/site-content.defaults';
+import { SiteProfile } from 'src/app/models/content/site-content.model';
 
 interface Place { display_name: string; lat: string; lon: string }
 
@@ -20,7 +23,11 @@ interface Place { display_name: string; lat: string; lon: string }
   styleUrls: ['./contact.component.css'],
   animations: [fadeInOut]
 })
-export class ContactComponent implements OnInit {
+export class ContactComponent implements OnInit, OnDestroy {
+  /** Contact details are admin-managed; the direct-email link used to be a hardcoded address. */
+  profile: SiteProfile = DEFAULT_PROFILE;
+  private readonly destroyed$ = new Subject<void>();
+
   form!: FormGroup;
   submitting = false;
   latitude?: number;
@@ -47,10 +54,24 @@ export class ContactComponent implements OnInit {
     private contactService: ContactService,
     private snackBar: MatSnackBar,
     private http: HttpClient,
-    private consent: ConsentService
+    private consent: ConsentService,
+    private profileService: ProfileService
   ) {}
 
+  get mailtoHref(): string {
+    return `mailto:${this.profile.email}`;
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+  }
+
   ngOnInit(): void {
+    this.profileService.profile$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((profile) => (this.profile = profile));
+
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],

@@ -1,45 +1,51 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
+import { DEFAULT_SKILLS } from 'src/app/models/content/site-content.defaults';
+import { SkillCategory } from 'src/app/models/content/site-content.model';
+import { PortfolioContentService } from 'src/app/services/content/portfolio-content.service';
+import { StructuredContentService } from 'src/app/services/content/structured-content.service';
 
-interface SkillCategory {
-  label: string;
-  icon: string;
-  skills: string[];
-}
-
+/**
+ * The Tech Stack grid.
+ *
+ * The five categories used to be an `@Input` default — forty-odd technology names compiled into the
+ * bundle, so adding a skill meant a code change and a deploy. They come from the `skills` content
+ * key now, per locale, with {@link DEFAULT_SKILLS} as the offline base.
+ */
 @Component({
   standalone: false,
   selector: 'app-skills',
   templateUrl: './skills.component.html',
-  styleUrls: ['./skills.component.css']
+  styleUrls: ['./skills.component.css'],
 })
-export class SkillsComponent {
-  @Input() title = 'Tech Stack';
+export class SkillsComponent implements OnInit, OnDestroy {
+  title = 'Tech Stack';
+  categories: SkillCategory[] = DEFAULT_SKILLS;
 
-  @Input() categories: SkillCategory[] = [
-    {
-      label: 'Backend',
-      icon: 'memory',
-      skills: ['C#', '.NET Core', 'ASP.NET Web API', 'Node.js', 'NestJS', 'gRPC', 'Entity Framework', 'LINQ', 'MassTransit', 'SignalR']
-    },
-    {
-      label: 'Cloud & DevOps',
-      icon: 'cloud',
-      skills: ['Azure', 'AWS', 'Docker', 'Kubernetes', 'CI/CD', 'Azure DevOps', 'JFROG', 'SonarQube', 'Datadog', 'SQS', 'Lambda']
-    },
-    {
-      label: 'Databases',
-      icon: 'storage',
-      skills: ['SQL Server', 'PostgreSQL', 'Redis', 'MongoDB', 'Azure Cosmos DB', 'AWS RDS']
-    },
-    {
-      label: 'Frontend',
-      icon: 'web',
-      skills: ['Angular', 'TypeScript', 'HTML', 'CSS', 'Bootstrap', 'Angular Material', 'Blazor']
-    },
-    {
-      label: 'Architecture & Practices',
-      icon: 'hub',
-      skills: ['Microservices', 'Event-Driven', 'REST APIs', 'OAuth2 / OpenID', 'TDD', 'DDD', 'Agile / Scrum', 'Clean Architecture']
-    }
-  ];
+  private readonly destroyed$ = new Subject<void>();
+
+  constructor(
+    private content: PortfolioContentService,
+    private structured: StructuredContentService,
+  ) {}
+
+  ngOnInit(): void {
+    this.content.skills$
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((categories) => (this.categories = categories));
+
+    this.structured
+      .text('Skills.Title', 'Tech Stack')
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((title) => (this.title = title));
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+  }
+
+  trackCategory(_index: number, category: SkillCategory): string {
+    return category.label;
+  }
 }

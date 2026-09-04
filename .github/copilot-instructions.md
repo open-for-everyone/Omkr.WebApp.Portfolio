@@ -1,71 +1,120 @@
-# Copilot / AI Agent Project Instructions
+# AI agent instructions
 
-Concise, project-specific guidance so an AI agent can contribute productively. Focus on existing patterns—do not invent new architecture.
+Project-specific guidance. Mirror the patterns that are here; do not invent new architecture.
 
-## 1. Tech + Build Workflow
-- Angular 16 app (classic NgModule; not yet migrated to full standalone). Entry: `src/main.ts`, root module: `AppModule` in `app.module.ts`.
-- Build script chains sitemap generation: `npm run build` executes `npm run sitemap` (`tools/generate-sitemap.mjs`) then Angular production build (default configuration = production). Do not bypass the sitemap step in automation.
-- Dev server: `npm start` (serves with `--configuration development`). Tests (currently Karma/Jasmine) via `npm test`; ESLint via `npm run lint` (rules configured through `@angular-eslint`).
+`CLAUDE.md` at the repo root carries the same guidance in more depth, and
+[`../docs/content-keys.md`](../docs/content-keys.md) is the reference for anything content-related.
 
-## 2. Architecture Snapshot
-- Components grouped under `components/{home,general,...}`; each feature subfolder (e.g. `home/*`, `general/*`). Keep new UI in the nearest coherent domain folder.
-- Services grouped by domain under `services/*` (e.g. `services/PageView`, `services/visitor`). Each service owns a single responsibility and performs endpoint template replacement (placeholders like `{pageId}`, `{userName}`) using `environment.*` values.
-- Models live under `models/` with domain subfolders (`models/PageView`, `models/admin/visitor`). Reuse existing interfaces before adding new ones.
-- Theming and accessibility are cross-cutting: rely on CSS variables defined in `theme.scss` / `styles.css`; never hard‑code brand colors in components.
+## 1. Build and tooling
 
-## 3. Key Cross-Cutting Patterns
-- Endpoint Assembly: Build URLs using environment maps, then replace placeholders. Example (`PageViewService`): compute SHA-256 hash of path, substitute into URL before `http.post/get`. Follow this pattern instead of embedding full URLs.
-- SEO Meta Updates: Use `SeoService.update()` to set title, description, keywords, og/twitter tags, and canonical link. Do not manually manipulate `<head>` elsewhere.
-- Accessibility: Maintain single `<main>`, respect existing keyboard patterns (see `CommandPaletteComponent` for focus restore + arrow navigation). Provide focus-visible styles; prefer native elements over custom roles.
-- Theme / High Contrast: State stored via body classes (`.light`, `.high-contrast`) and `localStorage` key `highContrast`. New styles should consume semantic tokens (e.g. `var(--bg)`, `var(--accent)`).
-- Print Support: `/resume` route is the optimized print context; hide decorative elements using `.no-print`. Add print rules either locally in the component or near the global `@media print` block in `styles.css`.
+- **Angular 22**, classic NgModule (`standalone: false` on every component), esbuild
+  `@angular/build` builders, TypeScript 6, strict mode. Entry `src/main.ts`, root module
+  `AppModule`.
+- `npm run build` runs `npm run sitemap` **first** and then `ng build`. Do not bypass the sitemap
+  step: `src/sitemap.xml` is a build artifact.
+- `npm test` is **Karma + Jasmine**. There is no jest — a config existed for a while without the
+  dependency ever being installed, and has been removed.
+- `npm run lint` includes `@angular-eslint` template accessibility rules.
+- Production budgets: 1.9 MB warn / 2.1 MB error initial, 6 KB / 10 KB per component stylesheet.
+- `src/environments/environment.ts` is the **only** environment file — `angular.json` declares no
+  `fileReplacements`, so its `production` flag reads `false` in the deployed site too. Use
+  `isDevMode()` from `@angular/core` for build-dependent behaviour.
 
-## 4. When Adding Features
-- Choose folder: UI -> `components/<area>/<feature>`; data / remote logic -> new service folder under `services/<Domain>`.
-- Expose new domain model in `models/<Domain>`; name interfaces with nouns (`XDetail`, `XRequest`). Keep method names in services verb-based (`incrementPageView`, `getAll`).
-- Update sitemap only if new route path is declared in `app-routing.module.ts`; build script will regenerate automatically.
-- For external calls: declare base & endpoint templates in `environment.ts` first, then consume in a service (keeps mutation centralized).
+## 2. Content is not in this repository
 
-## 5. Testing & Linting Expectations
-- Place spec alongside implementation (`*.spec.ts`). Mirror existing simple console-based analytics tests (some services currently placeholders). If adding logic (e.g. transforming responses), add a focused unit test.
-- Keep tests deterministic; mock HTTP via Angular testing utilities (HttpClientTestingModule) if needed.
+The defining trait of this codebase. Section headings, about copy, the experience timeline, skill
+groups, navigation labels, social links, contact details and the CV all come from the sibling admin
+app at runtime, per language.
 
-## 6. Avoid / Do Not
-- Do NOT commit secrets in `environment.*` files—use placeholders mirroring current style.
-- Do NOT inline meta tags or canonical links manually—use `SeoService`.
-- Do NOT hard-code full API URLs inside components; always go through a service + environment config.
-- Do NOT introduce multiple `<h1>` per routed view or additional `<main>` landmarks.
+**Do not add a hardcoded user-facing string, URL, phone number or list to a component.** Add it to
+the content layer and give it a default:
 
-## 7. Performance & Bundling
-- Respect existing size budgets in `angular.json` (`initial` warn 1.3mb, error 1.6mb). If adding large deps, justify and consider dynamic import.
-- Prefer lazy route modules for large future sections (admin/blog) but note current app uses a single eager module—align with roadmap if starting refactor.
+| Kind | Read through | Default lives in |
+|---|---|---|
+| Lists and objects of text | `StructuredContentService` | `models/content/site-content.defaults.ts` |
+| URLs, handles, numbers | `SiteContentService` / `ProfileService` | same |
+| Single strings | `\| translate` | `assets/i18n/en.json` |
+| Cross-app config, feature flags | `RuntimeConfigService` | the call's `fallback` argument |
 
-## 8. Analytics / Telemetry Layer
-- `AnalyticService` currently logs to console (stub). If implementing real tracking, keep the same method signatures and swap internals (e.g. integrate GA or custom endpoint) to avoid widespread changes.
-- Page view & visitor tracking patterns (hashing path -> ID) should be preserved for privacy and stable identifiers.
+`assets/i18n/en.json` holds **scalars only**; `site-content.defaults.ts` holds **structured
+content**. Never put the same value in both.
 
-## 9. SEO & i18n
-- Add new user-visible strings with an eye toward future translation: either place directly in template now or pre-stage keys in `assets/i18n/en.json` using namespaced keys (`resume.section.skills`).
-- When adding a route requiring meta updates, inject `SeoService` in that component and call `update()` in `ngOnInit`.
+Content is untrusted input — it comes from a database several people can edit. Validate each entry,
+drop the unusable ones, allowlist enumerated values (icons via `IconRegistryService`, URL schemes to
+`http`/`https`/`mailto`/`tel`), and never let a read reject.
 
-## 10. Contribution Conventions
-- Branch names: `feat/`, `fix/`, `chore/`, `docs/` prefixes; conventional commits (`feat(resume): ...`).
-- Keep PRs focused; avoid broad refactors unless explicitly scoped.
+**A missing translation key resolves to the key string.** So `*ngFor` over
+`'X.Items' | translate` renders one item per character. Use `StructuredContentService.mapList` /
+`.textList` for anything that is not a single string.
 
-## 11. Quick Examples
-- New service endpoint pattern:
-```ts
-this.apiUrl = `${environment.awsUserApiBaseUrl}/${environment.mapConfig.analytics}/${environment.pageViewApiEndpoints.pageView}`
-  .replace('{pageId}', pageId);
-return this.http.get<PageViewDetail>(this.apiUrl);
+## 3. Theming — the one hard rule
+
+**No colour literals in component CSS.** No hex, no `rgb()`, no `rgba()`. Every colour, space,
+radius and shadow is a token defined once at the top of `src/styles.css`.
+
+There are three themes (`:root` dark, `body.light`, `body.high-contrast` composing on top of either)
+plus `body.reduce-motion`. A literal breaks at least one of them — that is how the hero headline
+became invisible in light mode and white-on-yellow appeared in high contrast.
+
+Use `--on-accent` / `--on-primary` for text sitting on an accent or primary fill. Need an
+intermediate shade? `color-mix(in oklab, var(--accent) 20%, transparent)`.
+
+`DisplayPreferencesService` owns the theme, high-contrast and reduced-motion state. Never set a body
+class or touch `localStorage` for these directly.
+
+Check before committing:
+
+```bash
+grep -rnE '#[0-9a-fA-F]{3,8}\b|rgba?\([0-9]' src/app --include=*.css | grep -v 'var(--'
 ```
-- SEO usage:
-```ts
-this.seo.update({ title: 'Resume – Name', description: 'Experience & skills.' });
-```
 
-## 12. If Unsure
-Prefer mirroring existing service, model, and component patterns over inventing abstractions. Ask (or open an issue) before introducing architectural shifts (state management libs, routing strategy changes, etc.).
+## 4. Navigation and routing
 
----
-Provide feedback if any section is unclear or if additional patterns (routing strategy, auth integration roadmap, a11y test harness) should be documented.
+- Section links go to `/` with a **fragment**, and the router scrolls (`anchorScrolling` is enabled
+  with a `scrollOffset` clearing the toolbar). Do not use `href="#section"` — it does nothing from
+  any route other than home, and `router.navigate(['/home'])` hits the wildcard because home is `''`.
+- Header, progress bar and footer are rendered by `AppComponent`, so every route has navigation. Do
+  not add them to a page component.
+- Every route needs `data: { title, description }` — `AppRoutingModule` feeds it to `SeoService`, and
+  `tools/generate-sitemap.mjs` scrapes `path: '...'` literals out of the same file. A route declared
+  any other way is missing from `sitemap.xml`.
+- Never manipulate `<head>` outside `SeoService`.
+
+## 5. Accessibility
+
+Enforced partly by lint, mostly by convention:
+
+- One `<main>` and one `<h1>` per view; skip link stays the first tab stop
+- Card grids and the timeline are real lists (`<ul>` / `<ol>`), so counts are announced
+- `aria-current` on the active nav item, `aria-pressed` on every toggle
+- `aria-live="polite"` for status, `assertive` only for error summaries
+- Native elements before ARIA roles; no `tabindex` on non-interactive elements
+- Honour reduced motion from both the OS media query and `body.reduce-motion` — including looping
+  animations like the hero's typing effect
+
+## 6. Components and services
+
+- Selector prefix `app`, element kebab-case, directive camelCase.
+- New component: add it to `AppModule.declarations`.
+- Subscriptions: `takeUntil(this.destroyed$)` with `ngOnDestroy`. Never leave a bare `setInterval` —
+  one here ran forever after its component was destroyed.
+- Never mutate `document.body` styles from a component. A 404 page did, without cleanup, and left
+  the whole site unscrollable after navigating away.
+- Do not bind a template `*ngFor` to a getter that allocates, or to an inline array literal — both
+  produce a new identity on every change-detection pass. Compute into a field.
+- Services own endpoint assembly from `environment` maps with `{placeholder}` substitution.
+  Components never hold URLs.
+
+## 7. Do not
+
+- Commit secrets to `environment.ts` — it ships to the browser.
+- Add a dependency without justification; prefer a dynamic import for anything large (`pdfmake` is
+  the pattern).
+- Load a third-party asset at runtime. A decorative GIF was pulled from giphy.com on every 404, before
+  any cookie choice.
+- Edit `src/sitemap.xml` by hand.
+
+## 8. If unsure
+
+Mirror the nearest existing service, model and component. Ask before changing architecture (state
+management, routing strategy, standalone migration).

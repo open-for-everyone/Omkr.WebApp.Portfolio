@@ -14,8 +14,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 70% 55% at 65% 42%, rgba(57,118,210,.09) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 60% at 22% 68%, rgba(100,255,218,.06) 0%, transparent 70%);
+    radial-gradient(ellipse 70% 55% at 65% 42%, color-mix(in oklab, var(--primary) 9%, transparent) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 22% 68%, color-mix(in oklab, var(--accent) 6%, transparent) 0%, transparent 70%);
   animation: meshFloat 9s ease-in-out infinite alternate;
   pointer-events: none;
 }
@@ -56,7 +56,7 @@
   font-weight: 700;
   margin: 0;
   line-height: 1.05;
-  background: linear-gradient(140deg, #e6eef8 0%, #a8c4f0 55%, var(--accent) 100%);
+  background: linear-gradient(140deg, var(--text-strong) 0%, color-mix(in oklab, var(--primary) 65%, var(--text-strong)) 55%, var(--accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -114,7 +114,7 @@
   transform: translateY(-4px);
   color: var(--accent);
   background: color-mix(in oklab, var(--accent) 10%, transparent);
-  box-shadow: 0 8px 24px rgba(100,255,218,.14);
+  box-shadow: 0 8px 24px color-mix(in oklab, var(--accent) 14%, transparent);
 }
 
 /* CTA buttons */
@@ -130,19 +130,19 @@
   align-items: center;
   gap: .45rem;
   padding: .72rem 1.5rem;
-  background: linear-gradient(135deg, var(--primary) 0%, #2b5fb3 100%);
-  color: #fff;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-strong) 100%);
+  color: var(--on-primary);
   border-radius: 10px;
   text-decoration: none;
   font-weight: 600;
   font-size: .95rem;
   transition: transform .15s ease, box-shadow .15s ease;
-  box-shadow: 0 4px 16px rgba(57,118,210,.22);
+  box-shadow: 0 4px 16px color-mix(in oklab, var(--primary) 22%, transparent);
 }
 .cta-primary:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(57,118,210,.32);
-  color: #fff;
+  box-shadow: 0 12px 32px color-mix(in oklab, var(--primary) 32%, transparent);
+  color: var(--on-primary);
   text-decoration: none;
 }
 .cta-secondary {
@@ -162,7 +162,7 @@
 .cta-secondary:hover {
   transform: translateY(-3px);
   background: color-mix(in oklab, var(--accent) 10%, transparent);
-  box-shadow: 0 12px 32px rgba(100,255,218,.12);
+  box-shadow: 0 12px 32px color-mix(in oklab, var(--accent) 12%, transparent);
   color: var(--accent);
   text-decoration: none;
 }
@@ -187,7 +187,7 @@
   border-radius: 50%;
   padding: 5px;
   background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
-  box-shadow: 0 0 70px rgba(100,255,218,.18), 0 0 140px rgba(57,118,210,.08);
+  box-shadow: 0 0 70px color-mix(in oklab, var(--accent) 18%, transparent), 0 0 140px color-mix(in oklab, var(--primary) 8%, transparent);
   animation: avatarFloat 4.5s ease-in-out infinite;
 }
 @keyframes avatarFloat {
@@ -214,7 +214,7 @@
   height: 90px;
   top: 8%;
   right: -4%;
-  background: radial-gradient(circle, rgba(100,255,218,.18) 0%, transparent 70%);
+  background: radial-gradient(circle, color-mix(in oklab, var(--accent) 18%, transparent) 0%, transparent 70%);
   animation: decoOrbit 7s linear infinite;
 }
 .deco-2 {
@@ -222,7 +222,7 @@
   height: 55px;
   bottom: 12%;
   left: -4%;
-  background: radial-gradient(circle, rgba(57,118,210,.18) 0%, transparent 70%);
+  background: radial-gradient(circle, color-mix(in oklab, var(--primary) 18%, transparent) 0%, transparent 70%);
   animation: decoOrbit 10s linear infinite reverse;
 }
 @keyframes decoOrbit {
@@ -282,3 +282,24 @@
   .cta-secondary { width: 100%; justify-content: center; }
 }
 
+
+/*
+  High contrast turns the gradient headline back into solid text. `background-clip: text` with a
+  transparent fill relies on a multi-stop gradient for legibility, which is the opposite of what this
+  mode is for — and it renders as invisible text if the gradient fails to paint at all.
+*/
+body.high-contrast .hero-name {
+  background: none;
+  -webkit-text-fill-color: var(--text-strong);
+  color: var(--text-strong);
+}
+
+body.high-contrast .hero-bg-mesh,
+body.high-contrast .deco {
+  display: none;
+}
+
+/* The role line reserves its own height so the hero does not reflow on every keystroke. */
+.hero-role .typed-text {
+  color: var(--text-soft);
+}

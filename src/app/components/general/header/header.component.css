@@ -1,139 +1,209 @@
-/* Brand and profile images */
-.brandImg, .profileImg {
-  width: 40px;
-  height: 40px;
-  display: inline-block;
-  border-radius: 50%;
-  border: 1.5px solid var(--border);
-  padding: 2px;
-  box-sizing: border-box;
-  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-}
-.brandImg:hover, .profileImg:hover {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 12%, transparent);
-}
+/* Header. Every colour here is a token, so the three themes need no rules of their own. */
 
-/* Sticky glass navbar */
-mat-toolbar {
+:host {
+  display: block;
   position: sticky;
   top: 0;
   z-index: 1000;
-  height: 60px !important;
-}
-.navbar-glass {
-  background: rgba(15,23,36,.82) !important;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--border);
-}
-body.light .navbar-glass {
-  background: rgba(246,248,251,.88) !important;
 }
 
-.spacer { flex: 1 1 auto; }
-
-/* Navigation links */
-.nav-links { display: flex; gap: 2px; align-items: center; }
-.nav-links button[mat-button],
-.nav-links a[mat-button] {
-  font-size: .88rem;
-  font-weight: 500;
+mat-toolbar {
+  height: var(--header-height);
+  min-height: var(--header-height);
+  padding: 0 var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
   color: var(--text-strong);
-  padding: .4rem .65rem;
-  margin: 0 .1rem;
-  border-radius: 8px;
-  text-transform: none;
-  letter-spacing: .01em;
-  transition: background .14s ease, transform .12s ease, color .12s ease, box-shadow .12s ease;
+  transition: box-shadow var(--transition-base), background var(--transition-base);
+}
+
+/* Lifts off the page once scrolled, so the toolbar reads as floating above content. */
+mat-toolbar.scrolled {
+  box-shadow: var(--shadow-md);
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* ------------------------------- brand ---------------------------------- */
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-1);
+  border-radius: var(--radius-md);
+  line-height: 0;
+  flex: 0 0 auto;
+}
+
+.brandImg {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  object-fit: contain;
+}
+
+/* ---------------------------- navigation -------------------------------- */
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.nav-link {
   position: relative;
+  color: var(--text-soft);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
 }
-.nav-links button[mat-button]:hover,
-.nav-links a[mat-button]:hover {
-  background: color-mix(in oklab, var(--accent) 9%, transparent);
+
+.nav-link:hover {
+  color: var(--text-strong);
+}
+
+/* Underline marks the section currently in view. */
+.nav-link.active {
   color: var(--accent);
-  transform: translateY(-1px);
 }
-.nav-links button[mat-button].active,
-.nav-links a[mat-button].active {
-  color: var(--accent);
-  background: color-mix(in oklab, var(--accent) 8%, transparent);
-}
-.nav-links button[mat-button].active::after,
-.nav-links a[mat-button].active::after {
+
+.nav-link.active::after {
   content: '';
   position: absolute;
-  bottom: 4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 20px;
+  left: 12px;
+  right: 12px;
+  bottom: 6px;
   height: 2px;
+  border-radius: var(--radius-pill);
   background: var(--accent);
-  border-radius: 2px;
-}
-.nav-links mat-icon { margin-right: 5px; vertical-align: middle; font-size: 1rem; width: 1rem; height: 1rem; }
-
-/* Action bar */
-.actions { display: flex; align-items: center; gap: .2rem; }
-.actions .mat-icon,
-.menu-toggle .mat-icon,
-.nav-links .mat-icon { color: var(--text-strong); }
-.actions a[mat-icon-button],
-.actions button[mat-icon-button] { color: var(--text-strong); }
-.actions a[mat-icon-button]:hover,
-.actions button[mat-icon-button]:hover { color: var(--accent); }
-
-/* Themed outlined Resume button */
-.actions .mat-mdc-outlined-button {
-  border-color: var(--accent) !important;
-  color: var(--accent) !important;
-  font-size: .85rem;
-}
-.actions .mat-mdc-outlined-button:hover {
-  background: color-mix(in oklab, var(--accent) 10%, transparent) !important;
 }
 
-.menu-toggle { display: none; }
+/* ------------------------------ actions --------------------------------- */
 
-/* Utility */
-mat-card { display: flex; flex-direction: column; }
-.file { display: flex; justify-content: space-between; align-items: center; }
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 0 0 auto;
+}
 
-/* === Mobile nav === */
-@media (max-width: 768px) {
-  .nav-links { display: none; }
-  .nav-links.open {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    position: fixed;
-    top: 60px;
+.actions .mat-mdc-icon-button {
+  color: var(--text-soft);
+}
+
+.actions .mat-mdc-icon-button:hover {
+  color: var(--accent);
+}
+
+.profileImg {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border-strong);
+}
+
+.lang-icon {
+  margin-right: var(--space-2);
+}
+
+/* The hamburger only exists below the breakpoint. */
+.menu-toggle {
+  display: none;
+  color: var(--text-soft);
+}
+
+/* --------------------------- responsive --------------------------------- */
+
+/* Tablet: the nav is the first thing to run out of room, so it collapses first
+   while the action icons stay reachable. */
+@media (max-width: 1024px) {
+  .nav-links {
+    gap: 0;
+  }
+
+  .nav-link {
+    padding: 0 var(--space-2);
+    font-size: 0.92rem;
+  }
+}
+
+@media (max-width: 880px) {
+  mat-toolbar {
+    padding: 0 var(--space-3);
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+  }
+
+  /* Off-canvas panel below the toolbar. `display:none` while closed keeps the
+     links out of the tab order rather than merely out of sight. */
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: var(--header-height);
     left: 0;
     right: 0;
-    background: rgba(15,23,36,.96);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: var(--space-2);
+    background: var(--bg-elevated);
     border-bottom: 1px solid var(--border);
-    padding: .5rem;
-    gap: 2px;
-    animation: slideDown .18s ease;
-    z-index: 999;
+    box-shadow: var(--shadow-lg);
+    max-height: calc(100vh - var(--header-height));
+    overflow-y: auto;
   }
-  body.light .nav-links.open {
-    background: rgba(246,248,251,.96);
+
+  .nav-links.open {
+    display: flex;
   }
-  @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-8px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .nav-links.open button[mat-button],
-  .nav-links.open a[mat-button] {
+
+  .nav-link {
     width: 100%;
+    justify-content: flex-start;
     text-align: left;
-    border-radius: 8px;
-    padding: .65rem 1rem;
+    padding: var(--space-3) var(--space-4);
+    font-size: 1rem;
   }
-  .nav-links.open button[mat-button].active::after,
-  .nav-links.open a[mat-button].active::after { display: none; }
-  .menu-toggle { display: inline-flex; }
+
+  .nav-link.active::after {
+    left: var(--space-4);
+    right: auto;
+    width: 20px;
+    bottom: var(--space-2);
+  }
+
+  /* The spacer either side of the nav would otherwise push the actions off-screen. */
+  .spacer {
+    flex: 0 0 auto;
+  }
+
+  .spacer:first-of-type {
+    flex: 1 1 auto;
+  }
+}
+
+/* Phone: drop the call and WhatsApp shortcuts. Both are reachable from the
+   contact section and the footer, and the toolbar cannot fit them. */
+@media (max-width: 560px) {
+  .hide-sm {
+    display: none;
+  }
+
+  .brandImg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media print {
+  :host {
+    display: none;
+  }
 }

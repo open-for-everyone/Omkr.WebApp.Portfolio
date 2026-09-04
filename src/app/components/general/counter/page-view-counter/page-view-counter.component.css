@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   font-size: 14px;
-  color: #6c757d;
+  color: var(--muted);
 }
 
 .page-view-counter mat-icon {

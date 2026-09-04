@@ -1,116 +1,177 @@
-#footerElement {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  /* Add additional styles for your footer here (background, height, etc.) */
-}
+/*
+  Themed, responsive, and self-contained. The previous version was a fixed 1000px terminal with
+  sixteen hardcoded colours, no breakpoints and a remotely-hosted GIF; it rendered green-on-black
+  regardless of theme and overflowed on any phone.
+*/
 
-body{
-  overflow: hidden;
-}
-
-.notFoundBody {
-  box-sizing: border-box;
-  height: 100%;
-  background-color: #000000;
-  background-image: radial-gradient(#11581E, #041607), url("../../../../assets/images/nofound.webp");
-  background-repeat: no-repeat;
-  background-size: cover;
-  font-family: "Inconsolata", Helvetica, sans-serif;
-  font-size: 1.5rem;
-  color: rgba(128, 255, 128, 0.8);
-  text-shadow: 0 0 1ex #33ff33, 0 0 2px rgba(255, 255, 255, 0.8);
-}
-
-.noise {
-  pointer-events: none;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-image: url("https://media.giphy.com/media/oEI9uBYSzLpBK/giphy.gif");
-  background-repeat: no-repeat;
-  background-size: cover;
-  z-index: -1;
-  opacity: 0.02;
-}
-
-.overlay {
-  pointer-events: none;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: repeating-linear-gradient(180deg, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0) 100%);
-  background-size: auto 4px;
-  z-index: 1;
-}
-
-.overlay::before {
-  content: "";
-  pointer-events: none;
-  position: absolute;
+:host {
   display: block;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(0deg, transparent 0%, rgba(32, 128, 32, 0.2) 2%, rgba(32, 128, 32, 0.8) 3%, rgba(32, 128, 32, 0.2) 3%, transparent 100%);
-  background-repeat: no-repeat;
-  -webkit-animation: scan 7.5s linear 0s infinite;
-          animation: scan 7.5s linear 0s infinite;
 }
 
-@-webkit-keyframes scan {
-  0% {
-    background-position: 0 -100vh;
-  }
-  35%, 100% {
-    background-position: 0 100vh;
-  }
+.notfound {
+  position: relative;
+  overflow: hidden;
+  /* Fills the space between header and footer without forcing the page taller than the viewport. */
+  min-height: clamp(420px, calc(100vh - 220px), 720px);
+  display: flex;
+  align-items: center;
+  background:
+    radial-gradient(ellipse 60% 50% at 30% 30%, color-mix(in oklab, var(--primary) 12%, transparent), transparent 70%),
+    radial-gradient(ellipse 50% 50% at 75% 65%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 70%);
 }
 
-@keyframes scan {
-  0% {
-    background-position: 0 -100vh;
-  }
-  35%, 100% {
-    background-position: 0 100vh;
-  }
+.notfound-inner {
+  position: relative;
+  z-index: 1;
+  padding: var(--space-8) var(--space-5);
+  text-align: center;
 }
-.terminal {
-  box-sizing: inherit;
+
+/* CRT scanline wash, drawn rather than downloaded. */
+.scanlines {
   position: absolute;
-  height: 100%;
-  width: 1000px;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent 0,
+    color-mix(in oklab, var(--text-strong) 4%, transparent) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  opacity: 0.6;
+}
+
+.code {
+  font-family: var(--font-mono);
+  font-size: clamp(4.5rem, 18vw, 9rem);
+  font-weight: 700;
+  line-height: 1;
+  margin: 0;
+  letter-spacing: -0.04em;
+  background: linear-gradient(140deg, var(--accent), var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.title {
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  margin: var(--space-3) 0 var(--space-2);
+}
+
+.lead {
+  color: var(--muted);
+  max-width: 52ch;
+  margin: 0 auto var(--space-4);
+}
+
+.path {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
   max-width: 100%;
-  padding: 4rem;
+  margin: 0 auto var(--space-5);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--glass);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-soft);
+}
+
+.path code {
+  /* A long bad URL scrolls inside the chip instead of widening the page. */
+  overflow-x: auto;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.prompt {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-7);
+}
+
+.btn-modern.ghost {
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-soft);
+}
+
+.btn-modern.ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* --- Suggestions --- */
+
+.suggestions-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 var(--space-3);
 }
 
-.output {
-  color: rgba(128, 255, 128, 0.8);
-  text-shadow: 0 0 1px rgba(51, 255, 51, 0.4), 0 0 2px rgba(255, 255, 255, 0.8);
+.suggestions ul {
+  list-style: none;
+  display: flex;
+  gap: var(--space-2);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
 }
 
-.output::before {
-  content: "> ";
-}
-
-a {
-  color: #fff;
+.suggestions a {
+  display: inline-block;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--glass);
+  color: var(--text-soft);
+  font-size: 0.88rem;
   text-decoration: none;
 }
 
-a::before {
-  content: "[";
+.suggestions a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
-a::after {
-  content: "]";
+/* --- Theme and motion variants --- */
+
+/* Gradient text has no place in high contrast, and neither does the scanline wash. */
+body.high-contrast .code {
+  background: none;
+  -webkit-text-fill-color: var(--accent);
+  color: var(--accent);
 }
 
-.errorcode {
-  color: white;
+body.high-contrast .scanlines,
+body.high-contrast .notfound {
+  background: none;
+}
+
+@media (max-width: 480px) {
+  .notfound-inner {
+    padding: var(--space-7) var(--space-4);
+  }
+  .actions {
+    flex-direction: column;
+  }
+  .actions > * {
+    width: 100%;
+    justify-content: center;
+  }
 }

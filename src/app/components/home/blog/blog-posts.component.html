@@ -1,0 +1,49 @@
+<!-- The whole section is absent when the feed is empty, rather than rendering an empty panel. -->
+<section
+  class="blog-section section reveal"
+  appReveal
+  aria-labelledby="blog-heading"
+  *ngIf="!isHidden">
+  <div class="container">
+    <div class="blog-head">
+      <h2 id="blog-heading" class="section-title">{{ title }}</h2>
+      <a
+        class="blog-all"
+        [href]="blogUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        (click)="analyticsService.sendAnalyticEvent('open_blog', 'blog', 'view_all')">
+        Visit the blog
+        <mat-icon inline aria-hidden="true">arrow_forward</mat-icon>
+      </a>
+    </div>
+
+    <!-- Placeholders keep the section from collapsing while the cross-origin index loads. -->
+    <div class="posts-grid" *ngIf="loading" aria-hidden="true">
+      <div class="post-card glass-card skeleton" *ngFor="let n of skeletons">
+        <div class="sk-line wide"></div>
+        <div class="sk-line short"></div>
+      </div>
+    </div>
+
+    <ul class="posts-grid" *ngIf="!loading">
+      <li class="post-card glass-card" *ngFor="let post of posts; trackBy: trackPost">
+        <a
+          class="post-link"
+          [href]="post.url"
+          target="_blank"
+          rel="noopener noreferrer"
+          (click)="onOpen(post)">
+          <h3 class="post-title">{{ post.title }}</h3>
+          <p class="post-excerpt" *ngIf="post.excerpt">{{ post.excerpt }}</p>
+          <ul class="badges" *ngIf="post.tags?.length">
+            <li class="badge-pill" *ngFor="let tag of post.tags">{{ tag }}</li>
+          </ul>
+          <span class="post-cta" aria-hidden="true">
+            Read <mat-icon inline>arrow_forward</mat-icon>
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>

@@ -1,14 +1,17 @@
-<app-header id="homeHeader"></app-header>
-<app-progress-bar></app-progress-bar>
+<!--
+  Header, progress bar and footer are rendered by AppComponent so that every route has them, not
+  just this one. See app.component.html.
+-->
 <div role="region" aria-labelledby="home-sections">
   <h2 id="home-sections" class="visually-hidden">Portfolio Sections</h2>
-  <!-- <app-video> </app-video> -->
+
   <app-banner></app-banner>
   <app-about id="about"></app-about>
   <app-skills id="skills"></app-skills>
   <app-experience id="experience"></app-experience>
   <app-projects-carousel id="projects"></app-projects-carousel>
+  <app-blog-posts id="blog"></app-blog-posts>
   <app-contact id="contact"></app-contact>
 </div>
-<app-footer></app-footer>
+
 <app-page-view-counter [pageId]="pageUrl"></app-page-view-counter>

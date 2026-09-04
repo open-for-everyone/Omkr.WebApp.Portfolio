@@ -1,41 +1,229 @@
-/* You can add global styles to this file, and also import other style files */
-/* basic-info.component.css */
-.basic-info-container {
-  max-width: 600px;
-  margin: auto;
-  padding: 1rem;
-  background: #f8f9fa;
-  border-radius: 8px;
+/* =============================================================================
+   GLOBAL STYLESHEET
+   -----------------------------------------------------------------------------
+   Layer order, top to bottom:
+     1. Design tokens      — the only place a raw colour is allowed to appear
+     2. Base / reset
+     3. Layout primitives
+     4. Component primitives (card, badge, button, section title)
+     5. Angular Material overrides
+     6. Motion
+     7. Accessibility
+     8. Print
+
+   Tokens follow the same shape as the admin app's design system so the two sites
+   read as one family: a spacing scale, a radius scale, elevation, and semantic
+   colours — rather than the ad-hoc values this file used to carry.
+
+   THEMES. Three, all driven from this token block and nothing else:
+     - dark            :root                (default)
+     - light           body.light
+     - high contrast   body.high-contrast   (composes on top of either)
+   A component that hard-codes a colour breaks one of the three, so use the
+   tokens. See docs/development-guidelines.md.
+   ========================================================================== */
+
+/* ============================== 1. TOKENS ================================= */
+
+:root {
+  /* --- Surfaces & text (dark, the default) --- */
+  --bg: #0b1120;
+  --bg-elevated: #111a2e;
+  --card: #0e1729;
+  --glass: rgba(255, 255, 255, 0.045);
+  --glass-strong: rgba(255, 255, 255, 0.08);
+  --overlay: rgba(3, 7, 18, 0.72);
+
+  --text-strong: #e8eefc;
+  --text-soft: #c3cede;
+  --muted: #93a3ba;
+  --faint: #64748b;
+
+  --border: rgba(203, 213, 225, 0.16);
+  --border-strong: rgba(203, 213, 225, 0.3);
+
+  /* --- Brand --- */
+  --accent: #5eead4;
+  --accent-strong: #2dd4bf;
+  --accent-soft: rgba(94, 234, 212, 0.12);
+  --primary: #4d8bf0;
+  --primary-strong: #3b74d4;
+  --primary-soft: rgba(77, 139, 240, 0.14);
+  /* Text placed on top of --accent / --primary fills. */
+  --on-accent: #04121a;
+  --on-primary: #ffffff;
+
+  /* --- Semantic --- */
+  --success: #34d399;
+  --success-soft: rgba(52, 211, 153, 0.13);
+  --danger: #f87171;
+  --danger-soft: rgba(248, 113, 113, 0.13);
+  --warning: #fbbf24;
+  --warning-soft: rgba(251, 191, 36, 0.13);
+  --info: #60a5fa;
+  --info-soft: rgba(96, 165, 250, 0.13);
+
+  --input-bg: rgba(255, 255, 255, 0.04);
+
+  /* --- Spacing scale. Use these instead of arbitrary rem values. --- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+
+  /* --- Radius scale --- */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+  /* Legacy alias, still referenced by several component stylesheets. */
+  --radius: var(--radius-md);
+
+  /* --- Elevation --- */
+  --shadow-sm: 0 1px 2px rgba(2, 6, 23, 0.4);
+  --shadow-md: 0 6px 18px rgba(2, 6, 23, 0.45);
+  --shadow-lg: 0 18px 44px rgba(2, 6, 23, 0.55);
+
+  /* --- Typography --- */
+  --font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", "Roboto Mono",
+    ui-monospace, Menlo, Consolas, monospace;
+
+  /* --- Layout --- */
+  --container-max: 1140px;
+  --content-max: 68ch;
+  --header-height: 64px;
+
+  /* --- Interaction --- */
+  --focus-ring: 0 0 0 3px rgba(94, 234, 212, 0.45);
+  --transition-fast: 120ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 240ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.basic-info-container h2 {
-  text-align: center;
-  margin-bottom: 1rem;
+/* --- Light theme ---------------------------------------------------------- */
+body.light {
+  --bg: #f7f9fc;
+  --bg-elevated: #ffffff;
+  --card: #ffffff;
+  --glass: rgba(255, 255, 255, 0.78);
+  --glass-strong: rgba(255, 255, 255, 0.95);
+  --overlay: rgba(15, 23, 42, 0.45);
+
+  --text-strong: #0d1526;
+  --text-soft: #1e293b;
+  --muted: #52657d;
+  --faint: #78899e;
+
+  --border: rgba(15, 23, 42, 0.12);
+  --border-strong: rgba(15, 23, 42, 0.24);
+
+  /* Darkened so accent-on-white clears WCAG AA for text, which #5eead4 does not. */
+  --accent: #0d9488;
+  --accent-strong: #0f766e;
+  --accent-soft: rgba(13, 148, 136, 0.1);
+  --primary: #2563eb;
+  --primary-strong: #1d4ed8;
+  --primary-soft: rgba(37, 99, 235, 0.1);
+  --on-accent: #ffffff;
+  --on-primary: #ffffff;
+
+  --success: #059669;
+  --success-soft: rgba(5, 150, 105, 0.1);
+  --danger: #dc2626;
+  --danger-soft: rgba(220, 38, 38, 0.1);
+  --warning: #b45309;
+  --warning-soft: rgba(180, 83, 9, 0.1);
+  --info: #2563eb;
+  --info-soft: rgba(37, 99, 235, 0.1);
+
+  --input-bg: #ffffff;
+
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 6px 18px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 18px 44px rgba(15, 23, 42, 0.12);
+
+  --focus-ring: 0 0 0 3px rgba(13, 148, 136, 0.4);
 }
 
-.form-group {
-  margin-bottom: 1rem;
+/* --- High contrast -------------------------------------------------------- */
+/* Composes on top of whichever of the two themes is active, so the toggle is
+   independent of the light/dark toggle. Pure black/white with a yellow accent;
+   every border becomes solid rather than translucent. */
+body.high-contrast {
+  --bg: #000000;
+  --bg-elevated: #000000;
+  --card: #000000;
+  --glass: #000000;
+  --glass-strong: #000000;
+  --overlay: rgba(0, 0, 0, 0.92);
+
+  --text-strong: #ffffff;
+  --text-soft: #ffffff;
+  --muted: #e8e8e8;
+  --faint: #d0d0d0;
+
+  --border: #ffffff;
+  --border-strong: #ffffff;
+
+  --accent: #ffff00;
+  --accent-strong: #ffff00;
+  --accent-soft: #333300;
+  --primary: #00d0ff;
+  --primary-strong: #00d0ff;
+  --primary-soft: #002a33;
+  --on-accent: #000000;
+  --on-primary: #000000;
+
+  --success: #00ff7f;
+  --success-soft: #00331a;
+  --danger: #ff6b6b;
+  --danger-soft: #330000;
+  --warning: #ffd000;
+  --warning-soft: #332a00;
+  --info: #00d0ff;
+  --info-soft: #002a33;
+
+  --input-bg: #000000;
+
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+
+  --focus-ring: 0 0 0 3px #ffff00;
 }
 
-.form-control {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
+/* High contrast removes decorative translucency and blur outright. */
+body.high-contrast .glass-card,
+body.high-contrast .navbar-glass {
+  backdrop-filter: none !important;
+  background: var(--card) !important;
+  border: 2px solid var(--border) !important;
 }
 
-.btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
+body.high-contrast a,
+body.high-contrast button {
+  outline-color: var(--accent);
 }
 
-.btn-primary:hover {
-  background-color: #0069d9;
-  border-color: #0062cc;
+/* ============================== 2. BASE =================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Anchor targets clear the fixed toolbar instead of hiding beneath it. */
+  scroll-padding-top: calc(var(--header-height) + var(--space-4));
 }
 
 body {
@@ -43,106 +231,204 @@ body {
   width: 100%;
   min-height: 100%;
   overflow-x: hidden;
+  background: var(--bg);
+  /* Body text is --text-soft, not --muted: muted is for de-emphasised text only,
+     and using it here made every paragraph on the site low-contrast. */
+  color: var(--text-soft);
+  font-family: var(--font-family);
+  font-size: 17px;
+  line-height: 1.65;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  color: #8892b0;
-  line-height: 1.3;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica Neue, Arial, sans-serif;
-  font-size: 18px;
+  transition: background var(--transition-base), color var(--transition-base);
 }
 
-.navbar-pre-title {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-strong);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--space-4);
+}
+
+p {
+  margin: 0 0 var(--space-4);
+}
+
+a {
+  color: var(--accent);
+  text-decoration-color: color-mix(in oklab, var(--accent) 40%, transparent);
+  text-underline-offset: 3px;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--accent-strong);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+code,
+kbd,
+samp,
+.mono {
+  font-family: var(--font-mono);
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: var(--space-6) 0;
+}
+
+/* ============================ 3. LAYOUT =================================== */
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 0 var(--space-4);
+  }
+}
+
+.section {
+  padding: var(--space-9) 0;
+}
+
+@media (max-width: 900px) {
+  .section {
+    padding: var(--space-8) 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .section {
+    padding: var(--space-7) 0;
+  }
+}
+
+.stack > * + * {
+  margin-top: var(--space-4);
+}
+
+/* ====================== 4. COMPONENT PRIMITIVES =========================== */
+
+.section-title {
+  font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+  font-weight: 700;
+  color: var(--text-strong);
+  margin: 0 0 var(--space-6);
   position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  border-radius: var(--radius-pill);
+}
+
+.glass-card {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(8px);
+  transition: border-color var(--transition-base), transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.badge-pill {
+  display: inline-block;
+  padding: 0.28rem 0.72rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  background: var(--primary-soft);
+  border: 1px solid color-mix(in oklab, var(--primary) 25%, transparent);
+  color: var(--text-soft);
+  transition: background var(--transition-fast), color var(--transition-fast),
+    border-color var(--transition-fast);
+  cursor: default;
+}
+
+.badge-pill:hover {
+  background: var(--accent-soft);
+  border-color: color-mix(in oklab, var(--accent) 35%, transparent);
+  color: var(--accent);
+}
+
+.btn-modern {
+  display: inline-flex;
+  gap: var(--space-2);
   align-items: center;
-  margin: 10px 0 40px;
-  width: 100%;
-  white-space: nowrap;
-  font-size: 32px;
-  display: block;
-  color: #64ffda;
-  font-size: 16px;
-  font-family: SF Mono, Fira Code, Fira Mono, Roboto Mono, Lucida Console, Monaco, Monospace;
-  font-weight: normal;
-  margin-bottom: 20px;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
-}
-
-.navbar-title {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  white-space: nowrap;
-  font-size: 60px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-strong));
+  color: var(--on-primary);
+  padding: 0.65rem var(--space-4);
+  border-radius: var(--radius-md);
+  border: 0;
   font-weight: 600;
-  color: #ccd6f6;
-  margin: auto;
-  width: fit-content;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-:root{
-  --bg:#0f1724; /* deep navy */
-  --card:#0b1220;
-  --muted:#94a3b8;
-  --text-strong:#e6eef8;
-  --text-soft:#cbd5e1;
-  --accent:#64ffda;
-  --primary:#3976d2;
-  --glass: rgba(255,255,255,0.04);
-  --border: rgba(203,213,225,0.16);
-  --input-bg: rgba(255,255,255,0.04);
-  --radius:12px;
-  --container-max:1080px;
+.btn-modern:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  color: var(--on-primary);
 }
 
-/* High contrast mode overrides */
-body.high-contrast {
-  --bg:#000 !important;
-  --card:#000 !important;
-  --text-strong:#fff !important;
-  --text-soft:#f5f5f5 !important;
-  --muted:#e0e0e0 !important;
-  --accent:#ffff00 !important; /* bright yellow */
-  --primary:#00b8ff !important;
-  --border:#fff !important;
-  --input-bg:#000 !important;
-}
-body.high-contrast a, body.high-contrast button { outline-color: #fff; }
-
-/* Light theme fallback for existing color palette */
-body.light {
-  --bg:#f6f8fb;
-  --card:#fff;
-  --muted:#556779;
-  --text-strong:#0f1724;
-  --text-soft:#334155;
-  --accent:#0ea5a4;
-  --primary:#3976d2;
-  --glass: rgba(255,255,255,0.7);
-  --border: rgba(2,6,23,0.08);
-  --input-bg: #ffffff;
+.btn-outline-accent {
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
 }
 
-html, body { background:var(--bg); color:var(--muted); }
-html { scroll-behavior: smooth; }
+.btn-outline-accent:hover {
+  background: var(--accent-soft) !important;
+}
 
-/* Global Material surface and inputs tuned for theme */
+.btn-modern.mat-mdc-raised-button.mat-primary {
+  background: linear-gradient(90deg, var(--primary), var(--primary-strong)) !important;
+}
+
+.navbar-glass {
+  background: color-mix(in oklab, var(--bg) 82%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.accent {
+  color: var(--accent);
+}
+
+footer {
+  color: var(--muted);
+  padding: var(--space-6) var(--space-4);
+}
+
+/* ==================== 5. ANGULAR MATERIAL OVERRIDES ======================= */
+
 .mat-mdc-card {
   background: var(--glass) !important;
   border: 1px solid var(--border);
@@ -151,7 +437,7 @@ html { scroll-behavior: smooth; }
 
 .mat-mdc-form-field .mat-mdc-text-field-wrapper {
   background: var(--input-bg);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
 }
 
 .mat-mdc-form-field .mdc-notched-outline__leading,
@@ -160,21 +446,16 @@ html { scroll-behavior: smooth; }
   border-color: var(--border) !important;
 }
 
-/* Focus/hover states align to accent */
 .mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
 .mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
 .mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
   border-color: var(--accent) !important;
 }
-.mat-mdc-form-field:hover .mdc-notched-outline__leading,
-.mat-mdc-form-field:hover .mdc-notched-outline__notch,
-.mat-mdc-form-field:hover .mdc-notched-outline__trailing {
-  border-color: var(--border) !important; /* subtle hover keeps border aligned */
-}
 
 .mat-mdc-form-field .mat-mdc-floating-label {
   color: var(--muted);
 }
+
 .mat-mdc-form-field.mat-focused .mat-mdc-floating-label {
   color: var(--accent);
 }
@@ -185,17 +466,21 @@ html { scroll-behavior: smooth; }
   color: var(--text-strong);
 }
 
-/* Placeholder colors per theme */
 input::placeholder,
-textarea::placeholder { color: var(--muted); opacity: 1; }
-.mat-mdc-input-element::placeholder { color: var(--muted); opacity: 1; }
-.mat-mdc-input-element { caret-color: var(--accent); }
+textarea::placeholder,
+.mat-mdc-input-element::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
 
-/* Use MDC variables for Angular Material outlined fields */
+.mat-mdc-input-element {
+  caret-color: var(--accent);
+}
+
 .mat-mdc-form-field .mat-mdc-text-field-wrapper.mdc-text-field--outlined {
   --mdc-outlined-text-field-outline-color: var(--border);
-  --mdc-outlined-text-field-hover-outline-color: var(--border);
-  --mdc-outlined-text-field-focus-outline-color: var(--accent); /* Fallback name */
+  --mdc-outlined-text-field-hover-outline-color: var(--border-strong);
+  --mdc-outlined-text-field-focus-outline-color: var(--accent);
   --mdc-outlined-text-field-focused-outline-color: var(--accent);
   --mdc-outlined-text-field-label-text-color: var(--muted);
   --mdc-outlined-text-field-input-text-color: var(--text-strong);
@@ -203,24 +488,26 @@ textarea::placeholder { color: var(--muted); opacity: 1; }
   --mdc-outlined-text-field-input-text-placeholder-color: var(--muted);
 }
 
-/* Extra specificity to force placeholder color in MDC input */
 .mat-mdc-form-field .mdc-text-field__input::placeholder {
-  color: var(--muted) !important; opacity: 1;
+  color: var(--muted) !important;
+  opacity: 1;
 }
 
-/* Generic inputs (non-Material) — keep theme-consistent */
+/* Non-Material inputs, kept visually identical to the Material ones. */
 input,
 textarea,
 select {
   background: var(--input-bg);
   color: var(--text-strong);
   border: 1px solid var(--border);
+  font-family: inherit;
 }
+
 input:focus,
 textarea:focus,
 select:focus {
   border-color: var(--accent);
-  outline: 2px solid color-mix(in oklab, var(--accent) 30%, transparent);
+  outline: 2px solid color-mix(in oklab, var(--accent) 35%, transparent);
   outline-offset: 1px;
 }
 
@@ -230,112 +517,124 @@ select:focus {
   color: var(--text-strong);
 }
 
-/* Responsive centered container */
-.container { max-width:var(--container-max); margin:0 auto; padding:0 1rem; }
-
-/* Hero section */
-.hero {
-  padding:6rem 0 4rem;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:2rem;
-}
-.hero-left { flex:1; }
-.hero-right { flex:1; display:flex; align-items:center; justify-content:center; }
-.hero .eyebrow { color:var(--accent); font-family: "SF Mono", monospace; letter-spacing:1px; }
-.hero h1 { color:#e6eef8; font-size: clamp(2rem, 5vw, 3.6rem); margin:0 0 .5rem; }
-.hero p.lead { color:var(--muted); font-size:1.05rem; max-width:60ch; }
-
-/* Cards */
-.card {
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border-radius:var(--radius);
-  padding:1.25rem;
-  box-shadow: 0 6px 18px rgba(2,6,23,0.6);
-  color: #cbd5e1;
-}
-
-/* Buttons */
-.btn-modern {
-  display:inline-flex; gap:.6rem; align-items:center; justify-content:center;
-  background: linear-gradient(90deg,var(--primary), #2b5fb3);
-  color:#fff; padding:.6rem 1rem; border-radius:10px; border:0; cursor:pointer;
-  transition: transform .12s ease, box-shadow .12s ease;
-}
-.btn-modern:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(57,118,210,0.18); }
-
-.btn-outline-accent {
-  border-color: var(--accent) !important;
-  color: var(--accent) !important;
-}
-.btn-outline-accent:hover {
-  background: color-mix(in oklab, var(--accent) 10%, transparent) !important;
-}
-
-/* Improve Material raised primary look to fit theme */
-.btn-modern.mat-mdc-raised-button.mat-primary {
-  background: linear-gradient(90deg,var(--primary), #2b5fb3) !important;
-}
-
-/* Glass navbar utility */
-.navbar-glass { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); backdrop-filter: blur(6px); border-bottom:1px solid rgba(255,255,255,0.03); }
-
-/* Utilities */
-.muted { color:var(--muted); }
-.accent { color:var(--accent); }
-
-/* Footer improvements */
-footer { color:var(--muted); padding:2rem 1rem; }
-
-/* Responsive tweaks */
-@media (max-width: 900px){
-  .hero { flex-direction:column-reverse; text-align:center; }
-  .hero-right { margin-bottom:1rem; }
-}
-
-/* Accessible focus outline */
-:focus-visible { outline: 3px solid rgba(100,255,218,0.18); outline-offset:2px; }
-:focus:not(:focus-visible) { outline: none; }
-
-/* Respect reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
-}
-
-/* Themed autocomplete dropdown */
-.mat-mdc-autocomplete-panel {
+/* Menus, dialogs and autocomplete panels render in an overlay outside the
+   component tree, so they need theming here or they fall back to Material's
+   own palette and break in light mode. */
+.mat-mdc-menu-panel,
+.mat-mdc-autocomplete-panel,
+.mat-mdc-dialog-surface {
   background: var(--card) !important;
   border: 1px solid var(--border) !important;
-  border-radius: 10px !important;
+  border-radius: var(--radius-lg) !important;
   color: var(--text-strong) !important;
-  box-shadow: 0 12px 30px rgba(2,6,23,0.55) !important;
-  backdrop-filter: blur(6px);
+  box-shadow: var(--shadow-lg) !important;
 }
 
-.mat-mdc-option {
-  color: var(--text-strong) !important;
-}
-.mat-mdc-option .mdc-list-item__primary-text {
+.mat-mdc-menu-item,
+.mat-mdc-option,
+.mat-mdc-option .mdc-list-item__primary-text,
+.mat-mdc-menu-item .mat-icon {
   color: var(--text-strong) !important;
 }
 
-/* Hover/active/selected states */
+.mat-mdc-menu-item:hover,
 .mat-mdc-option:hover,
 .mat-mdc-option.mat-mdc-option-active,
 .mat-mdc-option.mdc-list-item--selected {
-  background: color-mix(in oklab, var(--accent) 12%, transparent) !important;
+  background: var(--accent-soft) !important;
 }
 
-/* Divider and panel scrollbars */
 .mat-mdc-autocomplete-panel .mat-mdc-option + .mat-mdc-option {
-  border-top: 1px solid rgba(203,213,225,0.07);
+  border-top: 1px solid var(--border);
 }
-.mat-mdc-autocomplete-panel::-webkit-scrollbar { height: 8px; width: 8px; }
-.mat-mdc-autocomplete-panel::-webkit-scrollbar-thumb { background: rgba(203,213,225,0.2); border-radius: 8px; }
-.mat-mdc-autocomplete-panel::-webkit-scrollbar-thumb:hover { background: rgba(203,213,225,0.3); }
 
-/* A11y utility: globally available visually hidden class */
+.mat-mdc-autocomplete-panel::-webkit-scrollbar,
+.mat-mdc-menu-panel::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.mat-mdc-autocomplete-panel::-webkit-scrollbar-thumb,
+.mat-mdc-menu-panel::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: var(--radius-pill);
+}
+
+.mat-mdc-dialog-container .mat-mdc-dialog-content {
+  color: var(--text-soft);
+}
+
+/* ============================== 6. MOTION ================================= */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 {
+  transition-delay: 0.1s;
+}
+
+.reveal-delay-2 {
+  transition-delay: 0.2s;
+}
+
+.reveal-delay-3 {
+  transition-delay: 0.3s;
+}
+
+/* Anyone who has asked their OS for less motion gets none of it. The reveal
+   animation also has to be forced visible, or its opacity:0 start state would
+   leave the whole page blank. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Same, but driven by the in-app toggle rather than the OS setting. */
+body.reduce-motion *,
+body.reduce-motion *::before,
+body.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+body.reduce-motion .reveal {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* =========================== 7. ACCESSIBILITY ============================= */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
 .visually-hidden {
   position: absolute !important;
   width: 1px !important;
@@ -349,97 +648,88 @@ footer { color:var(--muted); padding:2rem 1rem; }
   border: 0 !important;
 }
 
-/* Global print rules (theme-aware) */
+/* Visible only once focused — the first tab stop on the page. */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: var(--space-4);
+  z-index: 2000;
+  padding: var(--space-3) var(--space-4);
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+  top: var(--space-4);
+  color: var(--on-accent);
+}
+
+/* ============================== 8. PRINT ================================== */
+
 @media print {
-  header, nav, footer, .menu-toggle, .command-palette-trigger, .cookie-banner,
-  .back-to-top, .theme-toggle, .high-contrast-toggle, .progress-bar-wrapper { display: none !important; }
+  header,
+  nav,
+  footer,
+  .menu-toggle,
+  .command-palette-trigger,
+  .cookie-banner,
+  .back-to-top,
+  .theme-toggle,
+  .chat-widget,
+  .no-print,
+  .progress-bar-wrapper {
+    display: none !important;
+  }
+
   body {
-    /* Use light theme variables for best legibility when printing dark theme */
-    background: var(--print-bg, #fff) !important;
-    color: var(--print-fg, #000) !important;
+    background: #fff !important;
+    color: #000 !important;
     font-size: 12pt;
   }
-  /* When body has .high-contrast keep strong contrast but invert to white page */
-  body.high-contrast { --print-bg:#fff; --print-fg:#000; }
-  a { color: var(--print-fg, #000) !important; text-decoration:none; }
-  a[href]:after { content: " (" attr(href) ")"; font-size: .7em; }
-  .mat-mdc-card, .card { box-shadow:none !important; background:var(--print-bg,#fff) !important; border:0 !important; }
-  * { animation: none !important; transition: none !important; }
-  /* Optional body.printing class allows JS toggle (in case of conditional styling) */
-  body.printing .no-print-meta { display:none !important; }
-  @page { margin: 12mm; }
-}
 
-/* =============================================
-   MODERN PORTFOLIO GLOBALS
-   ============================================= */
+  a {
+    color: #000 !important;
+    text-decoration: none;
+  }
 
-/* --- Typography tweaks --- */
-code, kbd, samp, .mono {
-  font-family: "JetBrains Mono", "SF Mono", monospace;
-}
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.7em;
+  }
 
-/* --- Section-level title --- */
-.section-title {
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  font-weight: 700;
-  color: var(--text-strong);
-  margin: 0 0 2rem;
-  position: relative;
-  display: inline-block;
-  letter-spacing: -.02em;
-}
-.section-title::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 0;
-  width: 36px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent), transparent);
-  border-radius: 2px;
-}
+  .mat-mdc-card,
+  .glass-card {
+    box-shadow: none !important;
+    background: #fff !important;
+    border: 1px solid #ccc !important;
+    backdrop-filter: none !important;
+  }
 
-/* --- Shared badge / pill --- */
-.badge-pill {
-  display: inline-block;
-  padding: .28rem .72rem;
-  border-radius: 999px;
-  font-size: .8rem;
-  font-family: "JetBrains Mono", monospace;
-  background: color-mix(in oklab, var(--primary) 12%, transparent);
-  border: 1px solid color-mix(in oklab, var(--primary) 25%, transparent);
-  color: var(--text-soft);
-  transition: background .12s ease, color .12s ease, border-color .12s ease;
-  cursor: default;
-}
-.badge-pill:hover {
-  background: color-mix(in oklab, var(--accent) 12%, transparent);
-  border-color: color-mix(in oklab, var(--accent) 30%, transparent);
-  color: var(--accent);
-}
+  .badge-pill {
+    border: 1px solid #999 !important;
+    background: none !important;
+    color: #000 !important;
+  }
 
-/* --- Scroll-reveal animation --- */
-.reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity .55s ease, transform .55s ease;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.reveal-delay-1 { transition-delay: .1s; }
-.reveal-delay-2 { transition-delay: .2s; }
-.reveal-delay-3 { transition-delay: .3s; }
+  .section {
+    padding: var(--space-4) 0;
+  }
 
-/* --- Standard section padding --- */
-.section { padding: 5rem 0; }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 
-/* --- Glass card --- */
-.glass-card {
-  background: var(--glass);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  backdrop-filter: blur(6px);
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  @page {
+    margin: 12mm;
+  }
 }

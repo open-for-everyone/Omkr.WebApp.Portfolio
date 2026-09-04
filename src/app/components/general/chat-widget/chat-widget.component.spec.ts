@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ChatWidgetComponent } from './chat-widget.component';
-import { ChatService } from '../../../services/chat/chat.service';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { provideCommonTestServices } from 'src/testing/test-support';
+import { ChatWidgetComponent } from './chat-widget.component';
 
 describe('ChatWidgetComponent', () => {
   let component: ChatWidgetComponent;
@@ -11,9 +11,11 @@ describe('ChatWidgetComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports:[FormsModule, MatButtonModule, MatIconModule],
-      declarations:[ChatWidgetComponent],
-      providers:[ChatService]
+      // ChatWidgetComponent is standalone — it is created dynamically by AppComponent, unlike the
+      // rest of the app — so it is imported, not declared. Declaring it failed outright.
+      imports:[FormsModule, MatButtonModule, MatIconModule, ChatWidgetComponent],
+      // ChatService is root-provided and needs HttpClient; listing the service alone did not give it one.
+      providers:[provideCommonTestServices()]
     }).compileComponents();
   });
 

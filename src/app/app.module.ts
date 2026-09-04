@@ -19,10 +19,10 @@ import { ContactComponent } from './components/home/contact/contact.component';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/general/not-found/not-found.component';
 import { ProgressBarComponent } from './components/general/progress-bar/progress-bar.component';
-import { VideoComponent } from './components/home/video/video.component';
 import { PageViewCounterComponent } from './components/general/counter/page-view-counter/page-view-counter.component';
 import { MaterialModule } from './material.module';
 import { ConfettiComponent } from './components/general/confetti/confetti.component';
+import { BlogPostsComponent } from './components/home/blog/blog-posts.component';
 import { RevealDirective } from './directives/reveal.directive';
 // Removed individual Material imports in favor of shared MaterialModule
 
@@ -33,7 +33,6 @@ import { InteractionType, PublicClientApplication } from '@azure/msal-browser';
 // Import the Azure AD B2C configuration
 import { msalConfig } from './auth-config';
 import { MSALInterceptorConfigFactory } from './interceptor-config';
-import { getSaver, SAVER } from './services/file/saver.provider';
 import { SkillsComponent } from './components/home/skills/skills.component';
 import { ExperienceComponent } from './components/home/experience/experience.component';
 import { ProjectsCarouselComponent, ProjectDialogComponent } from './components/home/projects/projects-carousel.component';
@@ -76,8 +75,8 @@ export function ApiTranslateLoaderFactory(http: HttpClient): TranslateLoader {
     HomeComponent,
     NotFoundComponent,
     ProgressBarComponent,
-    VideoComponent,
     ConfettiComponent,
+    BlogPostsComponent,
     SkillsComponent,
     ExperienceComponent,
     ProjectsCarouselComponent,
@@ -138,7 +137,6 @@ export function ApiTranslateLoaderFactory(http: HttpClient): TranslateLoader {
       multi: true
     },
     MsalGuard,
-    {provide: SAVER, useFactory: getSaver}
   ],
   bootstrap: [
     AppComponent,

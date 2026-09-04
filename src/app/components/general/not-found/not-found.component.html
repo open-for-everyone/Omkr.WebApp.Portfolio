@@ -1,22 +1,38 @@
-<app-header></app-header>
+<!-- Header and footer come from AppComponent, so this page is reachable in both directions. -->
+<section class="notfound" aria-labelledby="notfound-title">
+  <div class="scanlines" aria-hidden="true"></div>
 
-<div class="notFoundBody">
-  <div class="noise"></div>
-  <div class="overlay"></div>
-  <mat-card appearance="outlined" class="terminal">
-    <mat-card-header>
-      <mat-card-title>Error <span class="errorcode">404</span></mat-card-title>
-      <mat-card-subtitle>Page not found</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <p class="output">The page you are looking for might have been removed, had its name changed or is temporarily
-        unavailable.</p>
-      <p class="output">Please try the options below.</p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-stroked-button color="primary" (click)="goBack()">Go back</button>
-      <a mat-raised-button color="accent" [routerLink]="['/']">Home</a>
-    </mat-card-actions>
-  </mat-card>
-</div>
-<app-footer id="footerElement"></app-footer>
+  <div class="container notfound-inner">
+    <p class="code" aria-hidden="true">404</p>
+
+    <h1 id="notfound-title" class="title">Page not found</h1>
+
+    <p class="lead">
+      The page you are looking for might have been removed, renamed, or is temporarily unavailable.
+    </p>
+
+    <p class="path" *ngIf="attemptedPath">
+      <span class="prompt" aria-hidden="true">&gt;</span>
+      <code>{{ attemptedPath }}</code>
+    </p>
+
+    <div class="actions">
+      <a class="btn-modern" [routerLink]="['/']">
+        <mat-icon aria-hidden="true">home</mat-icon> Go home
+      </a>
+      <button type="button" class="btn-modern ghost" (click)="goBack()">
+        <mat-icon aria-hidden="true">arrow_back</mat-icon> Go back
+      </button>
+    </div>
+
+    <nav class="suggestions" aria-label="Suggested pages">
+      <h2 class="suggestions-title">Try one of these</h2>
+      <ul>
+        <li><a [routerLink]="['/']" fragment="projects">Projects</a></li>
+        <li><a [routerLink]="['/']" fragment="experience">Experience</a></li>
+        <li><a [routerLink]="['/']" fragment="contact">Contact</a></li>
+        <li><a [routerLink]="['/resume']">Resume</a></li>
+      </ul>
+    </nav>
+  </div>
+</section>

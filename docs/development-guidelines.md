@@ -10,23 +10,69 @@ These guidelines define conventions for extending and maintaining the project (t
 - Reuse existing models in `src/app/models/` before introducing new interfaces.
 - Maintain separation by domain folder (e.g. `services/Analytics`, `components/home/*`).
 
-## 2. Theming
+## 2. Theming and design tokens
 
-- Core CSS custom properties are defined on `:root` and modified by body classes: `.light`, `.high-contrast`.
-- New components should use variables (`var(--bg)`, `var(--accent)`, `var(--text-strong)`) instead of hard-coded colors.
-- Prefer semantic token usage (background vs accent) so theme toggles remain consistent.
-- Add new variable tokens only if reused across at least 2 places.
+All colour, spacing, radius, elevation and typography values live in one token block at the top of
+`src/styles.css`. There are three themes and one motion modifier, and they are all defined there:
 
-### Light/Dark Mode
+| State | Selector | Notes |
+|---|---|---|
+| Dark | `:root` | The default |
+| Light | `body.light` | |
+| High contrast | `body.high-contrast` | Composes on top of light *or* dark |
+| Reduced motion | `body.reduce-motion` | Set by the in-app toggle |
 
-- Do not directly set background colors in components unless creating layered surfaces; otherwise inherit.
-- When adding interactive elements, ensure focus-visible outline has sufficient contrast in both modes.
+`DisplayPreferencesService` owns all four, persists them to `localStorage`, and falls back to the
+operating system's `prefers-color-scheme` / `prefers-reduced-motion` when nothing is stored. Never
+set a body class or read a theme key directly — go through the service.
 
-### High Contrast Mode
+### The one rule
 
-- Class: `body.high-contrast`.
-- Avoid removing outlines or shadow cues; only amplify contrast.
-- Any new critical icon-only control must supply accessible text (e.g., `aria-label`).
+**A component stylesheet must not contain a colour literal.** No hex, no `rgb()`, no `rgba()`. Use
+the tokens.
+
+This is not style pedantry; it is the single largest source of theme bugs this project has had. Real
+examples, all fixed:
+
+- The hero headline was a gradient starting at `#e6eef8`. Near-white text, invisible in light theme.
+- The project dialog set `color: #e6eef8` on its title and a translucent-white background on its
+  chips. Unreadable in light theme.
+- The chat widget put `color: #fff` on the user's own message bubble, which sits on `--accent`. In
+  high contrast the accent is yellow, so white-on-yellow.
+- The 404 page had sixteen colour literals and no tokens at all, and rendered green-on-black in every
+  theme.
+- The cookie banner used `var(--text)`, which is not a token that exists, so its text colour silently
+  fell through to whatever it inherited.
+
+Available tokens, by group:
+
+- **Surfaces** `--bg`, `--bg-elevated`, `--card`, `--glass`, `--glass-strong`, `--overlay`
+- **Text** `--text-strong`, `--text-soft`, `--muted`, `--faint`
+- **Borders** `--border`, `--border-strong`
+- **Brand** `--accent`, `--accent-strong`, `--accent-soft`, `--primary`, `--primary-strong`,
+  `--primary-soft`
+- **On-fill text** `--on-accent`, `--on-primary` — use these for text on an accent or primary
+  background; that is what makes high contrast work
+- **Semantic** `--success`, `--danger`, `--warning`, `--info`, each with a `-soft` variant
+- **Spacing** `--space-1` … `--space-9`
+- **Radius** `--radius-sm|md|lg|xl|pill`
+- **Elevation** `--shadow-sm|md|lg`
+- **Type** `--font-family`, `--font-mono`
+- **Interaction** `--focus-ring`, `--transition-fast`, `--transition-base`
+
+Need a shade in between? `color-mix(in oklab, var(--accent) 20%, transparent)` — not a new literal.
+
+Add a token only when a value is reused in at least two places, and add it to all three themes.
+
+### Checking your work
+
+```bash
+# Should print nothing but var() fallbacks.
+grep -rnE '#[0-9a-fA-F]{3,8}\b|rgba?\([0-9]' src/app --include=*.css | grep -v 'var(--'
+```
+
+Then look at the page in all three themes and with reduced motion on. The display menu in the header
+toggles every one of them.
 
 ## 3. Accessibility (A11y)
 
@@ -70,18 +116,50 @@ These guidelines define conventions for extending and maintaining the project (t
 ## 6. Services & API Calls
 
 - Keep endpoint templates in environment files; replace placeholders (`{orgId}`, `{userName}`) at call time.
- 
- 
-- Add a single responsibility per service folder. If a service grows beyond ~400 lines, split into logical sub-services.
-- Handle errors centrally where possible and provide user-friendly messages via a toast/snackbar (future enhancement).
+- One responsibility per service folder. If a service grows past ~400 lines, split it.
+- Components never hold URLs and never hold content. Both come from a service.
 
-## 7. Testing (Future Reintroduction)
+### Content is untrusted input
 
-- Accessibility smoke tests: Prefer Playwright + axe-core (simulate real browser) instead of pure jsdom.
-- Unit test naming: `<file>.spec.ts` colocated with source.
-- Critical flows to cover: theme toggle persistence, high-contrast toggle, command palette keyboard navigation, contact form validation.
- 
- 
+Anything read from the content API is operator-authored data from a database that several people can
+edit. Treat it as a trust boundary, not as a typed object you can rely on:
+
+- Validate every entry and drop the ones that cannot render, rather than letting one bad row take out
+  a section.
+- Allowlist enumerated values. Icon names go through `IconRegistryService`; URL schemes are limited
+  to `http`, `https`, `mailto`, `tel`.
+- Fall back to the compiled-in default when a block is entirely unusable.
+- Never let a read reject. A content outage should cost content, not the page.
+
+`ProfileService` and `PortfolioContentService` are the reference implementations, and
+`profile.service.spec.ts` covers the validation rules.
+
+### A missing translation key is not an empty value
+
+ngx-translate returns *the key itself* when it has no entry. So
+
+```html
+<!-- Wrong: renders one <p> per letter of "AboutMe.Paragraphs" when the key is missing -->
+<p *ngFor="let text of 'AboutMe.Paragraphs' | translate"></p>
+```
+
+Read list- and object-valued keys through `StructuredContentService`, which validates the shape
+first. The `| translate` pipe is for single strings only.
+
+## 7. Testing
+
+Karma + Jasmine, via `npm test`. There is no jest here — a `jest.config.cjs` existed for a while
+without jest ever being installed, and has been removed.
+
+- Specs are `<file>.spec.ts`, colocated with the source.
+- `src/testing/test-support.ts` provides the common TestBed wiring: mocked HTTP, a stub router, no-op
+  translations, animations disabled, and MSAL stubs. Use it rather than assembling providers per spec
+  — the original scaffolds declared a component and nothing else, and failed with `NullInjectorError`.
+- Pure logic is best tested by instantiating the class directly with a stub collaborator; see
+  `profile.service.spec.ts`.
+- Still worth covering: theme and high-contrast persistence, command palette keyboard navigation,
+  contact form validation, and the GitHub/curated project merge.
+
 
 ## 8. Performance
 - Add lazy route modules for large future feature areas (e.g. admin, analytics dashboard).
@@ -89,9 +167,17 @@ These guidelines define conventions for extending and maintaining the project (t
 - Optimize images (prefer WebP/AVIF) and supply explicit width/height to reduce layout shift.
 
 ## 9. Internationalization
-- All user-facing strings should move progressively into translation files (`assets/i18n/en.json`).
-- When adding new dynamic strings, design keys with namespace-like grouping: `resume.header.tagline`.
-- Update `<html lang>` when implementing language switching.
+
+Text comes from the admin API, not from this build. `assets/i18n/en.json` is only an offline base.
+
+- Single strings go in the i18n bundle (admin → Localization), namespace `portfolio`.
+- Lists and objects go in `website_content` (admin → Website content), one row per language.
+- `assets/i18n/en.json` holds **scalars only**; `src/app/models/content/site-content.defaults.ts`
+  holds **structured content**. Do not duplicate a value across both — they used to overlap and
+  disagree, and whichever loaded last won.
+- Adding a language is entirely an admin task. See `admin/docs/LOCALIZATION.md`.
+
+Full reference, with copy-pasteable payloads: [`content-keys.md`](content-keys.md).
 
 ## 10. Security & Secrets
 - Never commit real API keys—use placeholder values in `environment.ts` committed to source.
@@ -117,9 +203,9 @@ Before merging:
 ## 13. Print / Theme Quick Reference
 | Concern | Guideline |
 |---------|-----------|
-| Dark theme active when printing | Force light tokens via `--print-bg`, `--print-fg` for legibility |
+| Dark theme active when printing | The global `@media print` block forces a white page and black text outright; there are no `--print-*` tokens |
 | High contrast | Maintain black/white output; accents optional but must meet 4.5:1 |
-| Link URLs | Shown automatically; suppress by adding `body[data-no-print-urls]` |
+| Link URLs | External `http(s)` links print their URL after the text |
 | Animations | Disabled in print automatically |
 | Non-essential UI | Add `.no-print` or use existing global exclusions |
 

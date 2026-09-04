@@ -1,4 +1,4 @@
-.cookie-banner { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 1100; display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; justify-content: space-between; padding: 1rem; background: var(--glass); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; color: var(--text); }
+.cookie-banner { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 1100; display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; justify-content: space-between; padding: 1rem; background: var(--glass); backdrop-filter: blur(8px); border: 1px solid var(--border); border-radius: var(--radius-lg); color: var(--text-soft); box-shadow: var(--shadow-lg); }
 .cookie-text { flex:1 1 260px; }
 .cookie-actions { display:flex; gap:.6rem; }
 .cookie-close { position:absolute; top:6px; right:10px; background:transparent; border:none; color:var(--muted); font-size:20px; cursor:pointer; }

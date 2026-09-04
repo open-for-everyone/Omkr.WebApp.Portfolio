@@ -1,69 +1,40 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PageViewService } from 'src/app/services/PageView/page-view.service';
 import { ConsentService } from 'src/app/services/general/consent.service';
-import { SeoService } from 'src/app/services/general/seo.service';
+import { PageViewService } from 'src/app/services/PageView/page-view.service';
 
-interface ConfettiParticle { style: { left: string; backgroundColor: string } }
-
+/**
+ * The home route: a thin shell that composes the sections.
+ *
+ * It used to carry a second, unused confetti implementation — `startConfetti`, `stopConfetti`,
+ * `getRandomColor` and an `ngOnChanges` driven by a `show` input that a routed component can never
+ * receive — duplicating {@link ConfettiComponent}, which AppComponent already renders. That, an
+ * injected `MatDialog` nothing opened, an unused `currentEvent`, and a `setTimeout` whose comment
+ * said five seconds while the value said fifty, are all gone.
+ *
+ * Page titles and meta tags are set centrally from route data in `AppRoutingModule`, so there is no
+ * SEO call here.
+ */
 @Component({
   standalone: false,
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
 })
-
-export class HomeComponent implements OnInit, OnChanges {
-
+export class HomeComponent implements OnInit {
   pageUrl = '';
-  currentEvent: unknown = null;
-  @Input() show = false;
-  confetti: ConfettiParticle[] = [];
-  /**
-   *
-   */
-  constructor(private pageViewService: PageViewService, private router: Router,
-    private dialog: MatDialog,
-    private consent: ConsentService,
-    private seo: SeoService) {
 
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['show'] && this.show) {
-      this.startConfetti();
-    } else {
-      this.stopConfetti();
-    }
-  }
+  constructor(
+    private pageViewService: PageViewService,
+    private router: Router,
+    private consent: ConsentService,
+  ) {}
+
   ngOnInit(): void {
     this.pageUrl = this.router.url;
-    // Ensure description exists if navigated directly (SSR/prerender safety net)
-    this.seo.update({
-      description: 'Backend developer portfolio showcasing APIs, microservices, AWS, Azure DevOps and software engineering projects.'
-    });
+
+    // Analytics only with consent; the service swallows its own failures.
     if (this.consent.isAllowed('analytics')) {
       this.pageViewService.incrementPageView(this.router.url).subscribe();
     }
-  }
-  startConfetti() {
-    this.confetti = Array.from({ length: 100 }).map(() => ({
-      style: {
-        left: `${Math.random() * 100}%`,
-        backgroundColor: this.getRandomColor(),
-      }
-    }));
-    setTimeout(() => {
-      this.stopConfetti();
-    }, 50000); // Stop after 5 seconds
-  }
-
-  stopConfetti() {
-    this.confetti = [];
-  }
-
-  getRandomColor() {
-    const colors = ['#f00', '#0f0', '#00f', '#ff0', '#f0f', '#0ff']; // Add more colors
-    return colors[Math.floor(Math.random() * colors.length)];
   }
 }

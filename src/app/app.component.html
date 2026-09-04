@@ -1,8 +1,21 @@
 <a class="skip-link" href="#main-content">Skip to content</a>
 
+<!--
+  Header, progress bar and footer live here rather than inside HomeComponent.
+
+  They used to be rendered by the home and 404 pages only, which meant /resume and all four legal
+  pages had no navigation whatsoever: a visitor landing on the privacy policy from a search engine
+  could not reach the site except with the browser's back button. Both are hidden in print, so the
+  CV still prints clean.
+-->
+<app-header id="homeHeader"></app-header>
+<app-progress-bar></app-progress-bar>
+
 <main id="main-content" tabindex="-1">
 	<router-outlet></router-outlet>
 </main>
+
+<app-footer></app-footer>
 
 <!-- Global Utilities -->
 <app-command-palette [(open)]="paletteOpen"></app-command-palette>
