@@ -142,12 +142,63 @@
 </head>
 
 <body class="mat-typography dark-theme">
-<app-root>
-  <div class="fade show" style="text-align: center; padding-top: calc(100vh / 2); height: 100vh">
-    <i class="spinner-grow spinner-grow-sm"></i>
-    <span class="m-1">Loading...</span>
-  </div>
-</app-root>
+<script>
+  try {
+    if (localStorage.getItem('theme') === 'light') {
+      document.documentElement.classList.add('pf-light-boot');
+    }
+  } catch (e) {}
+</script>
+<style id="boot-loader-style">
+  #boot-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background: #0b1120;
+    color: #e8eefc;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    transition: opacity 0.22s ease;
+  }
+  html.pf-light-boot #boot-loader {
+    background: #f5f7fb;
+    color: #0f172a;
+  }
+  #boot-loader.boot-hide {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .pf-boot-spinner {
+    width: 34px;
+    height: 34px;
+    border: 3px solid rgba(94, 234, 212, 0.2);
+    border-top-color: #5eead4;
+    border-radius: 50%;
+    animation: pfBootSpin 0.75s linear infinite;
+  }
+  html.pf-light-boot .pf-boot-spinner {
+    border-color: rgba(77, 139, 240, 0.2);
+    border-top-color: #4d8bf0;
+  }
+  .pf-boot-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    opacity: 0.85;
+  }
+  @keyframes pfBootSpin {
+    to { transform: rotate(360deg); }
+  }
+</style>
+<div id="boot-loader" role="status" aria-live="polite" aria-label="Loading Portfolio">
+  <div class="pf-boot-spinner" aria-hidden="true"></div>
+  <div class="pf-boot-label">Loading Portfolio…</div>
+</div>
+<app-root></app-root>
 <app-redirect></app-redirect>
 <noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>

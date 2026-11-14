@@ -1,12 +1,13 @@
 <section class="sitemap">
   <h1>Sitemap (Human Readable)</h1>
-  <ul>
+  <app-loading-state *ngIf="loading" variant="rows" [count]="5" message="Loading sitemap…"></app-loading-state>
+  <ul *ngIf="!loading">
     <li *ngFor="let u of urls">
       <a [href]="u.loc" target="_blank" rel="noopener">{{ u.loc }}</a>
       <small *ngIf="u.changefreq || u.priority">— {{u.changefreq || ''}} {{u.priority ? ('• priority ' + u.priority) : ''}}</small>
     </li>
   </ul>
-  <details>
+  <details *ngIf="!loading">
     <summary>Raw XML</summary>
     <pre>{{ raw }}</pre>
   </details>

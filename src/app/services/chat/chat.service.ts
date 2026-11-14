@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subscription, interval, of } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
+import { silentHttpContext } from '../../interceptors/loading.interceptor';
 import { ChatMessage } from '../../models/chat/chat-message.model';
 import { environment } from 'src/environments/environment';
 
@@ -100,7 +101,7 @@ export class ChatService {
   /** Tells the other side the visitor is writing. Fire and forget — it expires server-side. */
   notifyTyping(): void {
     if (!this.token) return;
-    this.http.post(`${this.baseUrl}/typing`, {}, { headers: this.headers(this.token) })
+    this.http.post(`${this.baseUrl}/typing`, {}, { headers: this.headers(this.token), context: silentHttpContext() })
       .pipe(catchError(() => of(null)))
       .subscribe();
   }
@@ -120,7 +121,7 @@ export class ChatService {
   private pollRequest(): Observable<PollResponse | null> {
     if (!this.token) return of(null);
     const after = this.lastMessageId ? `?after=${encodeURIComponent(this.lastMessageId)}` : '';
-    return this.http.get<PollResponse>(`${this.baseUrl}/poll${after}`, { headers: this.headers(this.token) })
+    return this.http.get<PollResponse>(`${this.baseUrl}/poll${after}`, { headers: this.headers(this.token), context: silentHttpContext() })
       .pipe(catchError(error => {
         // A token the server doesn't know (cleared data, deleted conversation) starts over cleanly.
         if (error?.status === 404) this.forgetSession();

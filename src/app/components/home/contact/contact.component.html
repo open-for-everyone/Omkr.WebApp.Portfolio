@@ -100,7 +100,8 @@
             <div class="actions">
               <button mat-raised-button color="primary" class="btn-modern" type="submit"
                 [disabled]="form.invalid || submitting">
-                <mat-icon>send</mat-icon>
+                <span class="btn-spin" *ngIf="submitting" aria-hidden="true"></span>
+                <mat-icon *ngIf="!submitting">send</mat-icon>
                 <span>{{ submitting ? 'Sending…' : 'Send Message' }}</span>
               </button>
               <a mat-button color="accent" [href]="mailtoHref"

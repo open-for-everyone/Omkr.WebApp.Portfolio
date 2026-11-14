@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Observable, catchError, of } from 'rxjs';
+import { silentHttpContext } from 'src/app/interceptors/loading.interceptor';
 
 /**
  * Page views, recorded in the central analytics on the admin API (admin → Analytics), which is where
@@ -28,7 +29,7 @@ export class PageViewService {
         websiteKey: this.websiteKey,
         path: path || '/',
         referrer: typeof document !== 'undefined' && document.referrer ? document.referrer : null,
-      })
+      }, { context: silentHttpContext() })
       .pipe(catchError(() => of(null)));
   }
 }

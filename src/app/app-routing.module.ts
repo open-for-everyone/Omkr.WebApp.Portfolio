@@ -2,15 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes, Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/general/not-found/not-found.component';
-import { PrivacyPolicyComponent } from './components/general/legal/privacy-policy/privacy-policy.component';
-import { TermsComponent } from './components/general/legal/terms/terms.component';
-import { CookiePolicyComponent } from './components/general/legal/cookie-policy/cookie-policy.component';
-import { DisclaimerComponent } from './components/general/legal/disclaimer/disclaimer.component';
 import { filter, map, mergeMap } from 'rxjs/operators';
 import { SeoService } from './services/general/seo.service';
-import { RobotsComponent } from './components/general/robots/robots.component';
-import { SitemapComponent } from './components/general/sitemap/sitemap.component';
-import { ResumeComponent } from './components/general/resume/resume.component';
 // import { MsalGuard } from '@azure/msal-angular';
 
 const routes: Routes = [
@@ -21,45 +14,59 @@ const routes: Routes = [
     }
   },
   {
-    path: 'privacy-policy', component: PrivacyPolicyComponent, data: {
+    path: 'privacy-policy',
+    loadComponent: () => import('./components/general/legal/privacy-policy/privacy-policy.component').then(m => m.PrivacyPolicyComponent),
+    data: {
       title: 'Privacy Policy — Keshav Singh',
       description: 'Read how personal data and analytics are handled on this portfolio website.'
     }
   },
   {
-    path: 'terms', component: TermsComponent, data: {
+    path: 'terms',
+    loadComponent: () => import('./components/general/legal/terms/terms.component').then(m => m.TermsComponent),
+    data: {
       title: 'Terms & Conditions — Keshav Singh',
       description: 'Terms and conditions governing the use of this portfolio website.'
     }
   },
   {
-    path: 'cookie-policy', component: CookiePolicyComponent, data: {
+    path: 'cookie-policy',
+    loadComponent: () => import('./components/general/legal/cookie-policy/cookie-policy.component').then(m => m.CookiePolicyComponent),
+    data: {
       title: 'Cookie Policy — Keshav Singh',
       description: 'Details on cookie usage, analytics consent and tracking preferences.'
     }
   },
   {
-    path: 'disclaimer', component: DisclaimerComponent, data: {
+    path: 'disclaimer',
+    loadComponent: () => import('./components/general/legal/disclaimer/disclaimer.component').then(m => m.DisclaimerComponent),
+    data: {
       title: 'Disclaimer — Keshav Singh',
       description: 'General information disclaimer for content published on this site.'
     }
   },
   {
-    path: 'robots', component: RobotsComponent, data: {
+    path: 'robots',
+    loadComponent: () => import('./components/general/robots/robots.component').then(m => m.RobotsComponent),
+    data: {
       title: 'Robots.txt — Keshav Singh',
       description: 'Human readable view of the robots.txt directives for this site.'
     }
   },
   { path: 'robots.txt', redirectTo: 'robots', pathMatch: 'full' },
   {
-    path: 'sitemap', component: SitemapComponent, data: {
+    path: 'sitemap',
+    loadComponent: () => import('./components/general/sitemap/sitemap.component').then(m => m.SitemapComponent),
+    data: {
       title: 'Sitemap — Keshav Singh',
       description: 'Human readable list of indexed URLs for this site.'
     }
   },
   { path: 'sitemap.xml', redirectTo: 'sitemap', pathMatch: 'full' },
   {
-    path: 'resume', component: ResumeComponent, data: {
+    path: 'resume',
+    loadComponent: () => import('./components/general/resume/resume.component').then(m => m.ResumeComponent),
+    data: {
       title: 'Resume — Keshav Singh',
       description: 'Printable resume highlighting experience, skills, education and key links.'
     }

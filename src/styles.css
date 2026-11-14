@@ -668,6 +668,21 @@ body.reduce-motion .reveal {
   color: var(--on-accent);
 }
 
+.btn-spin {
+  display: inline-block;
+  width: 0.95em;
+  height: 0.95em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: pfBtnSpin 0.65s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes pfBtnSpin {
+  to { transform: rotate(360deg); }
+}
+
 /* ============================== 8. PRINT ================================== */
 
 @media print {

@@ -141,7 +141,7 @@ export class ProjectsCarouselComponent implements OnInit, OnDestroy {
   selector: 'app-project-dialog',
   template: `
     <div class="dialog">
-      <img *ngIf="data.image" [src]="data.image" [alt]="data.title" loading="lazy" width="800" height="450" />
+      <img *ngIf="data.image" [src]="data.image" [alt]="data.title" loading="lazy" decoding="async" width="800" height="450" />
 
       <h3>{{ data.title }}</h3>
 
