@@ -12,6 +12,7 @@
     <div class="actions" aria-label="Resume actions">
       <button type="button" (click)="print()" class="print-btn" aria-label="Print this resume">Print</button>
       <button type="button" (click)="downloadPdf()" class="print-btn download" [disabled]="generating" aria-live="off">
+        <span class="btn-spin" *ngIf="generating" aria-hidden="true"></span>
         {{ generating ? 'Generating…' : 'Download PDF' }}
       </button>
     </div>
@@ -69,4 +70,4 @@
   </section>
 
 </article>
-<p *ngIf="!data" class="status" aria-live="polite">Loading resume…</p>
+<app-loading-state *ngIf="!data" variant="rows" [count]="6" message="Loading resume…"></app-loading-state>

@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ContactService } from 'src/app/services/message/contact.service';
 import { ContactMessage } from 'src/app/models/general/contact-message';
 import { HttpClient } from '@angular/common/http';
+import { silentHttpContext } from 'src/app/interceptors/loading.interceptor';
 import { catchError, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Observable, Subject, of, takeUntil } from 'rxjs';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
@@ -88,7 +89,7 @@ export class ContactComponent implements OnInit, OnDestroy {
           return of([]);
         }
         const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
-        return this.http.get<Place[]>(url).pipe(catchError(() => of([])));
+        return this.http.get<Place[]>(url, { context: silentHttpContext() }).pipe(catchError(() => of([])));
       })
     );
 

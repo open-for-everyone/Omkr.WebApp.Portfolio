@@ -38,15 +38,10 @@ import { ExperienceComponent } from './components/home/experience/experience.com
 import { ProjectsCarouselComponent, ProjectDialogComponent } from './components/home/projects/projects-carousel.component';
 import { CommandPaletteComponent } from './components/general/command-palette/command-palette.component';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
-import { PrivacyPolicyComponent } from './components/general/legal/privacy-policy/privacy-policy.component';
-import { TermsComponent } from './components/general/legal/terms/terms.component';
-import { CookiePolicyComponent } from './components/general/legal/cookie-policy/cookie-policy.component';
-import { DisclaimerComponent } from './components/general/legal/disclaimer/disclaimer.component';
 import { CookieConsentComponent } from './components/general/cookie-consent/cookie-consent.component';
-import { RobotsComponent } from './components/general/robots/robots.component';
-import { SitemapComponent } from './components/general/sitemap/sitemap.component';
-import { ResumeComponent } from './components/general/resume/resume.component';
 import { SessionTimeoutDialogComponent } from './components/general/session-timeout-dialog/session-timeout-dialog.component';
+import { GlobalLoaderComponent } from './components/general/global-loader/global-loader.component';
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
 
 export function initializeMsal(msalService: MsalService) {
   return () => msalService.initialize();
@@ -82,18 +77,11 @@ export function ApiTranslateLoaderFactory(http: HttpClient): TranslateLoader {
     ProjectsCarouselComponent,
     ProjectDialogComponent,
     PageViewCounterComponent,
-  CommandPaletteComponent,
-  SafeUrlPipe,
-  PrivacyPolicyComponent,
-  TermsComponent,
-  CookiePolicyComponent,
-  DisclaimerComponent,
-  CookieConsentComponent,
-  RobotsComponent,
-  SitemapComponent,
-  ResumeComponent,
-  SessionTimeoutDialogComponent,
-  RevealDirective,
+    CommandPaletteComponent,
+    SafeUrlPipe,
+    CookieConsentComponent,
+    SessionTimeoutDialogComponent,
+    RevealDirective,
   ],
   // ...
 
@@ -108,6 +96,7 @@ export function ApiTranslateLoaderFactory(http: HttpClient): TranslateLoader {
     FontAwesomeModule,
     TranslatePipe,
     MaterialModule,
+    GlobalLoaderComponent,
     // Initiate the MSAL library with the MSAL configuration object
     MsalModule.forRoot(new PublicClientApplication(msalConfig),
       {
@@ -127,6 +116,11 @@ export function ApiTranslateLoaderFactory(http: HttpClient): TranslateLoader {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MsalInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
       multi: true,
     },
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } },

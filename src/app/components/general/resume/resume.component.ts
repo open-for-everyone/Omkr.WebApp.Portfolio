@@ -1,9 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { ResumeData } from 'src/app/models/resume/resume.model';
 import { ProfileService } from 'src/app/services/content/profile.service';
 import { ResumePdfTemplateService } from 'src/app/services/resume/resume-pdf-template.service';
 import { ResumeService } from 'src/app/services/resume/resume.service';
+import { LoadingStateComponent } from '../loading-state/loading-state.component';
 
 /**
  * The printable CV at `/resume`.
@@ -13,7 +15,8 @@ import { ResumeService } from 'src/app/services/resume/resume.service';
  * unnoticed behind a catch block that told the visitor to use Print instead.
  */
 @Component({
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, LoadingStateComponent],
   selector: 'app-resume',
   templateUrl: './resume.component.html',
   styleUrls: ['./resume.component.css'],
