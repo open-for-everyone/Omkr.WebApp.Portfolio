@@ -1,0 +1,131 @@
+<section class="ecosystem-section section reveal" appReveal aria-labelledby="ecosystem-heading">
+  <div class="container">
+    <!-- Live Ecosystem Websites Showcase -->
+    <div class="section-head">
+      <div>
+        <h2 id="ecosystem-heading" class="section-title">{{ 'ecosystem.title' | translate }}</h2>
+        <p class="section-sub">{{ 'ecosystem.subtitle' | translate }}</p>
+      </div>
+      <a
+        href="https://pratiyogita.keshavsingh.in/winners"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="winners-link">
+        {{ 'videos.winnersCta' | translate }}
+      </a>
+    </div>
+
+    <div class="sites-grid" *ngIf="!loadingDirectory && websites.length">
+      <a
+        class="site-card glass-card"
+        *ngFor="let site of websites; trackBy: trackWebsite"
+        [href]="site.url"
+        target="_blank"
+        rel="noopener noreferrer">
+        <div class="site-top">
+          <span class="site-badge" *ngIf="site.badgeText || site.tagline">
+            {{ site.badgeText || site.tagline }}
+          </span>
+          <mat-icon class="ext-icon" aria-hidden="true">north_east</mat-icon>
+        </div>
+        <h3>{{ site.name }}</h3>
+        <p *ngIf="site.description">{{ site.description }}</p>
+      </a>
+    </div>
+
+    <!-- Searchable Multi-Channel Video Library -->
+    <div class="catalog-wrap">
+      <div class="catalog-head">
+        <h3>{{ 'videos.title' | translate }}</h3>
+        <p>{{ 'videos.subtitle' | translate }}</p>
+      </div>
+
+      <div class="catalog-controls">
+        <div class="search-wrap">
+          <mat-icon class="search-icon" aria-hidden="true">search</mat-icon>
+          <input
+            type="text"
+            class="search-input"
+            [ngModel]="query"
+            (ngModelChange)="onQueryChange($event)"
+            [placeholder]="'videos.searchPlaceholder' | translate"
+            [attr.aria-label]="'videos.title' | translate" />
+          <button type="button" class="clear-btn" *ngIf="query" (click)="resetFilters()" aria-label="Reset">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+
+        <div class="filter-pills">
+          <button type="button" class="pill-btn" [class.active]="!selectedChannel" (click)="selectedChannel && selectChannel(selectedChannel)">
+            {{ 'videos.allChannels' | translate }}
+          </button>
+          <button
+            type="button"
+            class="pill-btn"
+            *ngFor="let ch of channels"
+            [class.active]="selectedChannel === ch.handle"
+            (click)="selectChannel(ch.handle)">
+            {{ ch.handle || ch.name }}
+          </button>
+        </div>
+
+        <div class="filter-row">
+          <div class="filter-pills">
+            <button type="button" class="pill-btn small" [class.active]="selectedLocale === 'all'" (click)="selectLocale('all')">
+              {{ 'videos.allLanguages' | translate }}
+            </button>
+            <button type="button" class="pill-btn small" [class.active]="selectedLocale === 'hi'" (click)="selectLocale('hi')">
+              हिन्दी
+            </button>
+            <button type="button" class="pill-btn small" [class.active]="selectedLocale === 'en'" (click)="selectLocale('en')">
+              English
+            </button>
+          </div>
+
+          <div class="filter-pills">
+            <button type="button" class="pill-btn small" [class.active]="selectedFormat === 'all'" (click)="selectFormat('all')">
+              {{ 'videos.allTypes' | translate }}
+            </button>
+            <button type="button" class="pill-btn small" [class.active]="selectedFormat === 'Short'" (click)="selectFormat('Short')">
+              {{ 'videos.shortsOnly' | translate }}
+            </button>
+            <button type="button" class="pill-btn small" [class.active]="selectedFormat === 'Video'" (click)="selectFormat('Video')">
+              {{ 'videos.videosOnly' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <p class="loading-line" *ngIf="loadingVideos">Loading videos…</p>
+
+      <div class="videos-grid" *ngIf="!loadingVideos && videos.length">
+        <a
+          class="video-card glass-card"
+          *ngFor="let v of videos; trackBy: trackVideo"
+          [href]="v.url"
+          target="_blank"
+          rel="noopener noreferrer">
+          <div class="thumb-wrap">
+            <img [src]="v.thumbnailUrl" [alt]="v.title" loading="lazy" decoding="async" />
+            <span class="fmt-pill">{{ v.format }} • {{ v.language.toUpperCase() }}</span>
+          </div>
+          <div class="video-body">
+            <div class="video-meta">
+              <span class="ch-tag">{{ v.channelHandle || v.channelName }}</span>
+              <span *ngIf="v.views > 0">{{ v.views | number }} views</span>
+            </div>
+            <h4>{{ v.title }}</h4>
+            <div class="video-foot">
+              <span *ngIf="v.niche">{{ v.niche }}</span>
+              <span class="watch-cta">{{ 'ecosystem.actions.watch' | translate }} →</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <p class="empty-msg" *ngIf="!loadingVideos && videos.length === 0">
+        {{ 'videos.empty' | translate }}
+      </p>
+    </div>
+  </div>
+</section>

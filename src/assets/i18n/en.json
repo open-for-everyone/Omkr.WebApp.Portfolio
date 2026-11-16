@@ -16,5 +16,18 @@
   "Legal.PrivacyPolicy.Title": "Privacy Policy",
   "Legal.Terms.Title": "Terms & Conditions",
   "Legal.CookiePolicy.Title": "Cookie Policy",
-  "Legal.Disclaimer.Title": "Disclaimer"
+  "Legal.Disclaimer.Title": "Disclaimer",
+  "ecosystem.title": "Keshav Ecosystem & Products",
+  "ecosystem.subtitle": "Live websites, creator channels, community quizzes, Vedic Panchang, and AI animation studio powered from one unified platform.",
+  "ecosystem.actions.watch": "Watch Video",
+  "videos.title": "Search Ecosystem Videos",
+  "videos.subtitle": "Explore every video across our YouTube channels by topic, language, category, or duration.",
+  "videos.searchPlaceholder": "Search videos, stories, comedy shorts, panchang…",
+  "videos.allChannels": "All Channels",
+  "videos.allLanguages": "All Languages",
+  "videos.allTypes": "Shorts & Full Videos",
+  "videos.shortsOnly": "Shorts Only",
+  "videos.videosOnly": "Full Videos Only",
+  "videos.empty": "No matching videos found right now.",
+  "videos.winnersCta": "View Live Quiz Winners on Pratiyogita →"
 }

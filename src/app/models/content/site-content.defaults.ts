@@ -100,6 +100,7 @@ export const DEFAULT_NAV: NavLink[] = [
   { id: 'skills', label: 'Skills', type: 'section', target: 'skills' },
   { id: 'experience', label: 'Experience', type: 'section', target: 'experience' },
   { id: 'projects', label: 'Projects', type: 'section', target: 'projects' },
+  { id: 'videos', label: 'Ecosystem', type: 'section', target: 'videos' },
   { id: 'blog', label: 'Blog', type: 'section', target: 'blog' },
   { id: 'contact', label: 'Contact', type: 'section', target: 'contact' },
   { id: 'resume', label: 'Resume', type: 'route', target: '/resume' },

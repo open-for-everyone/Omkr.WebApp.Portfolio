@@ -36,6 +36,7 @@ import { MSALInterceptorConfigFactory } from './interceptor-config';
 import { SkillsComponent } from './components/home/skills/skills.component';
 import { ExperienceComponent } from './components/home/experience/experience.component';
 import { ProjectsCarouselComponent, ProjectDialogComponent } from './components/home/projects/projects-carousel.component';
+import { EcosystemVideosComponent } from './components/home/ecosystem-videos/ecosystem-videos.component';
 import { CommandPaletteComponent } from './components/general/command-palette/command-palette.component';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { CookieConsentComponent } from './components/general/cookie-consent/cookie-consent.component';
@@ -76,6 +77,7 @@ export function ApiTranslateLoaderFactory(http: HttpClient): TranslateLoader {
     ExperienceComponent,
     ProjectsCarouselComponent,
     ProjectDialogComponent,
+    EcosystemVideosComponent,
     PageViewCounterComponent,
     CommandPaletteComponent,
     SafeUrlPipe,
