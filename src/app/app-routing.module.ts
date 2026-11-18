@@ -109,7 +109,7 @@ export class AppRoutingModule {
         seo.update({
           title: data['title'],
           description: data['description'],
-          canonicalUrl: 'https://keshavsingh.in' + router.url
+          canonicalUrl: 'https://portfolio.keshavsingh.in' + router.url
         });
       }
     });
