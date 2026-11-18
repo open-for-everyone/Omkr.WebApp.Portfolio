@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://keshavsingh.in/</loc>
+    <loc>https://portfolio.keshavsingh.in/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <lastmod>2026-11-14</lastmod>
+    <lastmod>2026-11-18</lastmod>
   </url>
   <url>
-    <loc>https://keshavsingh.in/cookie-policy</loc>
+    <loc>https://portfolio.keshavsingh.in/cookie-policy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    <lastmod>2026-11-14</lastmod>
+    <lastmod>2026-11-18</lastmod>
   </url>
   <url>
-    <loc>https://keshavsingh.in/disclaimer</loc>
+    <loc>https://portfolio.keshavsingh.in/disclaimer</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    <lastmod>2026-11-14</lastmod>
+    <lastmod>2026-11-18</lastmod>
   </url>
   <url>
-    <loc>https://keshavsingh.in/privacy-policy</loc>
+    <loc>https://portfolio.keshavsingh.in/privacy-policy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    <lastmod>2026-11-14</lastmod>
+    <lastmod>2026-11-18</lastmod>
   </url>
   <url>
-    <loc>https://keshavsingh.in/resume</loc>
+    <loc>https://portfolio.keshavsingh.in/resume</loc>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
-    <lastmod>2026-11-14</lastmod>
+    <lastmod>2026-11-18</lastmod>
   </url>
   <url>
-    <loc>https://keshavsingh.in/robots</loc>
+    <loc>https://portfolio.keshavsingh.in/robots</loc>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
-    <lastmod>2026-11-14</lastmod>
+    <lastmod>2026-11-18</lastmod>
   </url>
   <url>
-    <loc>https://keshavsingh.in/sitemap</loc>
+    <loc>https://portfolio.keshavsingh.in/sitemap</loc>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
-    <lastmod>2026-11-14</lastmod>
+    <lastmod>2026-11-18</lastmod>
   </url>
   <url>
-    <loc>https://keshavsingh.in/terms</loc>
+    <loc>https://portfolio.keshavsingh.in/terms</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    <lastmod>2026-11-14</lastmod>
+    <lastmod>2026-11-18</lastmod>
   </url>
 </urlset>

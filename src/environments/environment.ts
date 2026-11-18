@@ -130,7 +130,7 @@ export const environment = {
     policies: {
       signupSignIn: "B2C_1A_signup_signin"
     },
-    logoutRedirectUri: "https://keshavsingh.in"
+    logoutRedirectUri: "https://portfolio.keshavsingh.in"
   },
   // AI Chat configuration (placeholder – do not put secrets here)
   aiChat: {
